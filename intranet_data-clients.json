@@ -1,0 +1,292 @@
+{
+  "clients": [
+    {
+      "id": "CLT001",
+      "nom": "Martin",
+      "prenom": "Sophie",
+      "email": "sophie.martin@example.com",
+      "telephone": "+33 6 45 78 12 90",
+      "adresse": "12 Rue des Lilas, 35000 Rennes",
+      "type_client": "particulier",
+      "historique_achats": [
+        {
+          "produit": "iPhone 12 - Reconditionné Grade A+",
+          "date_achat": "2024-02-15",
+          "prix": 489.99
+        }
+      ],
+      "sav": [],
+      "fidelite": {
+        "total_achats": 1,
+        "montant_total": 489.99,
+        "categorie_preferee": "smartphones",
+        "score_client": "régulier"
+      }
+    },
+    {
+      "id": "CLT002",
+      "nom": "Durand",
+      "prenom": "Lucas",
+      "email": "lucas.durand@example.com",
+      "telephone": "+33 7 81 22 45 67",
+      "adresse": "5 Avenue du Port, 35400 Saint-Malo",
+      "type_client": "entreprise",
+      "historique_achats": [
+        {
+          "produit": "Dell Latitude 5490 - Grade B",
+          "date_achat": "2023-11-20",
+          "prix": 329.00
+        },
+        {
+          "produit": "Moniteur HP 24'' - Reconditionné",
+          "date_achat": "2024-01-10",
+          "prix": 119.90
+        }
+      ],
+      "sav": [],
+      "fidelite": {
+        "total_achats": 2,
+        "montant_total": 448.90,
+        "categorie_preferee": "informatique",
+        "score_client": "VIP"
+      }
+    },
+    {
+      "id": "CLT003",
+      "nom": "Leclerc",
+      "prenom": "Emma",
+      "email": "emma.leclerc@example.com",
+      "telephone": "+33 6 98 45 22 11",
+      "adresse": "8 Rue du Moulin, 44200 Nantes",
+      "type_client": "particulier",
+      "historique_achats": [
+        {
+          "produit": "Nintendo Switch - Reconditionnée",
+          "date_achat": "2024-03-05",
+          "prix": 199.00
+        }
+      ],
+      "sav": [
+        {
+          "ticket_id": "SAV-2024-210",
+          "probleme": "Joy-Con drift",
+          "date_ouverture": "2024-03-20",
+          "statut": "en cours"
+        }
+      ],
+      "fidelite": {
+        "total_achats": 1,
+        "montant_total": 199.00,
+        "categorie_preferee": "consoles",
+        "score_client": "occasionnel"
+      }
+    },
+    {
+      "id": "CLT004",
+      "nom": "Bernard",
+      "prenom": "Julie",
+      "email": "julie.bernard@example.com",
+      "telephone": "+33 6 77 12 45 89",
+      "adresse": "14 Rue des Acacias, 44000 Nantes",
+      "type_client": "particulier",
+      "historique_achats": [
+        {
+          "produit": "Samsung Galaxy S21 - Grade A",
+          "date_achat": "2024-01-22",
+          "prix": 379.00
+        }
+      ],
+      "sav": [],
+      "fidelite": {
+        "total_achats": 1,
+        "montant_total": 379.00,
+        "categorie_preferee": "smartphones",
+        "score_client": "régulier"
+      }
+    },
+    {
+      "id": "CLT005",
+      "nom": "Petit",
+      "prenom": "Antoine",
+      "email": "antoine.petit@example.com",
+      "telephone": "+33 7 55 44 12 33",
+      "adresse": "22 Rue du Stade, 29200 Brest",
+      "type_client": "particulier",
+      "historique_achats": [
+        {
+          "produit": "PS4 Slim - Reconditionnée",
+          "date_achat": "2023-12-10",
+          "prix": 149.00
+        }
+      ],
+      "sav": [],
+      "fidelite": {
+        "total_achats": 1,
+        "montant_total": 149.00,
+        "categorie_preferee": "consoles",
+        "score_client": "occasionnel"
+      }
+    },
+    {
+      "id": "CLT006",
+      "nom": "Roux",
+      "prenom": "Camille",
+      "email": "camille.roux@example.com",
+      "telephone": "+33 6 11 22 33 44",
+      "adresse": "3 Rue des Fleurs, 35000 Rennes",
+      "type_client": "particulier",
+      "historique_achats": [
+        {
+          "produit": "MacBook Air 2019 - Grade B",
+          "date_achat": "2024-02-01",
+          "prix": 549.00
+        }
+      ],
+      "sav": [],
+      "fidelite": {
+        "total_achats": 1,
+        "montant_total": 549.00,
+        "categorie_preferee": "informatique",
+        "score_client": "régulier"
+      }
+    },
+    {
+      "id": "CLT007",
+      "nom": "Moreau",
+      "prenom": "Hugo",
+      "email": "hugo.moreau@example.com",
+      "telephone": "+33 7 88 99 11 22",
+      "adresse": "10 Rue du Marché, 44100 Nantes",
+      "type_client": "entreprise",
+      "historique_achats": [
+        {
+          "produit": "Lot de 5 Lenovo ThinkPad T480",
+          "date_achat": "2024-03-12",
+          "prix": 1590.00
+        }
+      ],
+      "sav": [],
+      "fidelite": {
+        "total_achats": 1,
+        "montant_total": 1590.00,
+        "categorie_preferee": "informatique",
+        "score_client": "VIP"
+      }
+    },
+    {
+      "id": "CLT008",
+      "nom": "Fournier",
+      "prenom": "Laura",
+      "email": "laura.fournier@example.com",
+      "telephone": "+33 6 22 44 55 66",
+      "adresse": "7 Rue des Peupliers, 35000 Rennes",
+      "type_client": "particulier",
+      "historique_achats": [
+        {
+          "produit": "iPad 8 - Reconditionné",
+          "date_achat": "2024-01-18",
+          "prix": 249.00
+        }
+      ],
+      "sav": [],
+      "fidelite": {
+        "total_achats": 1,
+        "montant_total": 249.00,
+        "categorie_preferee": "tablettes",
+        "score_client": "régulier"
+      }
+    },
+    {
+      "id": "CLT009",
+      "nom": "Girard",
+      "prenom": "Nicolas",
+      "email": "nicolas.girard@example.com",
+      "telephone": "+33 7 66 55 44 33",
+      "adresse": "18 Rue du Port, 35400 Saint-Malo",
+      "type_client": "particulier",
+      "historique_achats": [
+        {
+          "produit": "Xbox One S - Reconditionnée",
+          "date_achat": "2023-11-30",
+          "prix": 159.00
+        }
+      ],
+      "sav": [],
+      "fidelite": {
+        "total_achats": 1,
+        "montant_total": 159.00,
+        "categorie_preferee": "consoles",
+        "score_client": "occasionnel"
+      }
+    },
+    {
+      "id": "CLT010",
+      "nom": "Gauthier",
+      "prenom": "Sarah",
+      "email": "sarah.gauthier@example.com",
+      "telephone": "+33 6 77 88 99 00",
+      "adresse": "4 Rue du Centre, 35000 Rennes",
+      "type_client": "particulier",
+      "historique_achats": [
+        {
+          "produit": "Samsung Galaxy Tab A7 - Reconditionnée",
+          "date_achat": "2024-02-20",
+          "prix": 179.00
+        }
+      ],
+      "sav": [],
+      "fidelite": {
+        "total_achats": 1,
+        "montant_total": 179.00,
+        "categorie_preferee": "tablettes",
+        "score_client": "régulier"
+      }
+    },
+    {
+      "id": "CLT011",
+      "nom": "Chevalier",
+      "prenom": "Paul",
+      "email": "paul.chevalier@example.com",
+      "telephone": "+33 7 44 55 66 77",
+      "adresse": "9 Rue des Artisans, 29000 Quimper",
+      "type_client": "particulier",
+      "historique_achats": [
+        {
+          "produit": "iPhone XR - Reconditionné",
+          "date_achat": "2024-01-05",
+          "prix": 289.00
+        }
+      ],
+      "sav": [],
+      "fidelite": {
+        "total_achats": 1,
+        "montant_total": 289.00,
+        "categorie_preferee": "smartphones",
+        "score_client": "occasionnel"
+      }
+    },
+    {
+      "id": "CLT012",
+      "nom": "Renard",
+      "prenom": "Elise",
+      "email": "elise.renard@example.com",
+      "telephone": "+33 6 33 22 11 00",
+      "adresse": "6 Rue des Écoles, 35000 Rennes",
+      "type_client": "particulier",
+      "historique_achats": [
+        {
+          "produit": "AirPods 2 - Reconditionnés",
+          "date_achat": "2024-03-10",
+          "prix": 89.00
+        }
+      ],
+      "sav": [],
+      "fidelite": {
+        "total_achats": 1,
+        "montant_total": 89.00,
+        "categorie_preferee": "audio",
+        "score_client": "occasionnel"
+      }
+    }
+  ]
+}
