@@ -1,1 +1,40 @@
-
+{
+  "utilisateurs": [
+    {
+      "id": 1,
+      "login": "admin.rt",
+      "mot_de_passe": "$2y$10$xyz...mot_de_passe_hache...",
+      "nom": "Gatel",
+      "prenom": "David",
+      "profil": "Administrateur Système",
+      "groupes": ["admin", "salariés"]
+    },
+    {
+      "id": 2,
+      "login": "f.menguy",
+      "mot_de_passe": "$2y$10$abc...mot_de_passe_hache...",
+      "nom": "Menguy",
+      "prenom": "François-Régis",
+      "profil": "Directeur Général",
+      "groupes": ["direction", "managers", "salariés"]
+    },
+    {
+      "id": 3,
+      "login": "a.guitton",
+      "mot_de_passe": "$2y$10$123...mot_de_passe_hache...",
+      "nom": "Guitton",
+      "prenom": "Aloïs",
+      "profil": "Responsable Technique",
+      "groupes": ["managers", "salariés"]
+    },
+    {
+      "id": 4,
+      "login": "j.dupont",
+      "mot_de_passe": "$2y$10$def...mot_de_passe_hache...",
+      "nom": "Dupont",
+      "prenom": "Jean",
+      "profil": "Technicien Réseau",
+      "groupes": ["salariés"]
+    }
+  ]
+}
