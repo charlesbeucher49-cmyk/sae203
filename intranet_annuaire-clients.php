@@ -1,7 +1,7 @@
 <?php
 // Charger le fichier JSON
 $jsonData = file_get_contents("intranet_data-clients.json");
-$clients = json_decode($jsonData, true)["clients"];
+$clients = json_decode($jsonData, true);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -9,19 +9,12 @@ $clients = json_decode($jsonData, true)["clients"];
     <meta charset="UTF-8">
     <title>Intranet - Annuaire Clients</title>
 
-    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-        body {
-            background: #f8f9fa;
-        }
-        .table-hover tbody tr:hover {
-            background-color: #f1f1f1;
-        }
-        .search-box {
-            max-width: 350px;
-        }
+        body { background: #f8f9fa; }
+        .table-hover tbody tr:hover { background-color: #f1f1f1; }
+        .search-box { max-width: 350px; }
     </style>
 
     <script>
@@ -55,9 +48,7 @@ $clients = json_decode($jsonData, true)["clients"];
                     <th>Client</th>
                     <th>Contact</th>
                     <th>Adresse</th>
-                    <th>Achats</th>
-                    <th>SAV</th>
-                    <th>Fidélité</th>
+                    <th>Achat</th>
                 </tr>
             </thead>
 
@@ -67,8 +58,7 @@ $clients = json_decode($jsonData, true)["clients"];
                         <td><?= $client["id"] ?></td>
 
                         <td>
-                            <strong><?= $client["prenom"] . " " . $client["nom"] ?></strong><br>
-                            <span class="badge bg-primary"><?= ucfirst($client["type_client"]) ?></span>
+                            <strong><?= $client["prenom"] . " " . $client["nom"] ?></strong>
                         </td>
 
                         <td>
@@ -76,38 +66,16 @@ $clients = json_decode($jsonData, true)["clients"];
                             <div>📞 <?= $client["telephone"] ?></div>
                         </td>
 
-                        <td><?= $client["adresse"] ?></td>
-
                         <td>
-                            <?php foreach ($client["historique_achats"] as $achat): ?>
-                                <div class="mb-2">
-                                    <strong><?= $achat["produit"] ?></strong><br>
-                                    <small class="text-muted">
-                                        Acheté le : <?= $achat["date_achat"] ?> — <?= $achat["prix"] ?> €
-                                    </small>
-                                </div>
-                            <?php endforeach; ?>
+                            <?= $client["adresse"] ?><br>
+                            <?= $client["code_postal"] . " " . $client["ville"] ?>
                         </td>
 
                         <td>
-                            <?php if (count($client["sav"]) === 0): ?>
-                                <span class="text-success">Aucun</span>
-                            <?php else: ?>
-                                <?php foreach ($client["sav"] as $sav): ?>
-                                    <div class="text-danger fw-bold mb-2">
-                                        Ticket <?= $sav["ticket_id"] ?><br>
-                                        <?= $sav["probleme"] ?><br>
-                                        <small class="text-muted">Statut : <?= $sav["statut"] ?></small>
-                                    </div>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
-                        </td>
-
-                        <td>
-                            <div>Achats : <?= $client["fidelite"]["total_achats"] ?></div>
-                            <div>Total : <?= $client["fidelite"]["montant_total"] ?> €</div>
-                            <div>Préférence : <?= $client["fidelite"]["categorie_preferee"] ?></div>
-                            <div><strong><?= ucfirst($client["fidelite"]["score_client"]) ?></strong></div>
+                            <strong><?= $client["produit"] ?></strong><br>
+                            <small class="text-muted">
+                                Acheté le : <?= $client["date_achat"] ?> — <?= $client["prix"] ?> €
+                            </small>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -117,7 +85,6 @@ $clients = json_decode($jsonData, true)["clients"];
     </div>
 </div>
 
-<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
