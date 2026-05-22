@@ -1,6 +1,6 @@
 <?php
 // Chargement du JSON
-$jsonFile = "fournisseurs.json"; // Ton fichier JSON
+$jsonFile = "intranet_data-partenaires.json"; // Ton fichier JSON
 
 if (!file_exists($jsonFile)) {
     die("<div class='alert alert-danger m-4'>Erreur : Le fichier JSON des fournisseurs est introuvable.</div>");
