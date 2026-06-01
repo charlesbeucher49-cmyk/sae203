@@ -2,87 +2,103 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Informations du projet</title>
+    <title>cmyk - Portail Projet</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+            background-color: #f9f9f9;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+        }
+        th, td {
+            border: 1px solid #bdc3c7;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #ecf0f1;
+        }
+        ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+    </style>
 </head>
 <body>
 
-<div class="container">
+    <h1>GMG Construction</h1>
+    <p><strong>Nom du projet :</strong> Tech revive</p>
+    <p><strong>Présentation du site :</strong> Création d'un site web pour une société représentée par M. Gatel, M. Guitton et M. Menguy. 
+    Ce portail web vise à valoriser les activités de l’entreprise et à fournir une solution de partage de fichiers entre collaborateurs.</p>
 
-    <h1>Techrevive</h1>
-    <p>
-        Projet : Entreprise de reconditionnement
-    </p>
+    <p><strong>Adresse IP :</strong> 172.18.203.205</p>
+    <p><strong>Chef de projet :</strong> Charles Beucher</p>
+    <p><strong>Membres de l'équipe :</strong> Charles Beucher, Jordan Som, Adam Hamada, Erwan Lemaire, Alberic Marot</p>
 
-    <div class="info">
-        <h2>Présentation du site</h2>
-        <p>
-            Présentation en quelques mots : <strong>À compléter</strong>
-        </p>
-    </div>
+    <h2>Liens utiles</h2>
+    <ul>
+        <li><strong>Page d'accueil de la vitrine :</strong> <a href="http://172.18.203.211/wordpress/">page acceuil vitrine</a></li>
+        <li><strong>Page d'accueil de l'intranet :</strong> <a href="http://172.18.203.211/SAE203/Intranet/portail_connexion.php">page acceuil intranet</a></li>
+        <li><strong>Page Wiki (infos de connexions) :</strong> <a href="http://172.18.203.211/SAE203/Intranet/wiki.php">page wiki </a></li>
+        <li><strong>Page GIT :</strong> <a href="https://github.com/charlesbeucher49-cmyk/sae203" >page git</a></li>
+        <li><strong>Page de gestion de projet (Trello) :</strong><a href="https://trello.com/b/JQmCJo4i/sae-203">trello</a></li>
+    </ul>
 
-    <div class="info">
-        <h2>Informations techniques</h2>
-        <ul>
-            <li>Adresse IP du serveur : <strong>172.18.203.211</strong></li>
-        </ul>
-    </div>
-
-    <div class="info">
-        <h2>Équipe projet</h2>
-        <ul>
-            <li>Chef de projet : Charles BEUCHER</li>
-            <li>Membres de l'équipe :
-                <ul>
-                    <li>Erwan LEMAIRE</li>
-                    <li>Albéric MAROT</li>
-                    <li>Adam HAMADA</li>
-                    <li>Jordan SEM</li>
-                    <li>Ewan TIRIO</li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-
-    <div class="info">
-        <h2>Liens utiles</h2>
-        <ul>
-            <li>
-                <a href="http://ADRESSE_DU_SITE_VITRINE" target="_blank">
-                    Page d’accueil vitrine
-                </a>
-            </li>
-
-            <li>
-                <a href="http://ADRESSE_INTRANET" target="_blank">
-                    Page d’accueil de l’intranet
-                </a>
-            </li>
-
-            <li>
-                <a href="http://ADRESSE_WIKI" target="_blank">
-                    Wiki – informations de connexion
-                </a>
-            </li>
-
-            <li>
-                <a href="http://ADRESSE_DEPOT_GIT" target="_blank">
-                    Dépôt Git public du projet
-                </a>
-            </li>
-
-            <li>
-                <a href="http://LIEN_GESTION_PROJET" target="_blank">
-                    Gestion de projet (Trello ou équivalent)
-                </a>
-            </li>
-        </ul>
-    </div>
-
-    <footer>
-        Page d'information du projet – porte d’entrée du site
-    </footer>
-
-</div>
+    <h2>Tableau de répartition des lots</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Lot</th>
+                <th>Responsable</th>
+                <th>Commentaires</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Coordination projet</td>
+                <td>Charles Beucher</td>
+                <td>Suivi global, organisation de l’équipe, validation finale des livrables</td>
+            </tr>
+            <tr>
+                <td>Configuration serveur</td>
+                <td>Jordan Som</td>
+                <td>Installation Apache, PHP, gestion accès, sécurité, structure projet</td>
+            </tr>
+            <tr>
+                <td>Mise en production</td>
+                <td>Adam Hamada</td>
+                <td>Scripts, doc d’installation, vérification du déploiement</td>
+            </tr>
+            <tr>
+                <td>Développement vitrine (WordPress)</td>
+                <td>Jordan Som</td>
+                <td>Installation, configuration et création des pages WordPress</td>
+            </tr>
+            <tr>
+                <td>Développement intranet (PHP)</td>
+                <td>Marot Alberic</td>
+                <td>Développement des modules PHP de l’intranet (hors annuaire et wiki)</td>
+            </tr>
+            <tr>
+                <td>Annuaire (employés & partenaires)</td>
+                <td>Erwan Lemaire</td>
+                <td>Gestion des annuaires internes et des partenaires</td>
+            </tr>
+            <tr>
+                <td>Wiki & page infos clients</td>
+                <td>Alberic Marot</td>
+                <td>Page wiki (doc + accès test), liste clients et fiches PDF</td>
+            </tr>
+        </tbody>
+    </table>
 
 </body>
 </html>
