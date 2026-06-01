@@ -1,0 +1,18 @@
+<main class="content-page">
+    <h1>Wiki du Projet - SAÉ 203</h1>
+    
+    <section>
+        <h2>Comment installer le projet ?</h2>
+        <p>Pour cloner ce projet localement, utilisez la commande suivante dans votre terminal :</p>
+        <code>git clone [lien-du-depot-github]</code>
+    </section>
+
+    <section>
+        <h2>Structure des dossiers</h2>
+        <ul>
+            <li><code>/css</code> : Contient les feuilles de style.</li>
+            <li><code>/images</code> : Contient les illustrations du site.</li>
+            <li><code>index.html</code> : Page principale.</li>
+        </ul>
+    </section>
+</main>
