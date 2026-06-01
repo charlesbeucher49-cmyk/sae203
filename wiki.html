@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Wiki - Projet SAÉ 203</title>
+</head>
+<body>
+
+    <h1>Wiki du Projet - Portail Web & Intranet</h1>
+
+    <h2>1. Description de l'architecture du projet</h2>
+    <p>Le projet est scindé en deux grandes parties hébergées sur le même serveur web (Apache / PHP) :</p>
+    <ul>
+        <li><strong>Site Vitrine (WordPress)</strong> : Gère la présentation publique de l'entreprise (Accueil, Activités, Histoire, Qui sommes-nous). Il intègre deux modules spécifiques :
+            <ul>
+                <li>Un plugin pour gérer et afficher les témoignages clients via le shortcode <code>[temoignages_clients]</code>.</li>
+                <li>Un module pour afficher de façon dynamique les partenaires de l'entreprise (les données proviennent de l'intranet).</li>
+            </ul>
+        </li>
+        <li><strong>Intranet (PHP / Bootstrap 5 / JSON)</strong> : Application développée de zéro sans base de données MySQL. Toutes les données sont stockées au format JSON ou CSV. L'intranet comprend :
+            <ul>
+                <li>Un système d'authentification et de gestion de session.</li>
+                <li>Une gestion des permissions basée sur les groupes (admin, direction, managers, salariés, perso).</li>
+                <li>Un gestionnaire de fichiers partagés (.txt et .csv).</li>
+                <li>Des annuaires interactifs (Employés, Partenaires, Clients) avec fonctionnalités d'ajout, modification et suppression.</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h2>2. Description et utilisation des fonctionnalités</h2>
+    <ul>
+        <li><strong>Page d'information (infos.html)</strong> : La porte d'entrée globale contenant les liens vers l'intranet, la vitrine, ce wiki, le dépôt Git et le Trello.</li>
+        <li><strong>Portail de connexion Intranet</strong> : Interface sécurisant l'accès aux données de l'entreprise. L'accès est conditionné à l'appartenance à au moins un groupe.</li>
+        <li><strong>Gestion des utilisateurs</strong> : Interface d'administration permettant de créer, modifier ou supprimer des comptes et d'assigner des droits.</li>
+        <li><strong>Annuaires (CRUD)</strong> : Les salariés peuvent consulter les annuaires. Les utilisateurs autorisés peuvent ajouter de nouveaux profils (Employés, Clients, Partenaires), les modifier ou les supprimer. L'annuaire client permet en plus de télécharger une fiche individuelle.</li>
+        <li><strong>Gestionnaire de fichiers</strong> : Interface permettant de téléverser de nouveaux fichiers (txt/csv) ou de consulter les fichiers existants selon les droits du groupe auquel appartient l'utilisateur.</li>
+    </ul>
+
+    <h2>3. Liste des identifiants et mots de passe de test</h2>
+    <p>Afin de tester les différents niveaux de droits dans l'intranet, vous pouvez utiliser les comptes fictifs suivants :</p>
+    <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Identifiant (Login)</th>
+                <th>Mot de passe</th>
+                <th>Groupes assignés</th>
+                <th>Profil</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>admin.rt</td>
+                <td>admin123</td>
+                <td>admin, salariés</td>
+                <td>Administrateur Système</td>
+            </tr>
+            <tr>
+                <td>f.menguy</td>
+                <td>direction123</td>
+                <td>direction, managers, salariés</td>
+                <td>Directeur Général</td>
+            </tr>
+            <tr>
+                <td>a.guitton</td>
+                <td>manager123</td>
+                <td>managers, salariés</td>
+                <td>Responsable Technique</td>
+            </tr>
+            <tr>
+                <td>j.dupont</td>
+                <td>salarie123</td>
+                <td>salariés</td>
+                <td>Technicien Réseau (Accès restreint)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p><br><strong>Note de test :</strong> <i>Les mots de passe réels dépendront de l'intégration finale (le système de hash password_verify étant en place).</i></p>
+
+    <hr>
+    <p><a href="infos.html">Retour à la page principale (Infos)</a></p>
+
+</body>
+</html>
