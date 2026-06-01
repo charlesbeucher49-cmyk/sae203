@@ -1,5 +1,6 @@
-<?php session_start();
-session_unset();
+<?php
+session_start();
 session_destroy();
-header("Location:portail_connexion.php");
+header('Location: intranet_login.php');
+exit();
 ?>
