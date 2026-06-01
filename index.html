@@ -2,8 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAÉ 203 - Site Vitrine</title>
+    <title>Mon Site Vitrine Dynamique</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -12,37 +11,30 @@
         <div class="logo">SAÉ 203</div>
         <nav>
             <ul>
-                <li><a href="index.html" class="active">Accueil</a></li>
-                <li><a href="infos.html">Infos</a></li>
-                <li><a href="wiki.html">Wiki</a></li>
+                <li><a href="#" onclick="changerPage('accueil')">Accueil</a></li>
+                <li><a href="#" onclick="changerPage('infos')">Infos</a></li>
+                <li><a href="#" onclick="changerPage('wiki')">Wiki</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <section class="hero">
-            <h1>Bienvenue sur notre projet de SAÉ 203</h1>
-            <p>Découvrez notre site vitrine réalisé dans le cadre de notre Sae 203.</p>
+        <section id="page-accueil" class="onglet-contenu">
+            <h1>Bienvenue sur l'Accueil</h1>
+            <p>Contenu de ta superbe page d'accueil...</p>
         </section>
 
-        <section class="presentation">
-            <h2>Nos Profils</h2>
-            <div class="cards-container">
-                <div class="card">
-                    <h3>Erwan Lemaire </h3>
-                    <p>Développeuse Web junior passionnée par le design d'interface.</p>
-                </div>
-                <div class="card">
-                    <h3>Adam Amada</h3>
-                    <p>Créateur de contenu et gestionnaire de base de données.</p>
-                </div>
-            </div>
+        <section id="page-infos" class="onglet-contenu" style="display: none;">
+            <h1>Informations</h1>
+            <p>Voici les membres de l'équipe et les détails du projet.</p>
+        </section>
+
+        <section id="page-wiki" class="onglet-contenu" style="display: none;">
+            <h1>Wiki du Projet</h1>
+            <p>Bienvenue sur la documentation technique.</p>
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2026 - Projet SAÉ 203 - Tous droits réservés.</p>
-    </footer>
-
+    <script src="js/main.js"></script>
 </body>
 </html>
