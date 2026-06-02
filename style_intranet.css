@@ -149,7 +149,7 @@ a:hover { color: var(--tr-green); }
     border-radius: 6px;
 }
 
-.btn-outline-danger {
+.navbar .btn-outline-danger {
     border-color: rgba(255,255,255,0.3);
     color: rgba(255,255,255,0.8);
     font-weight: 500;
@@ -157,7 +157,7 @@ a:hover { color: var(--tr-green); }
     transition: var(--tr-transition);
 }
 
-.btn-outline-danger:hover {
+.navbar .btn-outline-danger:hover {
     background: var(--tr-danger);
     border-color: var(--tr-danger);
     color: var(--tr-white);
