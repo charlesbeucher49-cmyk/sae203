@@ -138,56 +138,6 @@ require_once 'intranet_header.php';
                             </td>
                         </tr>
 
-                        <!-- Modal Édition Utilisateur -->
-                        <div class="modal fade" id="modalEditUser<?= $u['id'] ?>" tabindex="-1">
-                          <div class="modal-dialog">
-                            <div class="modal-content text-start">
-                              <div class="modal-header">
-                                <h5 class="modal-title fw-bold">Modifier l'utilisateur</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                              </div>
-                              <div class="modal-body">
-                                <form action="" method="POST">
-                                    <input type="hidden" name="action" value="edit">
-                                    <input type="hidden" name="id" value="<?= $u['id'] ?>">
-                                    <div class="row">
-                                        <div class="col-md-6 mb-2">
-                                            <label class="form-label fw-semibold" style="font-size:0.88rem;">Nom</label>
-                                            <input type="text" name="nom" class="form-control" value="<?= htmlspecialchars($u['nom']) ?>" required>
-                                        </div>
-                                        <div class="col-md-6 mb-2">
-                                            <label class="form-label fw-semibold" style="font-size:0.88rem;">Prénom</label>
-                                            <input type="text" name="prenom" class="form-control" value="<?= htmlspecialchars($u['prenom']) ?>" required>
-                                        </div>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label fw-semibold" style="font-size:0.88rem;">Identifiant (login)</label>
-                                        <input type="text" name="login" class="form-control" value="<?= htmlspecialchars($u['login']) ?>" required>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label fw-semibold" style="font-size:0.88rem;">Mot de passe (laisser vide pour ne pas modifier)</label>
-                                        <input type="password" name="mot_de_passe" class="form-control">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label fw-semibold" style="font-size:0.88rem;">Profil / Fonction</label>
-                                        <input type="text" name="profil" class="form-control" value="<?= htmlspecialchars($u['profil']) ?>" required>
-                                    </div>
-                                    <div class="mb-4">
-                                        <label class="form-label d-block fw-semibold" style="font-size:0.88rem;">Groupes d'accès</label>
-                                        <?php $all_roles = ['admin', 'direction', 'managers', 'salariés', 'perso']; ?>
-                                        <?php foreach ($all_roles as $r): ?>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="checkbox" name="groupes[]" value="<?= $r ?>" <?= in_array($r, $u['groupes']) ? 'checked' : '' ?>>
-                                                <label class="form-check-label"><?= ucfirst($r) ?></label>
-                                            </div>
-                                        <?php endforeach; ?>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary w-100">Enregistrer</button>
-                                </form>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
                         <?php endforeach; ?>
                         <?php if (count($utilisateurs) === 0): ?>
                         <tr><td colspan="6" class="text-center py-4 text-muted">Aucun utilisateur trouvé.</td></tr>
@@ -198,6 +148,59 @@ require_once 'intranet_header.php';
         </div>
     </div>
 </div>
+
+<?php foreach ($utilisateurs as $u): ?>
+<!-- Modal Édition Utilisateur -->
+<div class="modal fade" id="modalEditUser<?= $u['id'] ?>" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content text-start">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold">Modifier l'utilisateur</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="POST">
+            <input type="hidden" name="action" value="edit">
+            <input type="hidden" name="id" value="<?= $u['id'] ?>">
+            <div class="row">
+                <div class="col-md-6 mb-2">
+                    <label class="form-label fw-semibold" style="font-size:0.88rem;">Nom</label>
+                    <input type="text" name="nom" class="form-control" value="<?= htmlspecialchars($u['nom']) ?>" required>
+                </div>
+                <div class="col-md-6 mb-2">
+                    <label class="form-label fw-semibold" style="font-size:0.88rem;">Prénom</label>
+                    <input type="text" name="prenom" class="form-control" value="<?= htmlspecialchars($u['prenom']) ?>" required>
+                </div>
+            </div>
+            <div class="mb-2">
+                <label class="form-label fw-semibold" style="font-size:0.88rem;">Identifiant (login)</label>
+                <input type="text" name="login" class="form-control" value="<?= htmlspecialchars($u['login']) ?>" required>
+            </div>
+            <div class="mb-2">
+                <label class="form-label fw-semibold" style="font-size:0.88rem;">Mot de passe (laisser vide pour ne pas modifier)</label>
+                <input type="password" name="mot_de_passe" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label fw-semibold" style="font-size:0.88rem;">Profil / Fonction</label>
+                <input type="text" name="profil" class="form-control" value="<?= htmlspecialchars($u['profil']) ?>" required>
+            </div>
+            <div class="mb-4">
+                <label class="form-label d-block fw-semibold" style="font-size:0.88rem;">Groupes d'accès</label>
+                <?php $all_roles = ['admin', 'direction', 'managers', 'salariés', 'perso']; ?>
+                <?php foreach ($all_roles as $r): ?>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" name="groupes[]" value="<?= $r ?>" <?= in_array($r, $u['groupes']) ? 'checked' : '' ?>>
+                        <label class="form-check-label"><?= ucfirst($r) ?></label>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Enregistrer</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<?php endforeach; ?>
 
 <!-- Modal Ajout Utilisateur -->
 <div class="modal fade" id="modalAddUser" tabindex="-1">
