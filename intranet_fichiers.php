@@ -25,32 +25,42 @@ if (!in_array($current_folder, $allowed_folders) && $current_folder !== null) {
 $base_dir = __DIR__ . "/uploads/";
 $message = "";
 
-// Traitement de l'Upload
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['fichier'])) {
-    if ($current_folder) {
-        $file = $_FILES['fichier'];
-        $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-        if ($ext === 'txt' || $ext === 'csv') {
-            $dest = $base_dir . $current_folder . '/' . basename($file['name']);
-            if (move_uploaded_file($file['tmp_name'], $dest)) {
-                $message = "<div class='alert alert-success'>Fichier uploadé avec succès.</div>";
-            } else {
-                $message = "<div class='alert alert-danger'>Erreur lors de l'upload.</div>";
+// Traitement POST global
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    // Suppression
+    if (isset($_POST['delete_file'])) {
+        if ($current_folder) {
+            $file_to_delete = basename($_POST['delete_file']);
+            $path_to_delete = $base_dir . $current_folder . '/' . $file_to_delete;
+            if (file_exists($path_to_delete)) {
+                unlink($path_to_delete);
+                $message = "<div class='alert alert-success alert-dismissible fade show'><strong>Succ\u00e8s !</strong> Fichier supprim\u00e9 avec succ\u00e8s. <button type='button' class='btn-close' data-bs-dismiss='alert'></button></div>";
             }
-        } else {
-            $message = "<div class='alert alert-danger'>Seuls les fichiers .txt et .csv sont autorisés.</div>";
         }
     }
-}
-
-// Traitement de la suppression
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_file'])) {
-    if ($current_folder) {
-        $file_to_delete = basename($_POST['delete_file']);
-        $path_to_delete = $base_dir . $current_folder . '/' . $file_to_delete;
-        if (file_exists($path_to_delete)) {
-            unlink($path_to_delete);
-            $message = "<div class='alert alert-success'>Fichier supprimé avec succès.</div>";
+    // Upload
+    elseif (isset($_FILES['fichier']) && $_FILES['fichier']['error'] !== UPLOAD_ERR_NO_FILE) {
+        if ($current_folder) {
+            $file = $_FILES['fichier'];
+            if ($file['error'] !== UPLOAD_ERR_OK) {
+                $message = "<div class='alert alert-danger'>Erreur lors de l'upload (code {$file['error']}). V\u00e9rifiez la configuration PHP (upload_max_filesize, post_max_size).</div>";
+            } else {
+                $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+                if ($ext === 'txt' || $ext === 'csv') {
+                    $dest = $base_dir . $current_folder . '/' . basename($file['name']);
+                    if (!is_dir($base_dir . $current_folder)) {
+                        mkdir($base_dir . $current_folder, 0775, true);
+                    }
+                    if (move_uploaded_file($file['tmp_name'], $dest)) {
+                        $message = "<div class='alert alert-success alert-dismissible fade show'><strong>Succ\u00e8s !</strong> Fichier '{$file['name']}' upload\u00e9 avec succ\u00e8s. <button type='button' class='btn-close' data-bs-dismiss='alert'></button></div>";
+                    } else {
+                        $message = "<div class='alert alert-danger'>Erreur : impossible de d\u00e9placer le fichier. V\u00e9rifiez les permissions du dossier uploads/{$current_folder}.</div>";
+                    }
+                } else {
+                    $message = "<div class='alert alert-danger'>Format refus\u00e9 : seuls les fichiers <strong>.txt</strong> et <strong>.csv</strong> sont autoris\u00e9s.</div>";
+                }
+            }
         }
     }
 }

@@ -13,7 +13,7 @@
     "prenom": "Albéric",
     "fonction": "Manager",
     "photo": "alberic.PNG",
-    "bio": "Responsable de l’équipe technique."
+    "bio": "Responsable de l'équipe technique."
   },
   {
     "id": 3,
@@ -44,7 +44,7 @@
     "nom": "Richard",
     "prenom": "Chloé",
     "fonction": "UX Designer",
-    "photo": "girl-1011915_1280.jpg",
+    "photo": "chloe.jpg",
     "bio": "Conception des expériences utilisateurs."
   },
   {
@@ -52,7 +52,7 @@
     "nom": "Durand",
     "prenom": "Hugo",
     "fonction": "Chef de Projet",
-    "photo": "man-388104_960_720.jpg",
+    "photo": "hugo.jpg",
     "bio": "Gestion et organisation des projets."
   },
   {
@@ -60,7 +60,7 @@
     "nom": "Moreau",
     "prenom": "Lina",
     "fonction": "Développeuse Mobile",
-    "photo": "gettyimages-1485072075-170667a.jpg",
+    "photo": "lina.jpg",
     "bio": "Développement des applications mobiles."
   },
   {
@@ -68,7 +68,7 @@
     "nom": "Simon",
     "prenom": "Enzo",
     "fonction": "Cybersécurité",
-    "photo": "mcit.jpg",
+    "photo": "enzo.jpg",
     "bio": "Protection des données et sécurité."
   },
   {
@@ -76,7 +76,7 @@
     "nom": "Laurent",
     "prenom": "Camille",
     "fonction": "Assistante RH",
-    "photo": "OIP.webp",
+    "photo": "camille.jpg",
     "bio": "Gestion des ressources humaines."
   },
   {
@@ -84,7 +84,7 @@
     "nom": "Lefebvre",
     "prenom": "Tom",
     "fonction": "Développeur Full Stack",
-    "photo": "b42ffc0c56384e4c0dab4515d4fad7cd.jpg",
+    "photo": "tom.jpg",
     "bio": "Développement front-end et back-end."
   },
   {
@@ -93,7 +93,7 @@
     "prenom": "Sarah",
     "fonction": "Comptable",
     "photo": "sarah.jpg",
-    "bio": "Gestion financière de l’entreprise."
+    "bio": "Gestion financière de l'entreprise."
   },
   {
     "id": 13,
