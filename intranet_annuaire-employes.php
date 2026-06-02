@@ -1,337 +1,132 @@
 <?php
 session_start();
-if (!isset($_SESSION['prenom'])){
-  header("Location:portail_connexion.php");
-  exit;
+if (!isset($_SESSION['login'])) {
+    header('Location: intranet_login.php');
+    exit();
 }
-if (isset($utilisateur)) {
-    $_SESSION['prenom'] = $utilisateur['prenom'];
-    $_SESSION['nom'] = $utilisateur['nom'];
-    $_SESSION['fonction'] = $utilisateur['fonction'];
-}
-echo "<!DOCTYPE html>
-<html lang='fr'>
+$groupes = $_SESSION['groupes'] ?? [];
+
+// Chargement du JSON des employés
+$jsonData = file_get_contents("intranet_data-employes.json");
+$employes = json_decode($jsonData, true);
+?>
+<!DOCTYPE html>
+<html lang="fr">
 <head>
-  <title>INTRANET</title>
-  <meta charset='utf-8'>
-  <meta name='viewport' content='width=device-width, initial-scale=1'>
-  <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css' rel='stylesheet'>
-  <link href='style_intranet.css' rel='stylesheet'>
-  <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js'></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annuaire Employés — Intranet TechRevive</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="style_intranet.css" rel="stylesheet">
+    <style>
+        .employee-card {
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+            background: #fff;
+        }
+        .employee-card:hover {
+            box-shadow: 0 8px 28px rgba(27,42,74,0.12);
+            transform: translateY(-4px);
+        }
+        .employee-card .card-header-bar {
+            height: 6px;
+            background: linear-gradient(90deg, #1B2A4A, #2D6A2E);
+        }
+        .employee-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1B2A4A, #2D6A2E);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto;
+        }
+    </style>
+    <script>
+        function searchEmployee() {
+            let input = document.getElementById("search").value.toLowerCase();
+            let cards = document.querySelectorAll(".employee-col");
+            cards.forEach(card => {
+                let text = card.innerText.toLowerCase();
+                card.style.display = text.includes(input) ? "" : "none";
+            });
+        }
+    </script>
 </head>
-<body class='d-flex flex-column min-vh-100'>
-<header>
-  <nav class='navbar navbar-expand-lg navbar-dark bg-dark'>
-    <div class='container-fluid'>
-      <a class='navbar-brand' href='./accueil_intranet.php'>GMG</a>
-      <button class='navbar-toggler' type='button' data-bs-toggle='collapse' data-bs-target='#navbarNav'>
-        <span class='navbar-toggler-icon'></span>
-      </button>
-      <div class='collapse navbar-collapse' id='navbarNav'>
-        <ul class='navbar-nav me-auto'>
-          <li class='nav-item'>
-            <a class='nav-link text-light' href='./annuaire.php'>Annuaire</a>
-          </li>
-          <li class='nav-item'>
-            <a class='nav-link text-light' href='./gestion_fichier.php'>Gestion fichier</a>
-          </li>
-          <li class='nav-item'>
-            <a class='nav-link text-light' href='./wiki.php'>Wiki</a>
-          </li>
-          <li>
-            <a class='nav-link text-light' href='./profil.php'>Mon profil</a>
-          </li>
-        </ul>
-        <div class='d-flex align-items-center'>";
-          if (isset($_SESSION['prenom']) && isset($_SESSION['nom']) && isset($_SESSION['fonction'])) {
-            echo "<span class='text-light me-2'>Connecté en tant que ". htmlspecialchars($_SESSION['prenom']) ." ". htmlspecialchars($_SESSION['nom']) .", ". htmlspecialchars($_SESSION['fonction']) ."</span>";
-            echo "<a href='./portail_deconnexion.php' class='btn btn-outline-light btn-sm'>Se déconnecter</a>";
-          }
-          echo "
-        </div>
-      </div>
-    </div>
-  </nav>
-  <div class='jumbotron jumbotron-fluid p-5 bg-primary text-white'>
-    <div class='container'>
-      <h1 class='text-center'>Bienvenue dans l'annuaire</h1>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container">
+    <a class="navbar-brand" href="accueil_intranet.php">
+      <img src="logo.png" alt="Logo">
+      TechRevive Intranet
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item"><a class="nav-link" href="accueil_intranet.php">Accueil</a></li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">Annuaires</a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item active" href="intranet_annuaire-employes.php">Employés</a></li>
+                <li><a class="dropdown-item" href="intranet_annuaire-partenaires.php">Partenaires</a></li>
+                <li><a class="dropdown-item" href="intranet_annuaire-clients.php">Clients</a></li>
+            </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="intranet_fichiers.php">Fichiers partagés</a></li>
+        <?php if (in_array('admin', $groupes) || in_array('direction', $groupes)): ?>
+        <li class="nav-item"><a class="nav-link" href="intranet_gestion-utilisateurs.php">Gestion Utilisateurs</a></li>
+        <?php endif; ?>
+      </ul>
+      <span class="navbar-text me-3"><?= htmlspecialchars($_SESSION['prenom'] . ' ' . $_SESSION['nom']) ?></span>
+      <a href="intranet_logout.php" class="btn btn-outline-danger btn-sm">Déconnexion</a>
     </div>
   </div>
-</header>
-<form method='post'>
-  <table align='center'>
-    <tr>
-      <td><input type='submit' name='utilisateurs' class='border-primary text-primary bg-white' value='Utilisateurs'><td>
-      <td><input type='submit' name='partenaires' class='border-primary text-primary bg-white' value='Partenaires'><td>
-      <td><input type='submit' name='clients' class='border-primary text-primary bg-white' value='Clients'><td>
-    </tr>
-  </table>
-</form>";  
+</nav>
 
+<div class="container mt-4 fade-in-up">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold mb-0" style="color:#1B2A4A;">Annuaire des Employés</h2>
+        <span class="badge" style="background:#2D6A2E;font-size:0.9rem;padding:6px 14px;"><?= count($employes) ?> collaborateurs</span>
+    </div>
 
-//Annuaire utilisateurs
-if (isset($_POST['utilisateurs'])){
-  if (isset($_SESSION['prenom']) && isset($_SESSION['nom']) && isset($_SESSION['fonction'])) {
-    if (in_array('admin', $_SESSION['groupe'])){
-      echo "<form method = 'post' class='text-center'>
-        <h2><input type='submit' name='ajoutUser' class='bg-primary text-white border-primary' value='+'></h2>
-      </form>";
-    }
-  }
-  echo "<section class='flex-grow-1 d-flex justify-content-center align-items-center'>";
-  echo "<table>";
-  $compteurTable = 1;
-  $jsonUser = json_decode(file_get_contents("data/annuaire_utilisateurs.json"));
-    for ($i=0; $i < sizeof($jsonUser); $i++){
-      if ($compteurTable == 1){
-        echo "<tr>";
-      };
-      $userActuel = (array)($jsonUser[$i]);
-      echo "<td>
-        <div class='card border-black' style='border-radius: 10px;height:530px'>
-        <div class='card-header bg-primary text-white' style='border-radius: 8px'>";
-        
-        echo"
-        <h1> ".$userActuel["prenom"]." ".$userActuel["nom"]." </h1></div>
-        <div class='card-body'><img src=".$userActuel["photo"]." alt='User $i' style='width: 350px'><p> ".$userActuel['description']." </p>
-        <div class='card-footer text-secondary'><p> ".$userActuel["fonction"]." </p>
-      </td>";
-      if ($compteurTable == 3){
-        echo "</tr>";
-        $compteurTable = 1;
-      }
-      else{
-        $compteurTable+= 1;
-      }
-    }
-    echo "</table>";
-}
+    <div class="d-flex justify-content-center mb-4">
+        <input type="text" id="search" class="form-control" onkeyup="searchEmployee()" placeholder="🔍 Rechercher un employé..." style="max-width:400px;">
+    </div>
 
+    <div class="row g-4">
+        <?php foreach ($employes as $emp): ?>
+        <div class="col-md-4 col-lg-3 employee-col">
+            <div class="employee-card h-100">
+                <div class="card-header-bar"></div>
+                <div class="p-4 text-center">
+                    <div class="employee-avatar mb-3">
+                        <?= strtoupper(mb_substr($emp['prenom'], 0, 1) . mb_substr($emp['nom'], 0, 1)) ?>
+                    </div>
+                    <h6 class="fw-bold mb-1" style="color:#1B2A4A;"><?= htmlspecialchars($emp['prenom'] . ' ' . $emp['nom']) ?></h6>
+                    <span class="badge mb-2" style="background:rgba(45,106,46,0.1);color:#2D6A2E;font-weight:600;"><?= htmlspecialchars($emp['fonction']) ?></span>
+                    <p class="text-muted mt-2 mb-0" style="font-size:0.85rem;"><?= htmlspecialchars($emp['bio']) ?></p>
+                </div>
+            </div>
+        </div>
+        <?php endforeach; ?>
+    </div>
+</div>
 
-//Annuaire partenaires
-elseif (isset($_POST['partenaires'])){
-  if (isset($_SESSION['prenom']) && isset($_SESSION['nom']) && isset($_SESSION['fonction'])) {
-  if (in_array('admin', $_SESSION['groupe'])){
-    echo "<form method = 'post' class='text-center'>
-      <h2><input type='submit' name='ajoutPart' class='bg-primary text-white border-primary' value='+'></h2>
-    </form>";
-  }
-}
-  echo "<section class='flex-grow-1 d-flex justify-content-center align-items-center'>";
-  echo "<table>";
-  $compteurTable = 1;
-  $jsonPart = json_decode(file_get_contents("data/annuaire_partenaire.json"));
-    for ($i=0; $i < sizeof($jsonPart); $i++){
-      if ($compteurTable == 1){
-        echo "<tr>";
-      };
-      $partActuel = (array)($jsonPart[$i]);
-      echo "<td>
-        <div class='card border-black' style='border-radius: 10px; height: 500px'>
-        <div class='card-header bg-primary text-white' style='border-radius: 8px'><h1> ".$partActuel["nom"]." </h1></div>
-        <div class='card-body'><img src=".$partActuel["logo"]." alt='Partenaire $i' style='width: 350px'><p> ".$partActuel['description']." </p>
-      </td>";
-      if ($compteurTable == 3){
-        echo "</tr>";
-        $compteurTable = 1;
-      }
-      else{
-        $compteurTable+= 1;
-      }
-    }
-  echo "</table>";
-}
-
-//Annuaire clients
-elseif (isset($_POST['clients'])){
-  if (isset($_SESSION['prenom']) && isset($_SESSION['nom']) && isset($_SESSION['fonction'])) {
-  if (in_array('admin', $_SESSION['groupe'])){
-    echo "<form method = 'post' class='text-center'>
-      <h2><input type='submit' name='ajoutClient' class='bg-primary text-white border-primary' value='+'></h2>
-    </form>";
-  }
-}
-  echo "<section class='flex-grow-1 d-flex justify-content-center align-items-center'>";
-  echo "<table>";
-  $compteurTable = 1;
-  $jsonClient = json_decode(file_get_contents("data/annuaire_clients.json"));
-    for ($i=0; $i < sizeof($jsonClient); $i++){
-      if ($compteurTable == 1){
-        echo "<tr>";
-      };
-      $clientActuel = (array)($jsonClient[$i]);
-      echo "<td>
-        <div class='card border-black' style='border-radius: 10px;height:300px'>
-        <div class='card-header bg-primary text-white' style='border-radius: 8px'><h3> ".$clientActuel["nom_client"]."<br>".$clientActuel["projet"]." </h3></div>
-        <div class='card-body'><p>".$clientActuel["telephone"]."<br>".$clientActuel["email"]."<br>".$clientActuel["adresse"]."<br>".$clientActuel["statut"]."<br>".$clientActuel['id_client']."</p>
-      </td>";
-      if ($compteurTable == 4){
-        echo "</tr>";
-        $compteurTable = 1;
-      }
-      else{
-        $compteurTable+= 1;
-      }
-    }
-  echo "</table>";
-}
-
-//Formulaire ajout utilisateurs
-elseif (isset($_POST['ajoutUser'])){
-  echo "<br>";
-  echo "<form action='scripts\ajoutUser.php' method='post'>
-    <div class='container' style='max-width: 400px;'>
-    <h2>Ajout d'un utilisateur</h2>
-      <div class='form-group mb-3'>
-        <label>Nom</label>
-        <input type='text' class='form-control' name='nom' placeholder='Nom' required>
-      </div>
-      <div class='form-group mb-3'>
-        <label>Prénom</label>
-        <input type='text' class='form-control' name='prenom' placeholder='Prénom' required>
-      </div>
-      <div class='form-group mb-3'>
-        <label>Mot de passe</label>
-        <input type='text' class='form-control' name='mdp' placeholder='MotDePasse' required>
-      </div>
-      <div class='form-group mb-3'>
-        <label>Mail</label>
-        <input type='email' class='form-control' name='mail' placeholder='Mail' required>
-      </div>
-      <div class='form-group mb-3'>
-        <label>Image</label>
-        <input type='text' class='form-control' name='image' placeholder='Image' required>
-      </div>
-      <div class='form-group mb-3'>
-        <label>Fonction</label>
-        <input type='text' class='form-control' name='fonction' placeholder='fonction' required>
-      </div>
-      <div class='form-group mb-3'>
-        <label>Description</label>
-        <input type='text' class='form-control' name='desc' placeholder='Description' required>
-      </div>
-      <div class='form-group mb-3'>
-        <input type='checkbox' id='directeur' name='directeur' value='directeur'>
-        <label for='directeur'>Directeur</label>
-        <input type='checkbox' id='direction' name='direction' value='direction'>
-        <label for='direction'>Direction</label><br>
-        <input type='checkbox' id='salaries' name='salaries' value='salaries'>
-        <label for='salaries'>Salariés</label>
-        <input type='checkbox' id='admin' name='admin' value='admin'>
-        <label for='admin'>Admin</label><br>
-        <input type='checkbox' id='managers' name='managers' value='managers'>
-        <label for='managers'>Managers</label>
-      </div>
-      <button type='submit' class='btn btn-primary w-100'>Ajouter à l'annuaire</button>
-      <p class='text-danger text-center mt-3'>Veuillez remplir tous les champs</p>
-    </form>
-  </div>";
-}
-
-//Formulaire ajout partenaire
-elseif (isset($_POST['ajoutPart'])){
-  echo "<br>";
-  echo "<form action='scripts\ajoutPart.php' method='post'>
-    <div class='container' style='max-width: 400px;'>
-    <h2>Ajout d'un partenaire</h2>
-      <div class='form-group mb-3'>
-        <label>Nom</label>
-        <input type='text' class='form-control' name='nom' placeholder='Nom' required>
-      </div>
-      <div class='form-group mb-3'>
-        <label>Logo</label>
-        <input type='text' class='form-control' name='logo' placeholder='logo' required>
-      </div>
-      <div class='form-group mb-3'>
-        <label>Description</label>
-        <input type='text' class='form-control' name='desc' placeholder='Description' required>
-      </div>
-      <button type='submit' class='btn btn-primary w-100'>Ajouter à l'annuaire</button>
-      <p class='text-danger text-center mt-3'>Veuillez remplir tous les champs</p>
-    </form>
-  </div>";
-}
-
-//Formulaire ajout client
-elseif (isset($_POST['ajoutClient'])){
-  echo "<br>";
-  echo "<form action='scripts\ajoutClient.php' method='post'>
-    <div class='container' style='max-width: 400px;'>
-    <h2>Ajout d'un client</h2>
-      <div class='form-group mb-3'>
-        <label>ID</label>
-        <input type='text' class='form-control' name='id_client' placeholder='id_client' required>
-      </div>
-      <div class='form-group mb-3'>
-        <label>Nom</label>
-        <input type='text' class='form-control' name='nom_client' placeholder='nom_client' required>
-      </div>
-      <div class='form-group mb-3'>
-        <label>Numéro de téléphone</label>
-        <input type='text' class='form-control' name='telephone' placeholder='telephone' required>
-      </div>
-      <div class='form-group mb-3'>
-        <label>Email</label>
-        <input type='text' class='form-control' name='email' placeholder='email' required>
-      </div>
-      <div class='form-group mb-3'>
-        <label>Adresse</label>
-        <input type='text' class='form-control' name='adresse' placeholder='adresse' required>
-      </div>
-      <div class='form-group mb-3'>
-        <label>Projet</label>
-        <input type='text' class='form-control' name='projet' placeholder='projet' required>
-      </div>
-      <div class='form-group mb-3'>
-        <label>Statut</label>
-        <input type='text' class='form-control' name='statut' placeholder='statut' required>
-      </div>
-      <button type='submit' class='btn btn-primary w-100'>Ajouter à l'annuaire</button>
-      <p class='text-danger text-center mt-3'>Veuillez remplir tous les champs</p>
-    </form>
-  </div>";
-}
-
-//L'annuaire par défaut est celui des utilisateurs
-else{
-  if (isset($_SESSION['prenom']) && isset($_SESSION['nom']) && isset($_SESSION['fonction'])) {
-  if (in_array('admin', $_SESSION['groupe'])){
-    echo "<form method = 'post' class='text-center'>
-      <h2><input type='submit' name='ajoutUser' class='bg-primary text-white border-primary' value='+'></h2>
-    </form>";
-  }
-}
-  echo "<section class='flex-grow-1 d-flex justify-content-center align-items-center'>";
-  echo "<table>";
-  $compteurTable = 1;
-  $jsonUser = json_decode(file_get_contents("data/annuaire_utilisateurs.json"));
-    for ($i=0; $i < sizeof($jsonUser); $i++){
-      if ($compteurTable == 1){
-        echo "<tr>";
-      };
-      $userActuel = (array)($jsonUser[$i]);
-      echo "<td>
-        <div class='card border-black' style='border-radius: 10px;height:550px'>
-        <div class='card-header bg-primary text-white' style='border-radius: 8px'><h1> ".$userActuel["prenom"]." ".$userActuel["nom"]." </h1></div>
-        <div class='card-body'><img src=".$userActuel["photo"]." alt='User $i' style='width: 350px'><p> ".$userActuel['description']." </p>
-        <div class='card-footer text-secondary'><p> ".$userActuel["fonction"]." </p>
-      </td>";
-      if ($compteurTable == 3){
-        echo "</tr>";
-        $compteurTable = 1;
-      }
-      else{
-        $compteurTable+= 1;
-      }
-    }
-  echo "</table>";
-}
-
-echo "</section>
-<footer class='bg-dark text-white text-center py-3'>
-  <div class='container'>
-    <p>&copy; ". date('Y') ." Intranet. Tous droits réservés.</p>
+<footer class="footer-intranet text-center mt-auto">
+  <div class="container">
+    <p class="mb-0">&copy; <?= date('Y') ?> TechRevive Solutions — Intranet. Tous droits réservés.</p>
   </div>
 </footer>
-</html>"
-?>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

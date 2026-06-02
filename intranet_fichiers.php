@@ -6,21 +6,17 @@ if (!isset($_SESSION['login'])) {
 }
 
 $groupes_user = $_SESSION['groupes'] ?? [];
-// Map 'salariés' to 'salaries' to match folder name safely
 $groupes_user = array_map(function($g) { return ($g === 'salariés') ? 'salaries' : $g; }, $groupes_user);
 
 $all_folders = ['admin', 'direction', 'managers', 'salaries', 'perso'];
 
 $allowed_folders = [];
-// Les admin et la direction ont accès à tous les dossiers
 if (in_array('admin', $groupes_user) || in_array('direction', $groupes_user)) {
     $allowed_folders = $all_folders;
 } else {
-    // Les autres n'ont accès qu'à leurs propres groupes
     $allowed_folders = array_intersect($all_folders, $groupes_user);
 }
 
-// Vérification du dossier actuel
 $current_folder = $_GET['folder'] ?? ($allowed_folders[0] ?? null);
 if (!in_array($current_folder, $allowed_folders) && $current_folder !== null) {
     die("<div class='alert alert-danger m-4'>Accès refusé à ce dossier.</div>");
@@ -81,41 +77,58 @@ $files = [];
 if ($current_folder && is_dir($base_dir . $current_folder)) {
     $files = array_diff(scandir($base_dir . $current_folder), ['.', '..']);
 }
+
+$groupes = $_SESSION['groupes'] ?? [];
 ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestionnaire de Fichiers</title>
+    <title>Fichiers Partagés — Intranet TechRevive</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="style_intranet.css" rel="stylesheet">
 </head>
-<body class="bg-light">
+<body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+<nav class="navbar navbar-expand-lg navbar-dark">
   <div class="container">
-    <a class="navbar-brand" href="accueil_intranet.php">Intranet Entreprise</a>
+    <a class="navbar-brand" href="accueil_intranet.php">
+      <img src="logo.png" alt="Logo">
+      TechRevive Intranet
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto">
         <li class="nav-item"><a class="nav-link" href="accueil_intranet.php">Accueil</a></li>
-        <li class="nav-item"><a class="nav-link active text-primary" href="intranet_fichiers.php">Fichiers partagés</a></li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Annuaires</a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="intranet_annuaire-employes.php">Employés</a></li>
+                <li><a class="dropdown-item" href="intranet_annuaire-partenaires.php">Partenaires</a></li>
+                <li><a class="dropdown-item" href="intranet_annuaire-clients.php">Clients</a></li>
+            </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link active" href="intranet_fichiers.php">Fichiers partagés</a></li>
+        <?php if (in_array('admin', $groupes) || in_array('direction', $groupes)): ?>
+        <li class="nav-item"><a class="nav-link" href="intranet_gestion-utilisateurs.php">Gestion Utilisateurs</a></li>
+        <?php endif; ?>
       </ul>
-      <span class="navbar-text me-3">Connecté : <strong><?= htmlspecialchars($_SESSION['prenom'] . ' ' . $_SESSION['nom']) ?></strong></span>
-      <a href="intranet_logout.php" class="btn btn-outline-danger btn-sm">Se déconnecter</a>
+      <span class="navbar-text me-3"><?= htmlspecialchars($_SESSION['prenom'] . ' ' . $_SESSION['nom']) ?></span>
+      <a href="intranet_logout.php" class="btn btn-outline-danger btn-sm">Déconnexion</a>
     </div>
   </div>
 </nav>
 
-<div class="container">
+<div class="container mt-4 fade-in-up">
     <div class="row">
         <!-- Colonne de gauche : Dossiers -->
         <div class="col-md-3 mb-4">
-            <div class="card shadow-sm">
-                <div class="card-header bg-dark text-white">
+            <div class="card">
+                <div class="card-header" style="background:var(--tr-navy);color:#fff;border-bottom:3px solid var(--tr-green);">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="margin-right:6px;"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
                     Mes Dossiers
                 </div>
                 <div class="list-group list-group-flush">
@@ -123,7 +136,7 @@ if ($current_folder && is_dir($base_dir . $current_folder)) {
                         <div class="list-group-item text-muted">Aucun dossier accessible</div>
                     <?php endif; ?>
                     <?php foreach ($allowed_folders as $folder): ?>
-                        <a href="?folder=<?= urlencode($folder) ?>" class="list-group-item list-group-item-action <?= ($current_folder === $folder) ? 'active bg-primary border-primary text-dark fw-bold' : '' ?>">
+                        <a href="?folder=<?= urlencode($folder) ?>" class="list-group-item list-group-item-action <?= ($current_folder === $folder) ? 'active' : '' ?>">
                             📁 <?= ucfirst($folder) ?>
                         </a>
                     <?php endforeach; ?>
@@ -133,20 +146,25 @@ if ($current_folder && is_dir($base_dir . $current_folder)) {
 
         <!-- Colonne de droite : Fichiers -->
         <div class="col-md-9">
-            <h2 class="mb-4 text-primary">Dossier : <?= htmlspecialchars(ucfirst($current_folder ?? 'Aucun')) ?></h2>
+            <h2 class="mb-4 fw-bold" style="color:#1B2A4A;">
+                📂 Dossier : <?= htmlspecialchars(ucfirst($current_folder ?? 'Aucun')) ?>
+            </h2>
             <?= $message ?>
 
             <?php if ($current_folder): ?>
-                <div class="card shadow-sm mb-4">
+                <div class="card mb-4">
                     <div class="card-body">
-                        <form action="?folder=<?= urlencode($current_folder) ?>" method="POST" enctype="multipart/form-data" class="d-flex align-items-center">
-                            <input class="form-control me-3" type="file" name="fichier" accept=".txt,.csv" required>
-                            <button type="submit" class="btn btn-primary text-nowrap">⬆️ Uploader (.txt, .csv)</button>
+                        <form action="?folder=<?= urlencode($current_folder) ?>" method="POST" enctype="multipart/form-data" class="d-flex align-items-center gap-3">
+                            <input class="form-control" type="file" name="fichier" accept=".txt,.csv" required>
+                            <button type="submit" class="btn btn-success text-nowrap">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="margin-right:4px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                                Uploader
+                            </button>
                         </form>
                     </div>
                 </div>
 
-                <div class="card shadow-sm">
+                <div class="card">
                     <div class="card-body p-0">
                         <table class="table table-hover mb-0">
                             <thead class="table-dark">
@@ -169,11 +187,10 @@ if ($current_folder && is_dir($base_dir . $current_folder)) {
                                             <td class="ps-3">📄 <?= htmlspecialchars($file) ?></td>
                                             <td><?= $fsize ?></td>
                                             <td class="text-end pe-3">
-                                                <a href="?folder=<?= urlencode($current_folder) ?>&download=<?= urlencode($file) ?>" class="btn btn-sm btn-success">⬇️ Télécharger</a>
-                                                
-                                                <form method="POST" action="?folder=<?= urlencode($current_folder) ?>" style="display:inline;" onsubmit="return confirm('Voulez-vous vraiment supprimer ce fichier ?');">
+                                                <a href="?folder=<?= urlencode($current_folder) ?>&download=<?= urlencode($file) ?>" class="btn btn-sm btn-success">Télécharger</a>
+                                                <form method="POST" action="?folder=<?= urlencode($current_folder) ?>" style="display:inline;" onsubmit="return confirm('Supprimer ce fichier ?');">
                                                     <input type="hidden" name="delete_file" value="<?= htmlspecialchars($file) ?>">
-                                                    <button type="submit" class="btn btn-sm btn-danger">❌ Supprimer</button>
+                                                    <button type="submit" class="btn btn-sm btn-danger">Supprimer</button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -189,6 +206,12 @@ if ($current_folder && is_dir($base_dir . $current_folder)) {
         </div>
     </div>
 </div>
+
+<footer class="footer-intranet text-center mt-auto">
+  <div class="container">
+    <p class="mb-0">&copy; <?= date('Y') ?> TechRevive Solutions — Intranet. Tous droits réservés.</p>
+  </div>
+</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

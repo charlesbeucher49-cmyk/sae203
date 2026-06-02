@@ -1,95 +1,342 @@
+/* ============================================
+   TechRevive Solutions — Intranet Theme
+   Couleurs alignées sur la vitrine WordPress
+   ============================================ */
+
 :root {
-  --bs-primary: #FF7900;
-  --bs-primary-rgb: 255, 121, 0;
-  --bs-dark: #000000;
-  --bs-dark-rgb: 0, 0, 0;
+    --tr-navy: #1B2A4A;
+    --tr-navy-light: #243556;
+    --tr-navy-dark: #111d33;
+    --tr-green: #2D6A2E;
+    --tr-green-light: #3a8b3b;
+    --tr-green-dark: #1f4e20;
+    --tr-white: #ffffff;
+    --tr-gray-50: #f8f9fa;
+    --tr-gray-100: #f1f3f5;
+    --tr-gray-200: #e9ecef;
+    --tr-gray-300: #dee2e6;
+    --tr-gray-500: #868e96;
+    --tr-gray-700: #495057;
+    --tr-gray-900: #212529;
+    --tr-accent: #e8a838;
+    --tr-danger: #dc3545;
+    --tr-radius: 8px;
+    --tr-shadow: 0 2px 12px rgba(27,42,74,0.08);
+    --tr-shadow-hover: 0 6px 24px rgba(27,42,74,0.14);
+    --tr-transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
 }
 
+/* ---- Base ---- */
 body {
-    background-color: #f6f6f8;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: var(--tr-gray-50);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--tr-gray-900);
+    -webkit-font-smoothing: antialiased;
 }
 
-/* Custom Navbar Corporate */
-.navbar.bg-dark {
-    background-color: #000000 !important;
-    border-bottom: 4px solid #FF7900;
+a { color: var(--tr-navy); }
+a:hover { color: var(--tr-green); }
+
+/* ---- Navbar ---- */
+.navbar.navbar-dark {
+    background: linear-gradient(135deg, var(--tr-navy-dark) 0%, var(--tr-navy) 100%) !important;
+    border-bottom: 3px solid var(--tr-green);
+    padding: 0.6rem 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
 .navbar-brand {
+    display: flex !important;
+    align-items: center;
+    gap: 10px;
     font-weight: 700;
-    color: #FF7900 !important;
-    letter-spacing: -0.5px;
+    font-size: 1.15rem;
+    color: var(--tr-white) !important;
+    letter-spacing: -0.3px;
+}
+
+.navbar-brand img {
+    height: 36px;
+    width: auto;
 }
 
 .navbar-dark .navbar-nav .nav-link {
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(255,255,255,0.75);
+    font-weight: 500;
+    font-size: 0.9rem;
+    padding: 0.5rem 0.9rem;
+    border-radius: 6px;
+    transition: var(--tr-transition);
 }
 
-.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: var(--tr-white) !important;
+    background: rgba(255,255,255,0.08);
+}
+
 .navbar-dark .navbar-nav .nav-link.active {
-    color: #FF7900 !important;
+    color: var(--tr-white) !important;
+    background: var(--tr-green);
 }
 
-/* Buttons Corporate */
+.navbar-text {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.7) !important;
+}
+
+.navbar-text strong {
+    color: var(--tr-white) !important;
+}
+
+/* ---- Dropdown ---- */
+.dropdown-menu {
+    border: none;
+    box-shadow: var(--tr-shadow-hover);
+    border-radius: var(--tr-radius);
+    overflow: hidden;
+}
+
+.dropdown-item {
+    font-size: 0.9rem;
+    padding: 0.55rem 1.1rem;
+    transition: var(--tr-transition);
+}
+
+.dropdown-item:hover {
+    background: var(--tr-gray-100);
+    color: var(--tr-navy);
+}
+
+/* ---- Buttons ---- */
 .btn-primary {
-    background-color: #FF7900;
-    border-color: #FF7900;
-    color: #000;
+    background-color: var(--tr-navy) !important;
+    border-color: var(--tr-navy) !important;
+    color: var(--tr-white) !important;
     font-weight: 600;
-    transition: all 0.2s;
+    border-radius: 6px;
+    transition: var(--tr-transition);
 }
 
 .btn-primary:hover, .btn-primary:active, .btn-primary:focus {
-    background-color: #e66d00 !important;
-    border-color: #e66d00 !important;
-    color: #000 !important;
+    background-color: var(--tr-navy-light) !important;
+    border-color: var(--tr-navy-light) !important;
+    box-shadow: 0 4px 12px rgba(27,42,74,0.25) !important;
+    transform: translateY(-1px);
 }
 
-.btn-outline-primary {
-    color: #FF7900;
-    border-color: #FF7900;
+.btn-success {
+    background-color: var(--tr-green) !important;
+    border-color: var(--tr-green) !important;
+    font-weight: 600;
+    border-radius: 6px;
+    transition: var(--tr-transition);
 }
 
-.btn-outline-primary:hover {
-    background-color: #FF7900;
-    color: #000;
+.btn-success:hover {
+    background-color: var(--tr-green-light) !important;
+    border-color: var(--tr-green-light) !important;
+    transform: translateY(-1px);
 }
 
-/* Typography and utilities */
-.text-primary {
-    color: #FF7900 !important;
+.btn-warning {
+    background-color: var(--tr-accent) !important;
+    border-color: var(--tr-accent) !important;
+    color: var(--tr-white) !important;
+    font-weight: 600;
+    border-radius: 6px;
 }
+
+.btn-outline-danger {
+    border-color: rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.8);
+    font-weight: 500;
+    border-radius: 6px;
+    transition: var(--tr-transition);
+}
+
+.btn-outline-danger:hover {
+    background: var(--tr-danger);
+    border-color: var(--tr-danger);
+    color: var(--tr-white);
+}
+
+/* ---- Text Utilities ---- */
+.text-primary { color: var(--tr-navy) !important; }
+.text-success { color: var(--tr-green) !important; }
+.text-warning { color: var(--tr-accent) !important; }
 
 .bg-primary {
-    background-color: #FF7900 !important;
-    color: #000 !important;
+    background-color: var(--tr-navy) !important;
+    color: var(--tr-white) !important;
 }
 
-/* Cards */
+/* ---- Cards ---- */
 .card {
-    border: none;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    transition: transform 0.2s ease-in-out;
+    border: 1px solid var(--tr-gray-200);
+    border-radius: var(--tr-radius);
+    box-shadow: var(--tr-shadow);
+    transition: var(--tr-transition);
+    overflow: hidden;
 }
 
 .card:hover {
+    box-shadow: var(--tr-shadow-hover);
     transform: translateY(-2px);
 }
 
 .card-header {
-    background-color: #ffffff;
-    border-bottom: 2px solid #FF7900;
-    font-weight: bold;
+    background: var(--tr-white);
+    border-bottom: 2px solid var(--tr-green);
+    font-weight: 600;
+    color: var(--tr-navy);
+    padding: 0.9rem 1.2rem;
 }
 
-/* Table Corporate */
-.table-dark {
-    background-color: #000;
-}
+/* ---- Tables ---- */
+.table-dark,
 .table-dark th {
-    background-color: #000;
-    color: #fff;
-    border-bottom: 2px solid #FF7900;
+    background-color: var(--tr-navy) !important;
+    color: var(--tr-white);
+    border-color: var(--tr-navy-light);
+}
+
+.table-dark th {
+    border-bottom: 2px solid var(--tr-green) !important;
+    font-weight: 600;
+    font-size: 0.88rem;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(45,106,46,0.04) !important;
+}
+
+/* ---- Badges ---- */
+.badge.bg-secondary {
+    background-color: var(--tr-navy) !important;
+    font-weight: 500;
+}
+
+.badge.bg-primary {
+    background-color: var(--tr-green) !important;
+}
+
+.badge.bg-success {
+    background-color: var(--tr-green) !important;
+}
+
+/* ---- Forms ---- */
+.form-control:focus {
+    border-color: var(--tr-green);
+    box-shadow: 0 0 0 0.2rem rgba(45,106,46,0.15);
+}
+
+.form-check-input:checked {
+    background-color: var(--tr-green);
+    border-color: var(--tr-green);
+}
+
+/* ---- Jumbotron / Hero ---- */
+.jumbotron,
+.hero-section {
+    background: linear-gradient(135deg, var(--tr-navy) 0%, var(--tr-navy-light) 100%);
+    color: var(--tr-white);
+}
+
+/* ---- Login Page ---- */
+.login-hero {
+    background: linear-gradient(135deg, var(--tr-navy-dark) 0%, var(--tr-navy) 50%, var(--tr-green-dark) 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.login-hero::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(45,106,46,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+}
+
+.login-card {
+    border: none !important;
+    border-radius: 12px !important;
+    box-shadow: 0 8px 32px rgba(27,42,74,0.12) !important;
+}
+
+.login-card .card-body {
+    padding: 2.5rem !important;
+}
+
+/* ---- Dashboard Cards ---- */
+.dash-card {
+    border: none !important;
+    border-left: 4px solid var(--tr-green);
+    border-radius: var(--tr-radius) !important;
+    background: var(--tr-white);
+}
+
+.dash-card .card-title {
+    color: var(--tr-navy);
+    font-weight: 700;
+}
+
+.dash-card .card-text {
+    color: var(--tr-gray-500);
+    font-size: 0.9rem;
+}
+
+/* ---- List Group (File Manager) ---- */
+.list-group-item.active {
+    background-color: var(--tr-navy) !important;
+    border-color: var(--tr-navy) !important;
+    color: var(--tr-white) !important;
+}
+
+.list-group-item-action:hover {
+    background-color: var(--tr-gray-100);
+    color: var(--tr-navy);
+}
+
+/* ---- Footer ---- */
+.footer-intranet {
+    background: var(--tr-navy-dark);
+    color: rgba(255,255,255,0.5);
+    font-size: 0.85rem;
+    padding: 1rem 0;
+    margin-top: 3rem;
+}
+
+/* ---- Scrollbar ---- */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--tr-gray-100); }
+::-webkit-scrollbar-thumb {
+    background: var(--tr-gray-300);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--tr-gray-500); }
+
+/* ---- Animations ---- */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+/* ---- Modal ---- */
+.modal-header {
+    background: var(--tr-navy);
+    color: var(--tr-white);
+    border-bottom: 3px solid var(--tr-green);
+}
+
+.modal-header .btn-close {
+    filter: invert(1);
 }
