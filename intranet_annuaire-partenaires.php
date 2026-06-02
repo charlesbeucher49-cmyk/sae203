@@ -24,6 +24,7 @@ $search = isset($_GET["search"]) ? strtolower(trim($_GET["search"])) : "";
     <meta charset="UTF-8">
     <title>Annuaire des Partenaires</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="style_intranet.css" rel="stylesheet">
 </head>
 
 <body class="bg-light">

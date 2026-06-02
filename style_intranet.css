@@ -1,0 +1,95 @@
+:root {
+  --bs-primary: #FF7900;
+  --bs-primary-rgb: 255, 121, 0;
+  --bs-dark: #000000;
+  --bs-dark-rgb: 0, 0, 0;
+}
+
+body {
+    background-color: #f6f6f8;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Custom Navbar Corporate */
+.navbar.bg-dark {
+    background-color: #000000 !important;
+    border-bottom: 4px solid #FF7900;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    color: #FF7900 !important;
+    letter-spacing: -0.5px;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link.active {
+    color: #FF7900 !important;
+}
+
+/* Buttons Corporate */
+.btn-primary {
+    background-color: #FF7900;
+    border-color: #FF7900;
+    color: #000;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus {
+    background-color: #e66d00 !important;
+    border-color: #e66d00 !important;
+    color: #000 !important;
+}
+
+.btn-outline-primary {
+    color: #FF7900;
+    border-color: #FF7900;
+}
+
+.btn-outline-primary:hover {
+    background-color: #FF7900;
+    color: #000;
+}
+
+/* Typography and utilities */
+.text-primary {
+    color: #FF7900 !important;
+}
+
+.bg-primary {
+    background-color: #FF7900 !important;
+    color: #000 !important;
+}
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+.card-header {
+    background-color: #ffffff;
+    border-bottom: 2px solid #FF7900;
+    font-weight: bold;
+}
+
+/* Table Corporate */
+.table-dark {
+    background-color: #000;
+}
+.table-dark th {
+    background-color: #000;
+    color: #fff;
+    border-bottom: 2px solid #FF7900;
+}
