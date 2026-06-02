@@ -91,7 +91,7 @@ require_once 'intranet_header.php';
                             <th class="py-3">Nom & Prénom</th>
                             <th class="py-3">Fonction</th>
                             <th class="py-3">Biographie</th>
-                            <th class="text-end pe-4 py-3" style="width: 180px;">Actions</th>
+                            <th class="text-end pe-4 py-3 text-nowrap" style="width: 220px;">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -110,7 +110,7 @@ require_once 'intranet_header.php';
                             <td><strong><?= htmlspecialchars(($e['prenom'] ?? '') . ' ' . ($e['nom'] ?? '')) ?></strong></td>
                             <td><span class="badge" style="background: rgba(45,106,46,0.1); color:#2D6A2E; font-weight:600;"><?= htmlspecialchars($e['fonction'] ?? '') ?></span></td>
                             <td class="text-muted small text-truncate" style="max-width: 300px;" title="<?= htmlspecialchars($e['bio'] ?? '') ?>"><?= htmlspecialchars($e['bio'] ?? '') ?></td>
-                            <td class="text-end pe-4">
+                            <td class="text-end pe-4 text-nowrap">
                                 <button class="btn btn-outline-secondary btn-sm rounded-pill px-3 me-1" data-bs-toggle="modal" data-bs-target="#modalEditEmploye<?= $e['id'] ?>">Éditer</button>
                                 <form method="POST" style="display:inline;" onsubmit="return confirm('Voulez-vous vraiment supprimer ce collaborateur ?');">
                                     <input type="hidden" name="action" value="delete">

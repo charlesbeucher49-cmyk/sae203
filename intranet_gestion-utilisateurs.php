@@ -113,7 +113,7 @@ require_once 'intranet_header.php';
                             <th>Identifiant</th>
                             <th>Profil</th>
                             <th>Groupes</th>
-                            <th class="text-end pe-3">Actions</th>
+                            <th class="text-end pe-3 text-nowrap" style="width: 220px;">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -128,7 +128,7 @@ require_once 'intranet_header.php';
                                     <span class="badge bg-secondary"><?= htmlspecialchars($grp) ?></span>
                                 <?php endforeach; ?>
                             </td>
-                            <td class="text-end pe-3">
+                            <td class="text-end pe-3 text-nowrap">
                                 <button class="btn btn-outline-secondary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#modalEditUser<?= $u['id'] ?>">Éditer</button>
                                 <form method="POST" style="display:inline;" onsubmit="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?');">
                                     <input type="hidden" name="action" value="delete">
