@@ -1,9 +1,6 @@
 <?php
-session_start();
-if (!isset($_SESSION['login'])) {
-    header('Location: intranet_login.php');
-    exit();
-}
+require_once 'intranet_fonctions.php';
+verifierConnexion();
 
 $groupes_user = $_SESSION['groupes'] ?? [];
 $groupes_user = array_map(function($g) { return ($g === 'salariés') ? 'salaries' : $g; }, $groupes_user);
@@ -27,7 +24,6 @@ $message = "";
 
 // Traitement POST global
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
     // Suppression
     if (isset($_POST['delete_file'])) {
         if ($current_folder) {
@@ -35,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $path_to_delete = $base_dir . $current_folder . '/' . $file_to_delete;
             if (file_exists($path_to_delete)) {
                 unlink($path_to_delete);
-                $message = "<div class='alert alert-success alert-dismissible fade show'><strong>Succ\u00e8s !</strong> Fichier supprim\u00e9 avec succ\u00e8s. <button type='button' class='btn-close' data-bs-dismiss='alert'></button></div>";
+                $message = "<div class='alert alert-success alert-dismissible fade show'><strong>Succès !</strong> Fichier supprimé avec succès. <button type='button' class='btn-close' data-bs-dismiss='alert'></button></div>";
             }
         }
     }
@@ -44,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($current_folder) {
             $file = $_FILES['fichier'];
             if ($file['error'] !== UPLOAD_ERR_OK) {
-                $message = "<div class='alert alert-danger'>Erreur lors de l'upload (code {$file['error']}). V\u00e9rifiez la configuration PHP (upload_max_filesize, post_max_size).</div>";
+                $message = "<div class='alert alert-danger'>Erreur lors de l'upload (code {$file['error']}). Vérifiez la configuration PHP.</div>";
             } else {
                 $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
                 if ($ext === 'txt' || $ext === 'csv') {
@@ -53,12 +49,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         mkdir($base_dir . $current_folder, 0775, true);
                     }
                     if (move_uploaded_file($file['tmp_name'], $dest)) {
-                        $message = "<div class='alert alert-success alert-dismissible fade show'><strong>Succ\u00e8s !</strong> Fichier '{$file['name']}' upload\u00e9 avec succ\u00e8s. <button type='button' class='btn-close' data-bs-dismiss='alert'></button></div>";
+                        $message = "<div class='alert alert-success alert-dismissible fade show'><strong>Succès !</strong> Fichier '{$file['name']}' uploadé avec succès. <button type='button' class='btn-close' data-bs-dismiss='alert'></button></div>";
                     } else {
-                        $message = "<div class='alert alert-danger'>Erreur : impossible de d\u00e9placer le fichier. V\u00e9rifiez les permissions du dossier uploads/{$current_folder}.</div>";
+                        $message = "<div class='alert alert-danger'>Erreur : impossible de déplacer le fichier.</div>";
                     }
                 } else {
-                    $message = "<div class='alert alert-danger'>Format refus\u00e9 : seuls les fichiers <strong>.txt</strong> et <strong>.csv</strong> sont autoris\u00e9s.</div>";
+                    $message = "<div class='alert alert-danger'>Format refusé : seuls les fichiers <strong>.txt</strong> et <strong>.csv</strong> sont autorisés.</div>";
                 }
             }
         }
@@ -88,52 +84,10 @@ if ($current_folder && is_dir($base_dir . $current_folder)) {
     $files = array_diff(scandir($base_dir . $current_folder), ['.', '..']);
 }
 
-$groupes = $_SESSION['groupes'] ?? [];
+$page_title = 'Fichiers Partagés — Intranet TechRevive';
+$active_page = 'fichiers';
+require_once 'intranet_header.php';
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fichiers Partagés — Intranet TechRevive</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="style_intranet.css" rel="stylesheet">
-</head>
-<body>
-
-<nav class="navbar navbar-expand-lg navbar-dark">
-  <div class="container">
-    <a class="navbar-brand" href="accueil_intranet.php">
-      <img src="logo.png" alt="Logo">
-      TechRevive Intranet
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item"><a class="nav-link" href="accueil_intranet.php">Accueil</a></li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Annuaires</a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="intranet_annuaire-employes.php">Employés</a></li>
-                <li><a class="dropdown-item" href="intranet_annuaire-partenaires.php">Partenaires</a></li>
-                <li><a class="dropdown-item" href="intranet_annuaire-clients.php">Clients</a></li>
-            </ul>
-        </li>
-        <li class="nav-item"><a class="nav-link active" href="intranet_fichiers.php">Fichiers partagés</a></li>
-        <?php if (in_array('admin', $groupes) || in_array('direction', $groupes)): ?>
-        <li class="nav-item"><a class="nav-link" href="intranet_gestion-utilisateurs.php">Gestion Utilisateurs</a></li>
-        <?php endif; ?>
-        <?php if (in_array('admin', $groupes) || in_array('direction', $groupes) || in_array('managers', $groupes)): ?>
-        <li class="nav-item"><a class="nav-link" href="intranet_gestion-employes.php">Gestion Employés</a></li>
-        <?php endif; ?>
-      </ul>
-      <span class="navbar-text me-3"><?= htmlspecialchars($_SESSION['prenom'] . ' ' . $_SESSION['nom']) ?></span>
-      <a href="intranet_logout.php" class="btn btn-outline-danger btn-sm">Déconnexion</a>
-    </div>
-  </div>
-</nav>
 
 <div class="container mt-4 fade-in-up">
     <div class="row">
@@ -220,12 +174,4 @@ $groupes = $_SESSION['groupes'] ?? [];
     </div>
 </div>
 
-<footer class="footer-intranet text-center mt-auto">
-  <div class="container">
-    <p class="mb-0">&copy; <?= date('Y') ?> TechRevive Solutions — Intranet. Tous droits réservés.</p>
-  </div>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<?php require_once 'intranet_footer.php'; ?>

@@ -1,41 +1,14 @@
 <?php
-session_start();
+require_once 'intranet_fonctions.php';
+verifierConnexion();
 
-// Vérification de la connexion
-if (!isset($_SESSION['login'])) {
-    header('Location: intranet_login.php');
-    exit();
-}
-
-$groupes = $_SESSION['groupes'] ?? [];
-// Vérification des droits d'accès
-if (!in_array('admin', $groupes) && !in_array('managers', $groupes) && !in_array('direction', $groupes)) {
-    echo "<h1>Accès refusé. Vous n'avez pas les droits nécessaires.</h1>";
-    echo "<a href='accueil_intranet.php'>Retour à l'accueil</a>";
-    exit();
-}
+$groupes_user = $_SESSION['groupes'] ?? [];
+verifierDroits(['admin', 'direction', 'managers']);
 
 $dataFile = 'intranet_data-employes.json';
 $message = "";
 
-// Fonction pour lire les données
-function getDonnees() {
-    global $dataFile;
-    if (!file_exists($dataFile)) {
-        return [];
-    }
-    $json = file_get_contents($dataFile);
-    $data = json_decode($json, true);
-    return is_array($data) ? $data : [];
-}
-
-// Fonction pour sauvegarder les données
-function saveDonnees($data) {
-    global $dataFile;
-    file_put_contents($dataFile, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-}
-
-$employes = getDonnees();
+$employes = lireJSON($dataFile);
 
 // Traitement des formulaires
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -58,81 +31,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ];
 
         $employes[] = $nouvelEmploye;
-        saveDonnees($employes);
-        $message = "<div class='alert alert-success alert-dismissible fade show' role='alert'>
-                        <strong>Succès !</strong> Collaborateur ajouté avec succès.
-                        <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-                    </div>";
+        sauvegarderJSON($dataFile, $employes);
+        $message = "<div class='alert alert-success alert-dismissible fade show'><strong>Succès !</strong> Collaborateur ajouté avec succès.<button type='button' class='btn-close' data-bs-dismiss='alert'></button></div>";
     } 
+    elseif ($action === 'edit') {
+        $id_edit = (int) $_POST['id'];
+        foreach ($employes as &$e) {
+            if ($e['id'] === $id_edit) {
+                $e['nom'] = $_POST['nom'];
+                $e['prenom'] = $_POST['prenom'];
+                $e['fonction'] = $_POST['fonction'];
+                $e['photo'] = $_POST['photo'];
+                $e['bio'] = $_POST['bio'];
+                break;
+            }
+        }
+        sauvegarderJSON($dataFile, $employes);
+        $message = "<div class='alert alert-success alert-dismissible fade show'><strong>Succès !</strong> Collaborateur modifié avec succès.<button type='button' class='btn-close' data-bs-dismiss='alert'></button></div>";
+    }
     elseif ($action === 'delete') {
         $id_suppr = (int) $_POST['id'];
         foreach ($employes as $k => $e) {
             if ($e['id'] === $id_suppr) {
                 unset($employes[$k]);
-                $employes = array_values($employes); // Réindexer correctement le tableau
-                saveDonnees($employes);
-                $message = "<div class='alert alert-success alert-dismissible fade show' role='alert'>
-                                <strong>Succès !</strong> Collaborateur supprimé avec succès.
-                                <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-                            </div>";
+                $employes = array_values($employes);
+                sauvegarderJSON($dataFile, $employes);
+                $message = "<div class='alert alert-success alert-dismissible fade show'><strong>Succès !</strong> Collaborateur supprimé avec succès.<button type='button' class='btn-close' data-bs-dismiss='alert'></button></div>";
                 break;
             }
         }
     }
 }
-?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion Employés — Intranet TechRevive</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="style_intranet.css" rel="stylesheet">
-    <style>
-        .photo-thumbnail { 
-            width: 42px; 
-            height: 42px; 
-            object-fit: cover; 
-            border-radius: 50%; 
-        }
-    </style>
-</head>
-<body>
 
-<nav class="navbar navbar-expand-lg navbar-dark">
-  <div class="container">
-    <a class="navbar-brand" href="accueil_intranet.php">
-      <img src="logo.png" alt="Logo">
-      TechRevive Intranet
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item"><a class="nav-link" href="accueil_intranet.php">Accueil</a></li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Annuaires</a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="intranet_annuaire-employes.php">Employés</a></li>
-                <li><a class="dropdown-item" href="intranet_annuaire-partenaires.php">Partenaires</a></li>
-                <li><a class="dropdown-item" href="intranet_annuaire-clients.php">Clients</a></li>
-            </ul>
-        </li>
-        <li class="nav-item"><a class="nav-link" href="intranet_fichiers.php">Fichiers partagés</a></li>
-        <?php if (in_array('admin', $groupes) || in_array('direction', $groupes)): ?>
-        <li class="nav-item"><a class="nav-link" href="intranet_gestion-utilisateurs.php">Gestion Utilisateurs</a></li>
-        <?php endif; ?>
-        <?php if (in_array('admin', $groupes) || in_array('direction', $groupes) || in_array('managers', $groupes)): ?>
-        <li class="nav-item"><a class="nav-link active" href="intranet_gestion-employes.php">Gestion Employés</a></li>
-        <?php endif; ?>
-      </ul>
-      <span class="navbar-text me-3"><?= htmlspecialchars($_SESSION['prenom'] . ' ' . $_SESSION['nom']) ?></span>
-      <a href="intranet_logout.php" class="btn btn-outline-danger btn-sm">Déconnexion</a>
-    </div>
-  </div>
-</nav>
+$page_title = 'Gestion Employés — Intranet TechRevive';
+$active_page = 'gestion_employes';
+require_once 'intranet_header.php';
+?>
 
 <div class="container mt-4 fade-in-up">
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -157,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <th class="py-3">Nom & Prénom</th>
                             <th class="py-3">Fonction</th>
                             <th class="py-3">Biographie</th>
-                            <th class="text-end pe-4 py-3" style="width: 120px;">Actions</th>
+                            <th class="text-end pe-4 py-3" style="width: 180px;">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -177,6 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <td><span class="badge" style="background: rgba(45,106,46,0.1); color:#2D6A2E; font-weight:600;"><?= htmlspecialchars($e['fonction'] ?? '') ?></span></td>
                             <td class="text-muted small text-truncate" style="max-width: 300px;" title="<?= htmlspecialchars($e['bio'] ?? '') ?>"><?= htmlspecialchars($e['bio'] ?? '') ?></td>
                             <td class="text-end pe-4">
+                                <button class="btn btn-outline-secondary btn-sm rounded-pill px-3 me-1" data-bs-toggle="modal" data-bs-target="#modalEditEmploye<?= $e['id'] ?>">Éditer</button>
                                 <form method="POST" style="display:inline;" onsubmit="return confirm('Voulez-vous vraiment supprimer ce collaborateur ?');">
                                     <input type="hidden" name="action" value="delete">
                                     <input type="hidden" name="id" value="<?= htmlspecialchars($e['id'] ?? '') ?>">
@@ -184,6 +119,51 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 </form>
                             </td>
                         </tr>
+
+                        <!-- Modal Edition Employé -->
+                        <div class="modal fade" id="modalEditEmploye<?= $e['id'] ?>" tabindex="-1" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content border-0 shadow-lg" style="border-radius:14px;">
+                              <div class="modal-header border-0 pb-0" style="background:#f8f9fa; border-radius:14px 14px 0 0;">
+                                <h5 class="modal-title fw-bold" style="color:#1B2A4A;">Modifier le Collaborateur</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body p-4 text-start">
+                                <form action="" method="POST">
+                                    <input type="hidden" name="action" value="edit">
+                                    <input type="hidden" name="id" value="<?= $e['id'] ?>">
+                                    <div class="row g-3 mb-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label text-muted fw-semibold small">Prénom</label>
+                                            <input type="text" name="prenom" class="form-control" value="<?= htmlspecialchars($e['prenom'] ?? '') ?>" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label text-muted fw-semibold small">Nom</label>
+                                            <input type="text" name="nom" class="form-control" value="<?= htmlspecialchars($e['nom'] ?? '') ?>" required>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label text-muted fw-semibold small">Fonction</label>
+                                        <input type="text" name="fonction" class="form-control" value="<?= htmlspecialchars($e['fonction'] ?? '') ?>" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label text-muted fw-semibold small">Fichier photo (ex: jean.jpg)</label>
+                                        <input type="text" name="photo" class="form-control" value="<?= htmlspecialchars($e['photo'] ?? '') ?>">
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="form-label text-muted fw-semibold small">Biographie / Description</label>
+                                        <textarea name="bio" class="form-control" rows="3"><?= htmlspecialchars($e['bio'] ?? '') ?></textarea>
+                                    </div>
+                                    <div class="d-flex gap-2">
+                                        <button type="button" class="btn btn-light w-50" data-bs-dismiss="modal">Annuler</button>
+                                        <button type="submit" class="btn btn-primary w-50 shadow-sm">Enregistrer</button>
+                                    </div>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
                         <?php endforeach; ?>
                         <?php if (count($employes) === 0): ?>
                         <tr><td colspan="6" class="text-center py-5 text-muted">Aucun collaborateur inscrit dans l'annuaire.</td></tr>
@@ -239,12 +219,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </div>
 </div>
 
-<footer class="footer-intranet text-center mt-auto">
-  <div class="container">
-    <p class="mb-0">&copy; <?= date('Y') ?> TechRevive Solutions — Intranet. Tous droits réservés.</p>
-  </div>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<?php require_once 'intranet_footer.php'; ?>

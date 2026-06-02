@@ -1,108 +1,63 @@
 <?php
-session_start();
-if (!isset($_SESSION['login'])) {
-    header('Location: intranet_login.php');
-    exit();
-}
-$groupes = $_SESSION['groupes'] ?? [];
+require_once 'intranet_fonctions.php';
+verifierConnexion();
 
-// Chargement du JSON des employés
-$jsonData = file_get_contents("intranet_data-employes.json");
-$employes = json_decode($jsonData, true);
+$employes = lireJSON("intranet_data-employes.json");
+
+$page_title = 'Annuaire Employés — Intranet TechRevive';
+$active_page = 'annuaire_employes';
+require_once 'intranet_header.php';
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Annuaire Employés — Intranet TechRevive</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="style_intranet.css" rel="stylesheet">
-    <style>
-        .employee-card {
-            border: 1px solid #e9ecef;
-            border-radius: 12px;
-            overflow: hidden;
-            transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
-            background: #fff;
-        }
-        .employee-card:hover {
-            box-shadow: 0 8px 28px rgba(27,42,74,0.12);
-            transform: translateY(-4px);
-        }
-        .employee-card .card-header-bar {
-            height: 6px;
-            background: linear-gradient(90deg, #1B2A4A, #2D6A2E);
-        }
-        .employee-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #1B2A4A, #2D6A2E);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin: 0 auto;
-        }
-        img.employee-avatar {
-            object-fit: cover;
-        }
-    </style>
-    <script>
-        function searchEmployee() {
-            let input = document.getElementById("search").value.toLowerCase();
-            let cards = document.querySelectorAll(".employee-col");
-            cards.forEach(card => {
-                let text = card.innerText.toLowerCase();
-                card.style.display = text.includes(input) ? "" : "none";
-            });
-        }
-    </script>
-</head>
-<body>
 
-<nav class="navbar navbar-expand-lg navbar-dark">
-  <div class="container">
-    <a class="navbar-brand" href="accueil_intranet.php">
-      <img src="logo.png" alt="Logo">
-      TechRevive Intranet
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item"><a class="nav-link" href="accueil_intranet.php">Accueil</a></li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">Annuaires</a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item active" href="intranet_annuaire-employes.php">Employés</a></li>
-                <li><a class="dropdown-item" href="intranet_annuaire-partenaires.php">Partenaires</a></li>
-                <li><a class="dropdown-item" href="intranet_annuaire-clients.php">Clients</a></li>
-            </ul>
-        </li>
-        <li class="nav-item"><a class="nav-link" href="intranet_fichiers.php">Fichiers partagés</a></li>
-        <?php if (in_array('admin', $groupes) || in_array('direction', $groupes)): ?>
-        <li class="nav-item"><a class="nav-link" href="intranet_gestion-utilisateurs.php">Gestion Utilisateurs</a></li>
-        <?php endif; ?>
-        <?php if (in_array('admin', $groupes) || in_array('direction', $groupes) || in_array('managers', $groupes)): ?>
-        <li class="nav-item"><a class="nav-link" href="intranet_gestion-employes.php">Gestion Employés</a></li>
-        <?php endif; ?>
-      </ul>
-      <span class="navbar-text me-3"><?= htmlspecialchars($_SESSION['prenom'] . ' ' . $_SESSION['nom']) ?></span>
-      <a href="intranet_logout.php" class="btn btn-outline-danger btn-sm">Déconnexion</a>
-    </div>
-  </div>
-</nav>
+<style>
+    .employee-card {
+        border: 1px solid #e9ecef;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+        background: #fff;
+    }
+    .employee-card:hover {
+        box-shadow: 0 8px 28px rgba(27,42,74,0.12);
+        transform: translateY(-4px);
+    }
+    .employee-card .card-header-bar {
+        height: 6px;
+        background: linear-gradient(90deg, #1B2A4A, #2D6A2E);
+    }
+    .employee-avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #1B2A4A, #2D6A2E);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin: 0 auto;
+    }
+    img.employee-avatar {
+        object-fit: cover;
+    }
+</style>
+<script>
+    function searchEmployee() {
+        let input = document.getElementById("search").value.toLowerCase();
+        let cards = document.querySelectorAll(".employee-col");
+        cards.forEach(card => {
+            let text = card.innerText.toLowerCase();
+            card.style.display = text.includes(input) ? "" : "none";
+        });
+    }
+</script>
 
 <div class="container mt-4 fade-in-up">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div class="d-flex align-items-center gap-3">
             <h2 class="fw-bold mb-0" style="color:#1B2A4A;">Annuaire des Employés</h2>
-            <?php if (in_array('admin', $groupes) || in_array('direction', $groupes) || in_array('managers', $groupes)): ?>
+            <?php if (in_array('admin', $groupes_user) || in_array('direction', $groupes_user) || in_array('managers', $groupes_user)): ?>
                 <a href="intranet_gestion-employes.php" class="btn btn-outline-primary btn-sm">⚙️ Gérer</a>
             <?php endif; ?>
         </div>
@@ -136,12 +91,4 @@ $employes = json_decode($jsonData, true);
     </div>
 </div>
 
-<footer class="footer-intranet text-center mt-auto">
-  <div class="container">
-    <p class="mb-0">&copy; <?= date('Y') ?> TechRevive Solutions — Intranet. Tous droits réservés.</p>
-  </div>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<?php require_once 'intranet_footer.php'; ?>

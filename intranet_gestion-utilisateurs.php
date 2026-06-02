@@ -1,39 +1,18 @@
 <?php
-session_start();
-
-if (!isset($_SESSION['login'])) {
-    header('Location: intranet_login.php');
-    exit();
-}
+require_once 'intranet_fonctions.php';
+verifierConnexion();
 
 $groupes_user = $_SESSION['groupes'] ?? [];
-if (!in_array('admin', $groupes_user) && !in_array('direction', $groupes_user)) {
-    echo "<h1>Accès refusé. Vous n'avez pas les droits nécessaires.</h1>";
-    echo "<a href='accueil_intranet.php'>Retour à l'accueil</a>";
-    exit();
-}
+verifierDroits(['admin', 'direction']);
 
 $dataFile = 'intranet_data_utilisateurs.json';
 $message = "";
 
-// Fonction pour lire les données
-function getDonnees() {
-    global $dataFile;
-    if (!file_exists($dataFile)) {
-        return ['utilisateurs' => []];
-    }
-    $json = file_get_contents($dataFile);
-    $data = json_decode($json, true);
-    return $data ?? ['utilisateurs' => []];
+$data = lireJSON($dataFile);
+// Handle missing 'utilisateurs' key
+if (!isset($data['utilisateurs'])) {
+    $data['utilisateurs'] = [];
 }
-
-// Fonction pour sauvegarder les données
-function saveDonnees($data) {
-    global $dataFile;
-    file_put_contents($dataFile, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-}
-
-$data = getDonnees();
 $utilisateurs = &$data['utilisateurs'];
 
 // Traitement des formulaires
@@ -64,9 +43,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ];
 
         $utilisateurs[] = $nouvelUtilisateur;
-        saveDonnees($data);
+        sauvegarderJSON($dataFile, $data);
         $message = "<div class='alert alert-success'>Utilisateur ajouté avec succès.</div>";
     } 
+    elseif ($action === 'edit') {
+        $id_edit = (int) $_POST['id'];
+        foreach ($utilisateurs as &$u) {
+            if ($u['id'] === $id_edit) {
+                $u['nom'] = $_POST['nom'];
+                $u['prenom'] = $_POST['prenom'];
+                $u['login'] = $_POST['login'];
+                $u['profil'] = $_POST['profil'];
+                
+                if (!empty($_POST['mot_de_passe'])) {
+                    $u['mot_de_passe'] = password_hash($_POST['mot_de_passe'], PASSWORD_DEFAULT);
+                }
+
+                $groupes = $_POST['groupes'] ?? [];
+                if (!is_array($groupes)) { $groupes = [$groupes]; }
+                $u['groupes'] = $groupes;
+                break;
+            }
+        }
+        sauvegarderJSON($dataFile, $data);
+        $message = "<div class='alert alert-success'>Utilisateur modifié avec succès.</div>";
+    }
     elseif ($action === 'delete') {
         $id_suppr = (int) $_POST['id'];
         foreach ($utilisateurs as $k => $u) {
@@ -76,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 } else {
                     unset($utilisateurs[$k]);
                     $utilisateurs = array_values($utilisateurs);
-                    saveDonnees($data);
+                    sauvegarderJSON($dataFile, $data);
                     $message = "<div class='alert alert-success'>Utilisateur supprimé avec succès.</div>";
                 }
                 break;
@@ -84,51 +85,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
-?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion Utilisateurs — Intranet TechRevive</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="style_intranet.css" rel="stylesheet">
-</head>
-<body>
 
-<nav class="navbar navbar-expand-lg navbar-dark">
-  <div class="container">
-    <a class="navbar-brand" href="accueil_intranet.php">
-      <img src="logo.png" alt="Logo">
-      TechRevive Intranet
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item"><a class="nav-link" href="accueil_intranet.php">Accueil</a></li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Annuaires</a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="intranet_annuaire-employes.php">Employés</a></li>
-                <li><a class="dropdown-item" href="intranet_annuaire-partenaires.php">Partenaires</a></li>
-                <li><a class="dropdown-item" href="intranet_annuaire-clients.php">Clients</a></li>
-            </ul>
-        </li>
-        <li class="nav-item"><a class="nav-link" href="intranet_fichiers.php">Fichiers partagés</a></li>
-        <?php if (in_array('admin', $groupes_user) || in_array('direction', $groupes_user)): ?>
-        <li class="nav-item"><a class="nav-link active" href="intranet_gestion-utilisateurs.php">Gestion Utilisateurs</a></li>
-        <?php endif; ?>
-        <?php if (in_array('admin', $groupes_user) || in_array('direction', $groupes_user) || in_array('managers', $groupes_user)): ?>
-        <li class="nav-item"><a class="nav-link" href="intranet_gestion-employes.php">Gestion Employés</a></li>
-        <?php endif; ?>
-      </ul>
-      <span class="navbar-text me-3"><?= htmlspecialchars($_SESSION['prenom'] . ' ' . $_SESSION['nom']) ?></span>
-      <a href="intranet_logout.php" class="btn btn-outline-danger btn-sm">Déconnexion</a>
-    </div>
-  </div>
-</nav>
+$page_title = 'Gestion Utilisateurs — Intranet TechRevive';
+$active_page = 'gestion_utilisateurs';
+require_once 'intranet_header.php';
+?>
 
 <div class="container mt-4 fade-in-up">
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -168,6 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <?php endforeach; ?>
                             </td>
                             <td class="text-end pe-3">
+                                <button class="btn btn-outline-secondary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#modalEditUser<?= $u['id'] ?>">Éditer</button>
                                 <form method="POST" style="display:inline;" onsubmit="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?');">
                                     <input type="hidden" name="action" value="delete">
                                     <input type="hidden" name="id" value="<?= $u['id'] ?>">
@@ -175,6 +137,57 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 </form>
                             </td>
                         </tr>
+
+                        <!-- Modal Édition Utilisateur -->
+                        <div class="modal fade" id="modalEditUser<?= $u['id'] ?>" tabindex="-1">
+                          <div class="modal-dialog">
+                            <div class="modal-content text-start">
+                              <div class="modal-header">
+                                <h5 class="modal-title fw-bold">Modifier l'utilisateur</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                              </div>
+                              <div class="modal-body">
+                                <form action="" method="POST">
+                                    <input type="hidden" name="action" value="edit">
+                                    <input type="hidden" name="id" value="<?= $u['id'] ?>">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-2">
+                                            <label class="form-label fw-semibold" style="font-size:0.88rem;">Nom</label>
+                                            <input type="text" name="nom" class="form-control" value="<?= htmlspecialchars($u['nom']) ?>" required>
+                                        </div>
+                                        <div class="col-md-6 mb-2">
+                                            <label class="form-label fw-semibold" style="font-size:0.88rem;">Prénom</label>
+                                            <input type="text" name="prenom" class="form-control" value="<?= htmlspecialchars($u['prenom']) ?>" required>
+                                        </div>
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="form-label fw-semibold" style="font-size:0.88rem;">Identifiant (login)</label>
+                                        <input type="text" name="login" class="form-control" value="<?= htmlspecialchars($u['login']) ?>" required>
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="form-label fw-semibold" style="font-size:0.88rem;">Mot de passe (laisser vide pour ne pas modifier)</label>
+                                        <input type="password" name="mot_de_passe" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label fw-semibold" style="font-size:0.88rem;">Profil / Fonction</label>
+                                        <input type="text" name="profil" class="form-control" value="<?= htmlspecialchars($u['profil']) ?>" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="form-label d-block fw-semibold" style="font-size:0.88rem;">Groupes d'accès</label>
+                                        <?php $all_roles = ['admin', 'direction', 'managers', 'salariés', 'perso']; ?>
+                                        <?php foreach ($all_roles as $r): ?>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" name="groupes[]" value="<?= $r ?>" <?= in_array($r, $u['groupes']) ? 'checked' : '' ?>>
+                                                <label class="form-check-label"><?= ucfirst($r) ?></label>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100">Enregistrer</button>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                         <?php endforeach; ?>
                         <?php if (count($utilisateurs) === 0): ?>
                         <tr><td colspan="6" class="text-center py-4 text-muted">Aucun utilisateur trouvé.</td></tr>
@@ -249,12 +262,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </div>
 </div>
 
-<footer class="footer-intranet text-center mt-auto">
-  <div class="container">
-    <p class="mb-0">&copy; <?= date('Y') ?> TechRevive Solutions — Intranet. Tous droits réservés.</p>
-  </div>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<?php require_once 'intranet_footer.php'; ?>
