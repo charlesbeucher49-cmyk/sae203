@@ -49,6 +49,9 @@ $groupes = $_SESSION['groupes'] ?? [];
         <?php if (in_array('admin', $groupes) || in_array('direction', $groupes)): ?>
         <li class="nav-item"><a class="nav-link" href="intranet_gestion-utilisateurs.php">Gestion Utilisateurs</a></li>
         <?php endif; ?>
+        <?php if (in_array('admin', $groupes) || in_array('direction', $groupes) || in_array('managers', $groupes)): ?>
+        <li class="nav-item"><a class="nav-link" href="intranet_gestion-employes.php">Gestion Employés</a></li>
+        <?php endif; ?>
       </ul>
       
       <span class="navbar-text me-3">
@@ -110,7 +113,7 @@ $groupes = $_SESSION['groupes'] ?? [];
             </div>
         </div>
         
-        <?php if (in_array('admin', $groupes)): ?>
+        <?php if (in_array('admin', $groupes) || in_array('direction', $groupes) || in_array('managers', $groupes)): ?>
         <div class="col-md-4">
             <div class="card dash-card h-100" style="border-left-color:#e8a838;">
                 <div class="card-body">
@@ -120,8 +123,13 @@ $groupes = $_SESSION['groupes'] ?? [];
                         </div>
                         <h5 class="card-title mb-0">Administration</h5>
                     </div>
-                    <p class="card-text">Gérez les comptes utilisateurs, leurs groupes et les permissions.</p>
-                    <a href="intranet_gestion-utilisateurs.php" class="btn btn-warning btn-sm">Gérer</a>
+                    <p class="card-text">Gérez les comptes, les habilitations et l'annuaire des employés.</p>
+                    <div class="d-flex gap-2">
+                        <?php if (in_array('admin', $groupes) || in_array('direction', $groupes)): ?>
+                            <a href="intranet_gestion-utilisateurs.php" class="btn btn-warning btn-sm text-dark fw-bold">Utilisateurs</a>
+                        <?php endif; ?>
+                        <a href="intranet_gestion-employes.php" class="btn btn-outline-warning btn-sm text-warning fw-bold">Employés</a>
+                    </div>
                 </div>
             </div>
         </div>

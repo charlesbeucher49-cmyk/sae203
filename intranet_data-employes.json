@@ -1,42 +1,42 @@
 [
   {
     "id": 1,
-    "nom": "Dupont",
-    "prenom": "Jean",
+    "nom": "Hamada",
+    "prenom": "Adam",
     "fonction": "Développeur Web",
-    "photo": "jean.jpg",
+    "photo": "adam.png",
     "bio": "Développeur PHP spécialisé backend."
   },
   {
     "id": 2,
-    "nom": "Martin",
-    "prenom": "Sophie",
+    "nom": "Marot",
+    "prenom": "Albéric",
     "fonction": "Manager",
-    "photo": "sophie.jpg",
+    "photo": "alberic.PNG",
     "bio": "Responsable de l’équipe technique."
   },
   {
     "id": 3,
-    "nom": "Bernard",
-    "prenom": "Lucas",
+    "nom": "Beucher",
+    "prenom": "Charles",
     "fonction": "Technicien Réseau",
-    "photo": "lucas.jpg",
+    "photo": "charles.JPG",
     "bio": "Maintenance des équipements réseau."
   },
   {
     "id": 4,
-    "nom": "Petit",
-    "prenom": "Emma",
+    "nom": "Som",
+    "prenom": "Jordan",
     "fonction": "Développeuse Front-End",
-    "photo": "emma.jpg",
+    "photo": "jordan.PNG",
     "bio": "Création des interfaces utilisateurs."
   },
   {
     "id": 5,
-    "nom": "Robert",
-    "prenom": "Nathan",
+    "nom": "Lemaire",
+    "prenom": "Erwan",
     "fonction": "Administrateur Système",
-    "photo": "nathan.jpg",
+    "photo": "erwan.PNG",
     "bio": "Gestion des serveurs Linux."
   },
   {
@@ -44,7 +44,7 @@
     "nom": "Richard",
     "prenom": "Chloé",
     "fonction": "UX Designer",
-    "photo": "chloe.jpg",
+    "photo": "girl-1011915_1280.jpg",
     "bio": "Conception des expériences utilisateurs."
   },
   {
@@ -52,7 +52,7 @@
     "nom": "Durand",
     "prenom": "Hugo",
     "fonction": "Chef de Projet",
-    "photo": "hugo.jpg",
+    "photo": "man-388104_960_720.jpg",
     "bio": "Gestion et organisation des projets."
   },
   {
@@ -60,7 +60,7 @@
     "nom": "Moreau",
     "prenom": "Lina",
     "fonction": "Développeuse Mobile",
-    "photo": "lina.jpg",
+    "photo": "gettyimages-1485072075-170667a.jpg",
     "bio": "Développement des applications mobiles."
   },
   {
@@ -68,7 +68,7 @@
     "nom": "Simon",
     "prenom": "Enzo",
     "fonction": "Cybersécurité",
-    "photo": "enzo.jpg",
+    "photo": "mcit.jpg",
     "bio": "Protection des données et sécurité."
   },
   {
@@ -76,7 +76,7 @@
     "nom": "Laurent",
     "prenom": "Camille",
     "fonction": "Assistante RH",
-    "photo": "camille.jpg",
+    "photo": "OIP.webp",
     "bio": "Gestion des ressources humaines."
   },
   {
@@ -84,7 +84,7 @@
     "nom": "Lefebvre",
     "prenom": "Tom",
     "fonction": "Développeur Full Stack",
-    "photo": "tom.jpg",
+    "photo": "b42ffc0c56384e4c0dab4515d4fad7cd.jpg",
     "bio": "Développement front-end et back-end."
   },
   {

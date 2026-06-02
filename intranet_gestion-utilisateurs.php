@@ -117,7 +117,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </ul>
         </li>
         <li class="nav-item"><a class="nav-link" href="intranet_fichiers.php">Fichiers partagés</a></li>
+        <?php if (in_array('admin', $groupes_user) || in_array('direction', $groupes_user)): ?>
         <li class="nav-item"><a class="nav-link active" href="intranet_gestion-utilisateurs.php">Gestion Utilisateurs</a></li>
+        <?php endif; ?>
+        <?php if (in_array('admin', $groupes_user) || in_array('direction', $groupes_user) || in_array('managers', $groupes_user)): ?>
+        <li class="nav-item"><a class="nav-link" href="intranet_gestion-employes.php">Gestion Employés</a></li>
+        <?php endif; ?>
       </ul>
       <span class="navbar-text me-3"><?= htmlspecialchars($_SESSION['prenom'] . ' ' . $_SESSION['nom']) ?></span>
       <a href="intranet_logout.php" class="btn btn-outline-danger btn-sm">Déconnexion</a>

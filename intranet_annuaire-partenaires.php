@@ -59,6 +59,9 @@ $search = isset($_GET["search"]) ? strtolower(trim($_GET["search"])) : "";
         <?php if (in_array('admin', $groupes) || in_array('direction', $groupes)): ?>
         <li class="nav-item"><a class="nav-link" href="intranet_gestion-utilisateurs.php">Gestion Utilisateurs</a></li>
         <?php endif; ?>
+        <?php if (in_array('admin', $groupes) || in_array('direction', $groupes) || in_array('managers', $groupes)): ?>
+        <li class="nav-item"><a class="nav-link" href="intranet_gestion-employes.php">Gestion Employés</a></li>
+        <?php endif; ?>
       </ul>
       <span class="navbar-text me-3"><?= htmlspecialchars($_SESSION['prenom'] . ' ' . $_SESSION['nom']) ?></span>
       <a href="intranet_logout.php" class="btn btn-outline-danger btn-sm">Déconnexion</a>
