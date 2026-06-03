@@ -54,6 +54,7 @@ $active_page = $active_page ?? '';
         <?php endif; ?>
         <?php if (in_array('admin', $groupes_user) || in_array('direction', $groupes_user) || in_array('managers', $groupes_user)): ?>
         <li class="nav-item"><a class="nav-link <?= ($active_page === 'gestion_employes') ? 'active' : '' ?>" href="intranet_gestion-employes.php">Gestion Employés</a></li>
+        <li class="nav-item"><a class="nav-link <?= ($active_page === 'gestion_clients') ? 'active' : '' ?>" href="intranet_gestion-clients.php">Gestion Clients</a></li>
         <?php endif; ?>
       </ul>
       <span class="navbar-text me-3"><?= htmlspecialchars($prenom . ' ' . $nom) ?></span>

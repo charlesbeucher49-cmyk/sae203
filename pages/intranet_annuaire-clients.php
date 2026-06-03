@@ -25,7 +25,12 @@ require_once '../includes/intranet_header.php';
 
 <div class="container mt-4 fade-in-up">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold mb-0" style="color:#1B2A4A;">Annuaire Clients</h2>
+        <div class="d-flex align-items-center gap-3">
+            <h2 class="fw-bold mb-0" style="color:#1B2A4A;">Annuaire Clients</h2>
+            <?php if (in_array('admin', $_SESSION['groupes'] ?? []) || in_array('direction', $_SESSION['groupes'] ?? []) || in_array('managers', $_SESSION['groupes'] ?? [])): ?>
+                <a href="intranet_gestion-clients.php" class="btn btn-outline-primary btn-sm">⚙️ Gérer</a>
+            <?php endif; ?>
+        </div>
         <span class="badge" style="background:#1B2A4A;font-size:0.9rem;padding:6px 14px;"><?= count($clients) ?> clients</span>
     </div>
 
@@ -44,6 +49,7 @@ require_once '../includes/intranet_header.php';
                             <th>Contact</th>
                             <th>Adresse</th>
                             <th>Achat</th>
+                            <th class="text-end pe-3">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -66,6 +72,9 @@ require_once '../includes/intranet_header.php';
                                     <small class="text-muted">
                                         <?= htmlspecialchars($client["date_achat"]) ?> — <?= $client["prix"] ?> €
                                     </small>
+                                </td>
+                                <td class="text-end pe-3">
+                                    <a href="download_client.php?id=<?= $client['id'] ?>" class="btn btn-sm btn-outline-secondary" title="Télécharger la fiche">📄</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
