@@ -157,6 +157,7 @@ echo "<!DOCTYPE html>
 
     </table>
   </div>
+  //partie mdp
   <h3 class='mt-5'>Identifiants de test (mdp nécessaires)</h3>
   <div class='table-responsive'>
     <table class='table table-bordered table-hover'>
