@@ -26,7 +26,7 @@ $active_page = $active_page ?? '';
         }
     </style>
 </head>
-<body>
+<body class="bg-light d-flex flex-column min-vh-100">
 
 <nav class="navbar navbar-expand-lg navbar-dark">
   <div class="container">
