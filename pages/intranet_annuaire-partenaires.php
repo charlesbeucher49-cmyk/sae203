@@ -17,8 +17,18 @@ require_once '../includes/intranet_header.php';
 
 <div class="container mt-4 fade-in-up">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold mb-0" style="color:#1B2A4A;">Annuaire des Partenaires</h2>
-        <span class="badge" style="background:#2D6A2E;font-size:0.9rem;padding:6px 14px;"><?= count($fournisseurs) ?> partenaires</span>
+        <div class="d-flex align-items-center gap-3">
+            <h2 class="fw-bold mb-0" style="color:var(--bs-primary);">Annuaire des Partenaires</h2>
+            <span class="badge" style="background:var(--bs-success);font-size:0.9rem;padding:6px 14px;"><?= count($fournisseurs) ?> partenaires</span>
+        </div>
+        <?php
+        $groupes_user = $_SESSION['groupes'] ?? [];
+        if (in_array('admin', $groupes_user) || in_array('managers', $groupes_user) || in_array('direction', $groupes_user)): 
+        ?>
+            <a href="intranet_gestion-partenaires.php" class="btn btn-outline-primary fw-bold shadow-sm rounded-pill px-4">
+                ⚙️ Gérer
+            </a>
+        <?php endif; ?>
     </div>
 
     <!-- Barre de recherche -->
