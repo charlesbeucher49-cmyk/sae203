@@ -99,8 +99,8 @@ require_once '../includes/intranet_header.php';
                         <tr>
                             <td class="ps-4 fw-bold text-muted"><?= htmlspecialchars($e['id'] ?? '') ?></td>
                             <td>
-                                <?php if (!empty($e['photo']) && file_exists($e['photo'])): ?>
-                                    <img src="<?= htmlspecialchars($e['photo']) ?>" alt="Photo" class="photo-thumbnail">
+                                <?php if (!empty($e['photo']) && file_exists('../' . $e['photo'])): ?>
+                                    <img src="../<?= htmlspecialchars($e['photo']) ?>" alt="Photo" class="photo-thumbnail">
                                 <?php else: ?>
                                     <div class="photo-thumbnail text-white d-flex align-items-center justify-content-center fw-bold" style="background: linear-gradient(135deg, #1B2A4A, #2D6A2E); font-size: 0.85rem;">
                                         <?= strtoupper(mb_substr($e['prenom'] ?? '', 0, 1) . mb_substr($e['nom'] ?? '', 0, 1)) ?>
