@@ -27,17 +27,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $nouveauId = max($ids) + 1;
         }
 
+        $logoPath = '';
+        if (isset($_FILES['logo']) && $_FILES['logo']['error'] === UPLOAD_ERR_OK) {
+            $ext = pathinfo($_FILES['logo']['name'], PATHINFO_EXTENSION);
+            $filename = 'partenaire_' . $nouveauId . '_' . time() . '.' . $ext;
+            if (!is_dir('../images/partenaires')) {
+                mkdir('../images/partenaires', 0777, true);
+            }
+            if (move_uploaded_file($_FILES['logo']['tmp_name'], '../images/partenaires/' . $filename)) {
+                $logoPath = 'images/partenaires/' . $filename;
+            }
+        }
+
         $nouveau = [
             'id' => $nouveauId,
-            'nom' => $_POST['nom'],
-            'telephone' => $_POST['telephone'],
-            'email' => $_POST['email'],
-            'adresse' => $_POST['adresse'],
-            'ville' => $_POST['ville'],
-            'code_postal' => $_POST['code_postal'],
-            'pays' => $_POST['pays'],
-            'type_produits' => array_map('trim', explode(',', $_POST['type_produits'])),
-            'fiabilite' => $_POST['fiabilite']
+            'nom' => $_POST['nom'] ?? '',
+            'telephone' => $_POST['telephone'] ?? '',
+            'email' => $_POST['email'] ?? '',
+            'adresse' => $_POST['adresse'] ?? '',
+            'ville' => $_POST['ville'] ?? '',
+            'code_postal' => $_POST['code_postal'] ?? '',
+            'pays' => $_POST['pays'] ?? '',
+            'type_produits' => array_map('trim', explode(',', $_POST['type_produits'] ?? '')),
+            'fiabilite' => $_POST['fiabilite'] ?? '',
+            'description' => $_POST['description'] ?? '',
+            'logo' => $logoPath
         ];
 
         $partenaires[] = $nouveau;
@@ -55,15 +69,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         foreach ($partenaires as &$p) {
             if ($p['id'] === $id_edit) {
-                $p['nom'] = $_POST['nom'];
-                $p['telephone'] = $_POST['telephone'];
-                $p['email'] = $_POST['email'];
-                $p['adresse'] = $_POST['adresse'];
-                $p['ville'] = $_POST['ville'];
-                $p['code_postal'] = $_POST['code_postal'];
-                $p['pays'] = $_POST['pays'];
-                $p['type_produits'] = array_map('trim', explode(',', $_POST['type_produits']));
-                $p['fiabilite'] = $_POST['fiabilite'];
+                $p['nom'] = $_POST['nom'] ?? '';
+                $p['telephone'] = $_POST['telephone'] ?? '';
+                $p['email'] = $_POST['email'] ?? '';
+                $p['adresse'] = $_POST['adresse'] ?? '';
+                $p['ville'] = $_POST['ville'] ?? '';
+                $p['code_postal'] = $_POST['code_postal'] ?? '';
+                $p['pays'] = $_POST['pays'] ?? '';
+                $p['type_produits'] = array_map('trim', explode(',', $_POST['type_produits'] ?? ''));
+                $p['fiabilite'] = $_POST['fiabilite'] ?? '';
+                $p['description'] = $_POST['description'] ?? '';
+
+                if (isset($_FILES['logo']) && $_FILES['logo']['error'] === UPLOAD_ERR_OK) {
+                    $ext = pathinfo($_FILES['logo']['name'], PATHINFO_EXTENSION);
+                    $filename = 'partenaire_' . $p['id'] . '_' . time() . '.' . $ext;
+                    if (!is_dir('../images/partenaires')) {
+                        mkdir('../images/partenaires', 0777, true);
+                    }
+                    if (move_uploaded_file($_FILES['logo']['tmp_name'], '../images/partenaires/' . $filename)) {
+                        $p['logo'] = 'images/partenaires/' . $filename;
+                    }
+                }
                 break;
             }
         }
@@ -102,7 +128,7 @@ require_once '../includes/intranet_header.php';
 <div class="container mt-4 fade-in-up">
 
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold mb-0" style="color:#1B2A4A;">Gestion des Partenaires</h2>
+        <h2 class="fw-bold mb-0" style="color:var(--bs-primary);">Gestion des Partenaires</h2>
 
         <button class="btn btn-primary shadow-sm" data-bs-toggle="modal" data-bs-target="#modalAddPartenaire">
             <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="me-1">
@@ -120,9 +146,10 @@ require_once '../includes/intranet_header.php';
         <div class="card-body p-0">
             <div class="table-responsive">
                 <table class="table table-hover align-middle mb-0">
-                    <thead style="background-color:#1B2A4A; color:#fff;">
+                    <thead style="background-color:var(--bs-primary); color:#fff;">
                         <tr>
                             <th class="ps-4 py-3">ID</th>
+                            <th class="py-3">Logo</th>
                             <th class="py-3">Nom</th>
                             <th class="py-3">Contact</th>
                             <th class="py-3">Adresse</th>
@@ -137,7 +164,17 @@ require_once '../includes/intranet_header.php';
                         <tr>
                             <td class="ps-4 fw-bold text-muted"><?= $p['id'] ?></td>
 
-                            <td><strong><?= htmlspecialchars($p['nom']) ?></strong></td>
+                            <td>
+                                <?php if (!empty($p['logo'])): ?>
+                                    <img src="../<?= htmlspecialchars($p['logo']) ?>" alt="Logo" style="height:32px; width:auto; border-radius:4px;">
+                                <?php else: ?>
+                                    <span class="text-muted small">Aucun logo</span>
+                                <?php endif; ?>
+                            </td>
+
+                            <td>
+                                <strong><?= htmlspecialchars($p['nom']) ?></strong>
+                            </td>
 
                             <td>
                                 📞 <?= htmlspecialchars($p['telephone']) ?><br>
@@ -196,31 +233,37 @@ require_once '../includes/intranet_header.php';
 -------------------------------- -->
 <?php foreach ($partenaires as $p): ?>
 <div class="modal fade" id="modalEditPartenaire<?= $p['id'] ?>" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content border-0 shadow-lg" style="border-radius:14px;">
-      <div class="modal-header">
-        <h5 class="modal-title fw-bold">Modifier le Partenaire</h5>
+      <div class="modal-header border-0 pb-0" style="background:#f8f9fa; border-radius:14px 14px 0 0;">
+        <h5 class="modal-title fw-bold" style="color:var(--bs-primary);">Modifier le Partenaire</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
 
       <div class="modal-body p-4">
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
             <input type="hidden" name="action" value="edit">
             <input type="hidden" name="id" value="<?= $p['id'] ?>">
 
-            <div class="mb-3">
-                <label class="form-label small text-muted">Nom</label>
-                <input type="text" name="nom" class="form-control" value="<?= htmlspecialchars($p['nom']) ?>" required>
+            <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                    <label class="form-label small text-muted">Nom</label>
+                    <input type="text" name="nom" class="form-control" value="<?= htmlspecialchars($p['nom'] ?? '') ?>" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label small text-muted">Logo (optionnel)</label>
+                    <input type="file" name="logo" class="form-control" accept="image/*">
+                </div>
             </div>
 
             <div class="row g-3">
                 <div class="col-md-6">
                     <label class="form-label small text-muted">Téléphone</label>
-                    <input type="text" name="telephone" class="form-control" value="<?= htmlspecialchars($p['telephone']) ?>">
+                    <input type="text" name="telephone" class="form-control" value="<?= htmlspecialchars($p['telephone'] ?? '') ?>">
                 </div>
                 <div class="col-md-6">
                     <label class="form-label small text-muted">Email</label>
-                    <input type="email" name="email" class="form-control" value="<?= htmlspecialchars($p['email']) ?>">
+                    <input type="email" name="email" class="form-control" value="<?= htmlspecialchars($p['email'] ?? '') ?>">
                 </div>
             </div>
 
@@ -259,6 +302,11 @@ require_once '../includes/intranet_header.php';
                 </select>
             </div>
 
+            <div class="mt-3">
+                <label class="form-label small text-muted">Description (pour la vitrine)</label>
+                <textarea name="description" class="form-control" rows="3"><?= htmlspecialchars($p['description'] ?? '') ?></textarea>
+            </div>
+
             <div class="d-flex gap-2 mt-4">
                 <button type="button" class="btn btn-light w-50" data-bs-dismiss="modal">Annuler</button>
                 <button type="submit" class="btn btn-primary w-50 shadow-sm">Enregistrer</button>
@@ -275,20 +323,26 @@ require_once '../includes/intranet_header.php';
      MODAL AJOUT
 -------------------------------- -->
 <div class="modal fade" id="modalAddPartenaire" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content border-0 shadow-lg" style="border-radius:14px;">
-      <div class="modal-header">
-        <h5 class="modal-title fw-bold">Nouveau Partenaire</h5>
+      <div class="modal-header border-0 pb-0" style="background:#f8f9fa; border-radius:14px 14px 0 0;">
+        <h5 class="modal-title fw-bold" style="color:var(--bs-primary);">Nouveau Partenaire</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
 
       <div class="modal-body p-4">
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
             <input type="hidden" name="action" value="add">
 
-            <div class="mb-3">
-                <label class="form-label small text-muted">Nom</label>
-                <input type="text" name="nom" class="form-control" required>
+            <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                    <label class="form-label small text-muted">Nom</label>
+                    <input type="text" name="nom" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label small text-muted">Logo (optionnel)</label>
+                    <input type="file" name="logo" class="form-control" accept="image/*">
+                </div>
             </div>
 
             <div class="row g-3">
@@ -336,6 +390,11 @@ require_once '../includes/intranet_header.php';
                     <option value="B">B</option>
                     <option value="C">C</option>
                 </select>
+            </div>
+
+            <div class="mt-3">
+                <label class="form-label small text-muted">Description (pour la vitrine)</label>
+                <textarea name="description" class="form-control" rows="3"></textarea>
             </div>
 
             <div class="d-flex gap-2 mt-4">
