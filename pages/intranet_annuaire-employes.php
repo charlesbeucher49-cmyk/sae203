@@ -18,7 +18,7 @@ require_once '../includes/intranet_header.php';
         background: #fff;
     }
     .employee-card:hover {
-        box-shadow: 0 8px 28px rgba(27,42,74,0.12);
+        box-shadow: 0 8px 28px rgba(var(--bs-primary-rgb),0.12);
         transform: translateY(-4px);
     }
     .employee-card .card-header-bar {
@@ -56,7 +56,7 @@ require_once '../includes/intranet_header.php';
 <div class="container mt-4 fade-in-up">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div class="d-flex align-items-center gap-3">
-            <h2 class="fw-bold mb-0" style="color:#1B2A4A;">Annuaire des Employés</h2>
+            <h2 class="fw-bold mb-0" style="color:var(--bs-primary);">Annuaire des Employés</h2>
             <?php if (in_array('admin', $groupes_user) || in_array('direction', $groupes_user) || in_array('managers', $groupes_user)): ?>
                 <a href="intranet_gestion-employes.php" class="btn btn-outline-primary btn-sm">⚙️ Gérer</a>
             <?php endif; ?>
@@ -81,8 +81,8 @@ require_once '../includes/intranet_header.php';
                             <?= strtoupper(mb_substr($emp['prenom'], 0, 1) . mb_substr($emp['nom'], 0, 1)) ?>
                         </div>
                     <?php endif; ?>
-                    <h6 class="fw-bold mb-1" style="color:#1B2A4A;"><?= htmlspecialchars($emp['prenom'] . ' ' . $emp['nom']) ?></h6>
-                    <span class="badge mb-2" style="background:rgba(45,106,46,0.1);color:#2D6A2E;font-weight:600;"><?= htmlspecialchars($emp['fonction']) ?></span>
+                    <h6 class="fw-bold mb-1" style="color:var(--bs-primary);"><?= htmlspecialchars($emp['prenom'] . ' ' . $emp['nom']) ?></h6>
+                    <span class="badge mb-2" style="background:rgba(var(--bs-success-rgb),0.1);color:var(--bs-success);font-weight:600;"><?= htmlspecialchars($emp['fonction']) ?></span>
                     <p class="text-muted mt-2 mb-0" style="font-size:0.85rem;"><?= htmlspecialchars($emp['bio']) ?></p>
                 </div>
             </div>

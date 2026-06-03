@@ -70,7 +70,7 @@ require_once '../includes/intranet_header.php';
 
 <div class="container mt-4 fade-in-up">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold mb-0" style="color:#1B2A4A;">Gestion des Employés</h2>
+        <h2 class="fw-bold mb-0" style="color:var(--bs-primary);">Gestion des Employés</h2>
         <button class="btn btn-primary shadow-sm" data-bs-toggle="modal" data-bs-target="#modalAddEmploye">
             <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="me-1"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             Ajouter un collaborateur
@@ -84,7 +84,7 @@ require_once '../includes/intranet_header.php';
         <div class="card-body p-0">
             <div class="table-responsive">
                 <table class="table table-hover align-middle mb-0">
-                    <thead style="background-color:#1B2A4A; color:#fff;">
+                    <thead style="background-color:var(--bs-primary); color:#fff;">
                         <tr>
                             <th class="ps-4 py-3" style="width: 80px;">ID</th>
                             <th class="py-3" style="width: 80px;">Photo</th>
@@ -108,7 +108,7 @@ require_once '../includes/intranet_header.php';
                                 <?php endif; ?>
                             </td>
                             <td><strong><?= htmlspecialchars(($e['prenom'] ?? '') . ' ' . ($e['nom'] ?? '')) ?></strong></td>
-                            <td><span class="badge" style="background: rgba(45,106,46,0.1); color:#2D6A2E; font-weight:600;"><?= htmlspecialchars($e['fonction'] ?? '') ?></span></td>
+                            <td><span class="badge" style="background: rgba(var(--bs-success-rgb),0.1); color:var(--bs-success); font-weight:600;"><?= htmlspecialchars($e['fonction'] ?? '') ?></span></td>
                             <td class="text-muted small text-truncate" style="max-width: 300px;" title="<?= htmlspecialchars($e['bio'] ?? '') ?>"><?= htmlspecialchars($e['bio'] ?? '') ?></td>
                             <td class="text-end pe-4 text-nowrap">
                                 <button class="btn btn-outline-secondary btn-sm rounded-pill px-3 me-1" data-bs-toggle="modal" data-bs-target="#modalEditEmploye<?= $e['id'] ?>">Éditer</button>
@@ -137,7 +137,7 @@ require_once '../includes/intranet_header.php';
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content border-0 shadow-lg" style="border-radius:14px;">
       <div class="modal-header border-0 pb-0" style="background:#f8f9fa; border-radius:14px 14px 0 0;">
-        <h5 class="modal-title fw-bold" style="color:#1B2A4A;">Modifier le Collaborateur</h5>
+        <h5 class="modal-title fw-bold" style="color:var(--bs-primary);">Modifier le Collaborateur</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body p-4 text-start">
@@ -182,7 +182,7 @@ require_once '../includes/intranet_header.php';
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content border-0 shadow-lg" style="border-radius:14px;">
       <div class="modal-header border-0 pb-0" style="background:#f8f9fa; border-radius:14px 14px 0 0;">
-        <h5 class="modal-title fw-bold" style="color:#1B2A4A;">Nouveau Collaborateur</h5>
+        <h5 class="modal-title fw-bold" style="color:var(--bs-primary);">Nouveau Collaborateur</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body p-4">

@@ -93,7 +93,7 @@ require_once '../includes/intranet_header.php';
 
 <div class="container mt-4 fade-in-up">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold mb-0" style="color:#1B2A4A;">Gestion des Utilisateurs</h2>
+        <h2 class="fw-bold mb-0" style="color:var(--bs-primary);">Gestion des Utilisateurs</h2>
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAddUser">
             <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="margin-right:4px;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             Ajouter un utilisateur
@@ -121,7 +121,7 @@ require_once '../includes/intranet_header.php';
                         <tr>
                             <td class="ps-3 fw-bold"><?= $u['id'] ?></td>
                             <td><?= htmlspecialchars($u['nom'] . ' ' . $u['prenom']) ?></td>
-                            <td><code style="background:rgba(27,42,74,0.06);padding:2px 8px;border-radius:4px;color:#1B2A4A;"><?= htmlspecialchars($u['login']) ?></code></td>
+                            <td><code style="background:rgba(var(--bs-primary-rgb),0.06);padding:2px 8px;border-radius:4px;color:var(--bs-primary);"><?= htmlspecialchars($u['login']) ?></code></td>
                             <td><?= htmlspecialchars($u['profil']) ?></td>
                             <td>
                                 <?php foreach ($u['groupes'] as $grp): ?>

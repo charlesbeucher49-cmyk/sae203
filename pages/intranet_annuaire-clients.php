@@ -26,12 +26,12 @@ require_once '../includes/intranet_header.php';
 <div class="container mt-4 fade-in-up">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div class="d-flex align-items-center gap-3">
-            <h2 class="fw-bold mb-0" style="color:#1B2A4A;">Annuaire Clients</h2>
+            <h2 class="fw-bold mb-0" style="color:var(--bs-primary);">Annuaire Clients</h2>
             <?php if (in_array('admin', $_SESSION['groupes'] ?? []) || in_array('direction', $_SESSION['groupes'] ?? []) || in_array('managers', $_SESSION['groupes'] ?? [])): ?>
                 <a href="intranet_gestion-clients.php" class="btn btn-outline-primary btn-sm">⚙️ Gérer</a>
             <?php endif; ?>
         </div>
-        <span class="badge" style="background:#1B2A4A;font-size:0.9rem;padding:6px 14px;"><?= count($clients) ?> clients</span>
+        <span class="badge" style="background:var(--bs-primary);font-size:0.9rem;padding:6px 14px;"><?= count($clients) ?> clients</span>
     </div>
 
     <div class="d-flex justify-content-center mb-4">
