@@ -200,7 +200,7 @@ require_once '../includes/intranet_header.php';
                             </td>
 
                             <td class="text-end pe-4 text-nowrap">
-                                <button class="btn btn-outline-secondary btn-sm rounded-pill px-3 me-1"
+                                <button class="btn btn-outline-secondary btn-sm  px-3 me-1"
                                         data-bs-toggle="modal"
                                         data-bs-target="#modalEditPartenaire<?= $p['id'] ?>">
                                     Éditer

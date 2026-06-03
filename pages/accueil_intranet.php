@@ -57,7 +57,7 @@ require_once '../includes/intranet_header.php';
                         <h5 class="card-title text-primary fw-bold mb-0">Fichiers Partagés</h5>
                     </div>
                     <p class="card-text text-secondary" style="font-size: 0.9rem;">Téléversez ou téléchargez les documents (.txt, .csv) de l'entreprise.</p>
-                    <a href="intranet_fichiers.php" class="btn btn-success btn-sm">Accéder</a>
+                    <a href="intranet_fichiers.php" class="btn btn-primary btn-sm">Accéder</a>
                 </div>
             </div>
         </div>
@@ -75,9 +75,9 @@ require_once '../includes/intranet_header.php';
                     <p class="card-text text-secondary" style="font-size: 0.9rem;">Gérez les comptes, les habilitations et l'annuaire des employés.</p>
                     <div class="d-flex gap-2">
                         <?php if (in_array('admin', $groupes) || in_array('direction', $groupes)): ?>
-                            <a href="intranet_gestion-utilisateurs.php" class="btn btn-warning btn-sm text-dark fw-bold">Utilisateurs</a>
+                            <a href="intranet_gestion-utilisateurs.php" class="btn btn-primary btn-sm fw-bold">Utilisateurs</a>
                         <?php endif; ?>
-                        <a href="intranet_gestion-employes.php" class="btn btn-outline-warning btn-sm text-warning fw-bold">Employés</a>
+                        <a href="intranet_gestion-employes.php" class="btn btn-outline-primary btn-sm fw-bold">Employés</a>
                     </div>
                 </div>
             </div>

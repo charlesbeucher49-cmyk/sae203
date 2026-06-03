@@ -123,7 +123,7 @@ require_once '../includes/intranet_header.php';
                     <div class="card-body">
                         <form action="?folder=<?= urlencode($current_folder) ?>" method="POST" enctype="multipart/form-data" class="d-flex align-items-center gap-3">
                             <input class="form-control" type="file" name="fichier" accept=".txt,.csv" required>
-                            <button type="submit" class="btn btn-success text-nowrap">
+                            <button type="submit" class="btn btn-primary text-nowrap">
                                 <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="margin-right:4px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
                                 Uploader
                             </button>
@@ -154,7 +154,7 @@ require_once '../includes/intranet_header.php';
                                             <td class="ps-3">📄 <?= htmlspecialchars($file) ?></td>
                                             <td><?= $fsize ?></td>
                                             <td class="text-end pe-3">
-                                                <a href="?folder=<?= urlencode($current_folder) ?>&download=<?= urlencode($file) ?>" class="btn btn-sm btn-success">Télécharger</a>
+                                                <a href="?folder=<?= urlencode($current_folder) ?>&download=<?= urlencode($file) ?>" class="btn btn-sm btn-primary">Télécharger</a>
                                                 <form method="POST" action="?folder=<?= urlencode($current_folder) ?>" style="display:inline;" onsubmit="return confirm('Supprimer ce fichier ?');">
                                                     <input type="hidden" name="delete_file" value="<?= htmlspecialchars($file) ?>">
                                                     <button type="submit" class="btn btn-sm btn-danger">Supprimer</button>
