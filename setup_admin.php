@@ -1,5 +1,5 @@
 <?php
-$dataFile = 'intranet_data_utilisateurs.json';
+$dataFile = 'data/intranet_data_utilisateurs.json';
 if (file_exists($dataFile)) {
     $data = json_decode(file_get_contents($dataFile), true);
     

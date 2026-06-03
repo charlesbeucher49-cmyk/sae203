@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $identifiant_saisi = $_POST['identifiant'] ?? '';
   $motdepasse_saisi = $_POST['motdepasse'] ?? '';
 
-  $jsonData = file_get_contents('intranet_data_utilisateurs.json');
+  $jsonData = file_get_contents('../data/intranet_data_utilisateurs.json');
   $data = json_decode($jsonData, true);
   $utilisateurs = $data['utilisateurs'] ?? [];
 
@@ -39,14 +39,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta charset='utf-8'>
   <meta name='viewport' content='width=device-width, initial-scale=1'>
   <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css' rel='stylesheet'>
-  <link href='style_intranet.css' rel='stylesheet'>
+  <link href='../css/style_intranet.css' rel='stylesheet'>
 </head>
 <body class='d-flex flex-column min-vh-100' style='background:#f8f9fa;'>
 
 <header>
   <div class='login-hero p-5 mb-0'>
     <div class='container text-center'>
-      <img src='logo.png' alt='TechRevive Solutions' style='height:80px;margin-bottom:12px;'>
+      <img src='../images/logo.png' alt='TechRevive Solutions' style='height:80px;margin-bottom:12px;'>
       <h1 class='text-white fw-bold mb-1' style='font-size:1.7rem;'>TechRevive Solutions</h1>
       <p class='text-white-50 mb-0'>Portail Intranet — Espace réservé aux collaborateurs</p>
     </div>

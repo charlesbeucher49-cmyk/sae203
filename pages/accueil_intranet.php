@@ -1,5 +1,5 @@
 <?php
-require_once 'intranet_fonctions.php';
+require_once '../includes/intranet_fonctions.php';
 verifierConnexion();
 
 $prenom = $_SESSION['prenom'] ?? 'Utilisateur';
@@ -8,7 +8,7 @@ $groupes = $_SESSION['groupes'] ?? [];
 
 $page_title = 'Accueil — Intranet TechRevive';
 $active_page = 'accueil';
-require_once 'intranet_header.php';
+require_once '../includes/intranet_header.php';
 ?>
 
 <div class="container mt-4 fade-in-up">
@@ -16,7 +16,7 @@ require_once 'intranet_header.php';
     <div class="p-5 mb-4 rounded-3" style="background:linear-gradient(135deg,#1B2A4A 0%,#243556 100%);color:#fff;">
       <div class="container-fluid py-2">
         <div class="d-flex align-items-center mb-3">
-          <img src="logo.png" alt="Logo" style="height:50px;margin-right:16px;">
+          <img src="../images/logo.png" alt="Logo" style="height:50px;margin-right:16px;">
           <div>
             <h1 class="display-6 fw-bold mb-0">Bienvenue, <?= htmlspecialchars($prenom) ?></h1>
             <p class="mb-0" style="opacity:0.7;font-size:0.95rem;">Espace collaborateur — TechRevive Solutions</p>
@@ -86,4 +86,4 @@ require_once 'intranet_header.php';
     </div>
 </div>
 
-<?php require_once 'intranet_footer.php'; ?>
+<?php require_once '../includes/intranet_footer.php'; ?>

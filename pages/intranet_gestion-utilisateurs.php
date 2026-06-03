@@ -1,11 +1,11 @@
 <?php
-require_once 'intranet_fonctions.php';
+require_once '../includes/intranet_fonctions.php';
 verifierConnexion();
 
 $groupes_user = $_SESSION['groupes'] ?? [];
 verifierDroits(['admin', 'direction']);
 
-$dataFile = 'intranet_data_utilisateurs.json';
+$dataFile = '../data/intranet_data_utilisateurs.json';
 $message = "";
 
 $data = lireJSON($dataFile);
@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $page_title = 'Gestion Utilisateurs — Intranet TechRevive';
 $active_page = 'gestion_utilisateurs';
-require_once 'intranet_header.php';
+require_once '../includes/intranet_header.php';
 ?>
 
 <div class="container mt-4 fade-in-up">
@@ -265,4 +265,4 @@ require_once 'intranet_header.php';
   </div>
 </div>
 
-<?php require_once 'intranet_footer.php'; ?>
+<?php require_once '../includes/intranet_footer.php'; ?>

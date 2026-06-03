@@ -4,7 +4,7 @@
     "nom": "Hamada",
     "prenom": "Adam",
     "fonction": "Développeur Web",
-    "photo": "adam.png",
+    "photo": "images/adam.png",
     "bio": "Développeur PHP spécialisé backend."
   },
   {
@@ -12,7 +12,7 @@
     "nom": "Marot",
     "prenom": "Albéric",
     "fonction": "Manager",
-    "photo": "alberic.PNG",
+    "photo": "images/alberic.PNG",
     "bio": "Responsable de l'équipe technique."
   },
   {
@@ -20,7 +20,7 @@
     "nom": "Beucher",
     "prenom": "Charles",
     "fonction": "Technicien Réseau",
-    "photo": "charles.JPG",
+    "photo": "images/charles.JPG",
     "bio": "Maintenance des équipements réseau."
   },
   {
@@ -28,7 +28,7 @@
     "nom": "Som",
     "prenom": "Jordan",
     "fonction": "Développeuse Front-End",
-    "photo": "jordan.PNG",
+    "photo": "images/jordan.PNG",
     "bio": "Création des interfaces utilisateurs."
   },
   {
@@ -36,7 +36,7 @@
     "nom": "Lemaire",
     "prenom": "Erwan",
     "fonction": "Administrateur Système",
-    "photo": "erwan.PNG",
+    "photo": "images/erwan.PNG",
     "bio": "Gestion des serveurs Linux."
   },
   {
@@ -44,7 +44,7 @@
     "nom": "Richard",
     "prenom": "Chloé",
     "fonction": "UX Designer",
-    "photo": "chloe.jpg",
+    "photo": "images/chloe.jpg",
     "bio": "Conception des expériences utilisateurs."
   },
   {
@@ -52,7 +52,7 @@
     "nom": "Durand",
     "prenom": "Hugo",
     "fonction": "Chef de Projet",
-    "photo": "hugo.jpg",
+    "photo": "images/hugo.jpg",
     "bio": "Gestion et organisation des projets."
   },
   {
@@ -60,7 +60,7 @@
     "nom": "Moreau",
     "prenom": "Lina",
     "fonction": "Développeuse Mobile",
-    "photo": "lina.jpg",
+    "photo": "images/lina.jpg",
     "bio": "Développement des applications mobiles."
   },
   {
@@ -68,7 +68,7 @@
     "nom": "Simon",
     "prenom": "Enzo",
     "fonction": "Cybersécurité",
-    "photo": "enzo.jpg",
+    "photo": "images/enzo.jpg",
     "bio": "Protection des données et sécurité."
   },
   {
@@ -76,7 +76,7 @@
     "nom": "Laurent",
     "prenom": "Camille",
     "fonction": "Assistante RH",
-    "photo": "camille.jpg",
+    "photo": "images/camille.jpg",
     "bio": "Gestion des ressources humaines."
   },
   {
@@ -84,7 +84,7 @@
     "nom": "Lefebvre",
     "prenom": "Tom",
     "fonction": "Développeur Full Stack",
-    "photo": "tom.jpg",
+    "photo": "images/tom.jpg",
     "bio": "Développement front-end et back-end."
   },
   {
@@ -92,7 +92,7 @@
     "nom": "Michel",
     "prenom": "Sarah",
     "fonction": "Comptable",
-    "photo": "sarah.jpg",
+    "photo": "images/sarah.jpg",
     "bio": "Gestion financière de l'entreprise."
   },
   {
@@ -100,7 +100,7 @@
     "nom": "Garcia",
     "prenom": "Louis",
     "fonction": "Technicien Support",
-    "photo": "louis.jpg",
+    "photo": "images/louis.jpg",
     "bio": "Assistance technique aux salariés."
   },
   {
@@ -108,7 +108,7 @@
     "nom": "David",
     "prenom": "Julie",
     "fonction": "Chargée Communication",
-    "photo": "julie.jpg",
+    "photo": "images/julie.jpg",
     "bio": "Communication interne et externe."
   },
   {
@@ -116,7 +116,7 @@
     "nom": "Roux",
     "prenom": "Maxime",
     "fonction": "Ingénieur Cloud",
-    "photo": "maxime.jpg",
+    "photo": "images/maxime.jpg",
     "bio": "Déploiement des infrastructures cloud."
   }
 ]

@@ -1,12 +1,12 @@
 <?php
-require_once 'intranet_fonctions.php';
+require_once '../includes/intranet_fonctions.php';
 verifierConnexion();
 
-$clients = lireJSON("intranet_data-clients.json");
+$clients = lireJSON("../data/intranet_data-clients.json");
 
 $page_title = 'Annuaire Clients — Intranet TechRevive';
 $active_page = 'annuaire_clients';
-require_once 'intranet_header.php';
+require_once '../includes/intranet_header.php';
 ?>
 
 <style>
@@ -76,4 +76,4 @@ require_once 'intranet_header.php';
     </div>
 </div>
 
-<?php require_once 'intranet_footer.php'; ?>
+<?php require_once '../includes/intranet_footer.php'; ?>

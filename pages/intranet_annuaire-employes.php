@@ -1,12 +1,12 @@
 <?php
-require_once 'intranet_fonctions.php';
+require_once '../includes/intranet_fonctions.php';
 verifierConnexion();
 
-$employes = lireJSON("intranet_data-employes.json");
+$employes = lireJSON("../data/intranet_data-employes.json");
 
 $page_title = 'Annuaire Employés — Intranet TechRevive';
 $active_page = 'annuaire_employes';
-require_once 'intranet_header.php';
+require_once '../includes/intranet_header.php';
 ?>
 
 <style>
@@ -74,8 +74,8 @@ require_once 'intranet_header.php';
             <div class="employee-card h-100">
                 <div class="card-header-bar"></div>
                 <div class="p-4 text-center">
-                    <?php if (!empty($emp['photo']) && file_exists($emp['photo'])): ?>
-                        <img src="<?= htmlspecialchars($emp['photo']) ?>" alt="<?= htmlspecialchars($emp['prenom'] . ' ' . $emp['nom']) ?>" class="employee-avatar mb-3">
+                    <?php if (!empty($emp['photo']) && file_exists('../' . $emp['photo'])): ?>
+                        <img src="../<?= htmlspecialchars($emp['photo']) ?>" alt="<?= htmlspecialchars($emp['prenom'] . ' ' . $emp['nom']) ?>" class="employee-avatar mb-3">
                     <?php else: ?>
                         <div class="employee-avatar mb-3">
                             <?= strtoupper(mb_substr($emp['prenom'], 0, 1) . mb_substr($emp['nom'], 0, 1)) ?>
@@ -91,4 +91,4 @@ require_once 'intranet_header.php';
     </div>
 </div>
 
-<?php require_once 'intranet_footer.php'; ?>
+<?php require_once '../includes/intranet_footer.php'; ?>

@@ -16,7 +16,7 @@ $active_page = $active_page ?? '';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($page_title) ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="style_intranet.css" rel="stylesheet">
+    <link href="../css/style_intranet.css" rel="stylesheet">
     <style>
         .photo-thumbnail { 
             width: 42px; 
@@ -31,7 +31,7 @@ $active_page = $active_page ?? '';
 <nav class="navbar navbar-expand-lg navbar-dark">
   <div class="container">
     <a class="navbar-brand" href="accueil_intranet.php">
-      <img src="logo.png" alt="Logo">
+      <img src="../images/logo.png" alt="Logo">
       TechRevive Intranet
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">

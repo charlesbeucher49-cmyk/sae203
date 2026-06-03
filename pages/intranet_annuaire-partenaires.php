@@ -1,8 +1,8 @@
 <?php
-require_once 'intranet_fonctions.php';
+require_once '../includes/intranet_fonctions.php';
 verifierConnexion();
 
-$data = lireJSON("intranet_data-partenaires.json");
+$data = lireJSON("../data/intranet_data-partenaires.json");
 if (!$data || !isset($data["fournisseurs"])) {
     die("<div class='alert alert-danger m-4'>Erreur : Le fichier JSON est vide ou mal formaté.</div>");
 }
@@ -12,7 +12,7 @@ $search = isset($_GET["search"]) ? strtolower(trim($_GET["search"])) : "";
 
 $page_title = 'Annuaire Partenaires — Intranet TechRevive';
 $active_page = 'annuaire_partenaires';
-require_once 'intranet_header.php';
+require_once '../includes/intranet_header.php';
 ?>
 
 <div class="container mt-4 fade-in-up">
@@ -91,4 +91,4 @@ require_once 'intranet_header.php';
     </div>
 </div>
 
-<?php require_once 'intranet_footer.php'; ?>
+<?php require_once '../includes/intranet_footer.php'; ?>

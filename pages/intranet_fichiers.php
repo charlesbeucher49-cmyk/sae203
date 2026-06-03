@@ -1,5 +1,5 @@
 <?php
-require_once 'intranet_fonctions.php';
+require_once '../includes/intranet_fonctions.php';
 verifierConnexion();
 
 $groupes_user = $_SESSION['groupes'] ?? [];
@@ -86,7 +86,7 @@ if ($current_folder && is_dir($base_dir . $current_folder)) {
 
 $page_title = 'Fichiers Partagés — Intranet TechRevive';
 $active_page = 'fichiers';
-require_once 'intranet_header.php';
+require_once '../includes/intranet_header.php';
 ?>
 
 <div class="container mt-4 fade-in-up">
@@ -174,4 +174,4 @@ require_once 'intranet_header.php';
     </div>
 </div>
 
-<?php require_once 'intranet_footer.php'; ?>
+<?php require_once '../includes/intranet_footer.php'; ?>

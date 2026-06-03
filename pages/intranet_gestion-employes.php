@@ -1,11 +1,11 @@
 <?php
-require_once 'intranet_fonctions.php';
+require_once '../includes/intranet_fonctions.php';
 verifierConnexion();
 
 $groupes_user = $_SESSION['groupes'] ?? [];
 verifierDroits(['admin', 'direction', 'managers']);
 
-$dataFile = 'intranet_data-employes.json';
+$dataFile = '../data/intranet_data-employes.json';
 $message = "";
 
 $employes = lireJSON($dataFile);
@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $page_title = 'Gestion Employés — Intranet TechRevive';
 $active_page = 'gestion_employes';
-require_once 'intranet_header.php';
+require_once '../includes/intranet_header.php';
 ?>
 
 <div class="container mt-4 fade-in-up">
@@ -159,7 +159,7 @@ require_once 'intranet_header.php';
                 <input type="text" name="fonction" class="form-control" value="<?= htmlspecialchars($e['fonction'] ?? '') ?>" required>
             </div>
             <div class="mb-3">
-                <label class="form-label text-muted fw-semibold small">Fichier photo (ex: jean.jpg)</label>
+                <label class="form-label text-muted fw-semibold small">Fichier photo (ex: images/jean.jpg)</label>
                 <input type="text" name="photo" class="form-control" value="<?= htmlspecialchars($e['photo'] ?? '') ?>">
             </div>
             <div class="mb-4">
@@ -203,9 +203,9 @@ require_once 'intranet_header.php';
                 <input type="text" name="fonction" class="form-control" placeholder="ex: Développeur Web" required>
             </div>
             <div class="mb-3">
-                <label class="form-label text-muted fw-semibold small">Fichier photo (ex: jean.jpg)</label>
-                <input type="text" name="photo" class="form-control" placeholder="ex: jean.jpg">
-                <div class="form-text text-muted" style="font-size:0.75rem;">Le fichier doit être présent à la racine du projet.</div>
+                <label class="form-label text-muted fw-semibold small">Fichier photo (ex: images/jean.jpg)</label>
+                <input type="text" name="photo" class="form-control" placeholder="ex: images/jean.jpg">
+                <div class="form-text text-muted" style="font-size:0.75rem;">Le fichier doit être présent dans le dossier images/.</div>
             </div>
             <div class="mb-4">
                 <label class="form-label text-muted fw-semibold small">Biographie / Description</label>
@@ -221,4 +221,4 @@ require_once 'intranet_header.php';
   </div>
 </div>
 
-<?php require_once 'intranet_footer.php'; ?>
+<?php require_once '../includes/intranet_footer.php'; ?>
