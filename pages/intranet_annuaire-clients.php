@@ -1,0 +1,79 @@
+<?php
+require_once '../includes/intranet_fonctions.php';
+verifierConnexion();
+
+$clients = lireJSON("../data/intranet_data-clients.json");
+
+$page_title = 'Annuaire Clients — Intranet TechRevive';
+$active_page = 'annuaire_clients';
+require_once '../includes/intranet_header.php';
+?>
+
+<style>
+    .search-box { max-width: 400px; }
+</style>
+<script>
+    function searchClient() {
+        let input = document.getElementById("search").value.toLowerCase();
+        let rows = document.querySelectorAll("tbody tr");
+        rows.forEach(row => {
+            let text = row.innerText.toLowerCase();
+            row.style.display = text.includes(input) ? "" : "none";
+        });
+    }
+</script>
+
+<div class="container mt-4 fade-in-up">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold mb-0" style="color:#1B2A4A;">Annuaire Clients</h2>
+        <span class="badge" style="background:#1B2A4A;font-size:0.9rem;padding:6px 14px;"><?= count($clients) ?> clients</span>
+    </div>
+
+    <div class="d-flex justify-content-center mb-4">
+        <input type="text" id="search" class="form-control search-box" onkeyup="searchClient()" placeholder="🔍 Rechercher un client (nom, ville, produit...)">
+    </div>
+
+    <div class="card">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th class="ps-3">ID</th>
+                            <th>Client</th>
+                            <th>Contact</th>
+                            <th>Adresse</th>
+                            <th>Achat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($clients as $client): ?>
+                            <tr>
+                                <td class="ps-3 fw-bold"><?= $client["id"] ?></td>
+                                <td>
+                                    <strong><?= htmlspecialchars($client["prenom"] . " " . $client["nom"]) ?></strong>
+                                </td>
+                                <td>
+                                    <div style="font-size:0.88rem;">📧 <?= htmlspecialchars($client["email"]) ?></div>
+                                    <div style="font-size:0.88rem;">📞 <?= htmlspecialchars($client["telephone"]) ?></div>
+                                </td>
+                                <td>
+                                    <?= htmlspecialchars($client["adresse"]) ?><br>
+                                    <span class="text-muted"><?= htmlspecialchars($client["code_postal"] . " " . $client["ville"]) ?></span>
+                                </td>
+                                <td>
+                                    <strong><?= htmlspecialchars($client["produit"]) ?></strong><br>
+                                    <small class="text-muted">
+                                        <?= htmlspecialchars($client["date_achat"]) ?> — <?= $client["prix"] ?> €
+                                    </small>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php require_once '../includes/intranet_footer.php'; ?>
