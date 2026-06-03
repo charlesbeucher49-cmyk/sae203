@@ -134,7 +134,7 @@ require_once '../includes/intranet_header.php';
                 <div class="card">
                     <div class="card-body p-0">
                         <table class="table table-hover mb-0">
-                            <thead class="table-dark">
+                            <thead style="background-color:var(--bs-primary); color:#fff;">
                                 <tr>
                                     <th class="ps-3">Nom du fichier</th>
                                     <th>Taille</th>

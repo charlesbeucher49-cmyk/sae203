@@ -42,7 +42,7 @@ require_once '../includes/intranet_header.php';
         <div class="card-body p-0">
             <div class="table-responsive">
                 <table class="table table-hover align-middle mb-0">
-                    <thead class="table-dark">
+                    <thead style="background-color:var(--bs-primary); color:#fff;">
                         <tr>
                             <th class="ps-3">ID</th>
                             <th>Client</th>

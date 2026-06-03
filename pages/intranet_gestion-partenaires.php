@@ -209,7 +209,7 @@ require_once '../includes/intranet_header.php';
                                 <form method="POST" style="display:inline;" onsubmit="return confirm('Supprimer ce partenaire ?');">
                                     <input type="hidden" name="action" value="delete">
                                     <input type="hidden" name="id" value="<?= $p['id'] ?>">
-                                    <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill px-3">
+                                    <button type="submit" class="btn btn-outline-danger btn-sm px-3">
                                         Supprimer
                                     </button>
                                 </form>

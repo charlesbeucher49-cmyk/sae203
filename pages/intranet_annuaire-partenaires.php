@@ -25,7 +25,7 @@ require_once '../includes/intranet_header.php';
         $groupes_user = $_SESSION['groupes'] ?? [];
         if (in_array('admin', $groupes_user) || in_array('managers', $groupes_user) || in_array('direction', $groupes_user)): 
         ?>
-            <a href="intranet_gestion-partenaires.php" class="btn btn-outline-primary fw-bold shadow-sm rounded-pill px-4">
+            <a href="intranet_gestion-partenaires.php" class="btn btn-outline-primary fw-bold shadow-sm px-4">
                 ⚙️ Gérer
             </a>
         <?php endif; ?>
@@ -42,7 +42,7 @@ require_once '../includes/intranet_header.php';
         <div class="card-body p-0">
             <div class="table-responsive">
                 <table class="table table-hover align-middle mb-0">
-                    <thead class="table-dark">
+                    <thead style="background-color:var(--bs-primary); color:#fff;">
                         <tr>
                             <th class="ps-3" style="width:60px;">ID</th>
                             <th>Nom</th>

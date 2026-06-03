@@ -111,11 +111,11 @@ require_once '../includes/intranet_header.php';
                             <td><span class="badge" style="background: rgba(var(--bs-success-rgb),0.1); color:var(--bs-success); font-weight:600;"><?= htmlspecialchars($e['fonction'] ?? '') ?></span></td>
                             <td class="text-muted small text-truncate" style="max-width: 300px;" title="<?= htmlspecialchars($e['bio'] ?? '') ?>"><?= htmlspecialchars($e['bio'] ?? '') ?></td>
                             <td class="text-end pe-4 text-nowrap">
-                                <button class="btn btn-outline-secondary btn-sm rounded-pill px-3 me-1" data-bs-toggle="modal" data-bs-target="#modalEditEmploye<?= $e['id'] ?>">Éditer</button>
+                                <button class="btn btn-outline-secondary btn-sm px-3 me-1" data-bs-toggle="modal" data-bs-target="#modalEditEmploye<?= $e['id'] ?>">Éditer</button>
                                 <form method="POST" style="display:inline;" onsubmit="return confirm('Voulez-vous vraiment supprimer ce collaborateur ?');">
                                     <input type="hidden" name="action" value="delete">
                                     <input type="hidden" name="id" value="<?= htmlspecialchars($e['id'] ?? '') ?>">
-                                    <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill px-3">Supprimer</button>
+                                    <button type="submit" class="btn btn-outline-danger btn-sm px-3">Supprimer</button>
                                 </form>
                             </td>
                         </tr>
