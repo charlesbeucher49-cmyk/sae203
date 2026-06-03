@@ -1,14 +1,15 @@
 <?php
 session_start();
 
+require_once '../includes/intranet_fonctions.php';
+
 $message = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $identifiant_saisi = $_POST['identifiant'] ?? '';
   $motdepasse_saisi = $_POST['motdepasse'] ?? '';
 
-  $jsonData = file_get_contents('../data/intranet_data_utilisateurs.json');
-  $data = json_decode($jsonData, true);
+  $data = lireJSON('../data/intranet_data_utilisateurs.json');
   $utilisateurs = $data['utilisateurs'] ?? [];
 
   $trouve = false;
