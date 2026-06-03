@@ -42,20 +42,25 @@ $active_page = $active_page ?? '';
         <li class="nav-item"><a class="nav-link <?= ($active_page === 'accueil') ? 'active' : '' ?>" href="accueil_intranet.php">Accueil</a></li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle <?= (in_array($active_page, ['annuaire_employes', 'annuaire_partenaires', 'annuaire_clients'])) ? 'active' : '' ?>" href="#" role="button" data-bs-toggle="dropdown">Annuaires</a>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu shadow-sm">
                 <li><a class="dropdown-item <?= ($active_page === 'annuaire_employes') ? 'active' : '' ?>" href="intranet_annuaire-employes.php">Employés</a></li>
                 <li><a class="dropdown-item <?= ($active_page === 'annuaire_partenaires') ? 'active' : '' ?>" href="intranet_annuaire-partenaires.php">Partenaires</a></li>
                 <li><a class="dropdown-item <?= ($active_page === 'annuaire_clients') ? 'active' : '' ?>" href="intranet_annuaire-clients.php">Clients</a></li>
             </ul>
         </li>
         <li class="nav-item"><a class="nav-link <?= ($active_page === 'fichiers') ? 'active' : '' ?>" href="intranet_fichiers.php">Fichiers partagés</a></li>
-        <?php if (in_array('admin', $groupes_user) || in_array('direction', $groupes_user)): ?>
-        <li class="nav-item"><a class="nav-link <?= ($active_page === 'gestion_utilisateurs') ? 'active' : '' ?>" href="intranet_gestion-utilisateurs.php">Gestion Utilisateurs</a></li>
-        <?php endif; ?>
         <?php if (in_array('admin', $groupes_user) || in_array('direction', $groupes_user) || in_array('managers', $groupes_user)): ?>
-        <li class="nav-item"><a class="nav-link <?= ($active_page === 'gestion_employes') ? 'active' : '' ?>" href="intranet_gestion-employes.php">Gestion Employés</a></li>
-        <li class="nav-item"><a class="nav-link <?= ($active_page === 'gestion_clients') ? 'active' : '' ?>" href="intranet_gestion-clients.php">Gestion Clients</a></li>
-        <li class="nav-item"><a class="nav-link <?= ($active_page === 'gestion_partenaires') ? 'active' : '' ?>" href="intranet_gestion-partenaires.php">Gestion Partenaires</a></li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle <?= (in_array($active_page, ['gestion_utilisateurs', 'gestion_employes', 'gestion_clients', 'gestion_partenaires'])) ? 'active' : '' ?>" href="#" role="button" data-bs-toggle="dropdown">Administration</a>
+            <ul class="dropdown-menu shadow-sm">
+                <?php if (in_array('admin', $groupes_user) || in_array('direction', $groupes_user)): ?>
+                <li><a class="dropdown-item <?= ($active_page === 'gestion_utilisateurs') ? 'active' : '' ?>" href="intranet_gestion-utilisateurs.php">Utilisateurs</a></li>
+                <?php endif; ?>
+                <li><a class="dropdown-item <?= ($active_page === 'gestion_employes') ? 'active' : '' ?>" href="intranet_gestion-employes.php">Employés</a></li>
+                <li><a class="dropdown-item <?= ($active_page === 'gestion_clients') ? 'active' : '' ?>" href="intranet_gestion-clients.php">Clients</a></li>
+                <li><a class="dropdown-item <?= ($active_page === 'gestion_partenaires') ? 'active' : '' ?>" href="intranet_gestion-partenaires.php">Partenaires</a></li>
+            </ul>
+        </li>
         <?php endif; ?>
       </ul>
       <span class="navbar-text me-3"><?= htmlspecialchars($prenom . ' ' . $nom) ?></span>

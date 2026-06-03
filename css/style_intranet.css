@@ -118,3 +118,41 @@ body {
 .fade-in-up {
     animation: fadeInUp 0.5s ease-out;
 }
+
+/* ---- Buttons Customization ---- */
+.btn-primary {
+    background-color: var(--bs-primary) !important;
+    border-color: var(--bs-primary) !important;
+    color: #ffffff !important;
+}
+.btn-primary:hover {
+    background-color: var(--bs-success) !important;
+    border-color: var(--bs-success) !important;
+}
+
+.btn-outline-primary {
+    color: var(--bs-primary) !important;
+    border-color: var(--bs-primary) !important;
+}
+.btn-outline-primary:hover {
+    background-color: var(--bs-primary) !important;
+    color: #ffffff !important;
+}
+
+/* ---- Dropdown menus improvement ---- */
+.dropdown-menu {
+    border: none;
+    box-shadow: 0 4px 12px rgba(27,42,74,0.15);
+    border-radius: 8px;
+    padding: 0.5rem 0;
+}
+.dropdown-item {
+    font-weight: 500;
+    padding: 0.5rem 1.5rem;
+    color: var(--bs-dark);
+    transition: all 0.2s;
+}
+.dropdown-item:hover, .dropdown-item.active {
+    background-color: rgba(27,42,74,0.08);
+    color: var(--bs-primary);
+}
