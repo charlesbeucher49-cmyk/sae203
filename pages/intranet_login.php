@@ -56,13 +56,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <section class='flex-grow-1 d-flex justify-content-center align-items-center' style='margin-top:-30px;'>
   <div class='container' style='max-width: 420px;'>
-    <div class='card login-card fade-in-up'>
-      <div class='card-body'>
+    <div class='card border-0 rounded-4 shadow-lg fade-in-up'>
+      <div class='card-body p-5'>
         <div class='text-center mb-4'>
           <div style='width:48px;height:48px;background:linear-gradient(135deg,#1B2A4A,#2D6A2E);border-radius:12px;display:inline-flex;align-items:center;justify-content:center;'>
             <svg width="24" height="24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           </div>
-          <h3 class='mt-3 mb-1 fw-bold' style='color:#1B2A4A;'>Connexion</h3>
+          <h3 class='mt-3 mb-1 fw-bold' style='color:var(--bs-primary);'>Connexion</h3>
           <p class='text-muted' style='font-size:0.88rem;'>Accédez à votre espace de travail</p>
         </div>
         <form action='' method='post'>

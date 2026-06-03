@@ -25,8 +25,8 @@ require_once '../includes/intranet_header.php';
 
 <div class="container mt-4 fade-in-up">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold mb-0" style="color:#1B2A4A;">Annuaire Clients</h2>
-        <span class="badge" style="background:#1B2A4A;font-size:0.9rem;padding:6px 14px;"><?= count($clients) ?> clients</span>
+        <h2 class="fw-bold mb-0" style="color:var(--bs-primary);">Annuaire Clients</h2>
+        <span class="badge" style="background:var(--bs-primary);font-size:0.9rem;padding:6px 14px;"><?= count($clients) ?> clients</span>
     </div>
 
     <div class="d-flex justify-content-center mb-4">

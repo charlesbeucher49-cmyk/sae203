@@ -94,7 +94,7 @@ require_once '../includes/intranet_header.php';
         <!-- Colonne de gauche : Dossiers -->
         <div class="col-md-3 mb-4">
             <div class="card">
-                <div class="card-header" style="background:var(--tr-navy);color:#fff;border-bottom:3px solid var(--tr-green);">
+                <div class="card-header" style="background:var(--bs-primary);color:#fff;border-bottom:3px solid var(--bs-success);">
                     <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="margin-right:6px;"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
                     Mes Dossiers
                 </div>
@@ -113,7 +113,7 @@ require_once '../includes/intranet_header.php';
 
         <!-- Colonne de droite : Fichiers -->
         <div class="col-md-9">
-            <h2 class="mb-4 fw-bold" style="color:#1B2A4A;">
+            <h2 class="mb-4 fw-bold" style="color:var(--bs-primary);">
                 📂 Dossier : <?= htmlspecialchars(ucfirst($current_folder ?? 'Aucun')) ?>
             </h2>
             <?= $message ?>
