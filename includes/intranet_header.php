@@ -40,6 +40,7 @@ $active_page = $active_page ?? '';
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto">
         <li class="nav-item"><a class="nav-link <?= ($active_page === 'accueil') ? 'active' : '' ?>" href="accueil_intranet.php">Accueil</a></li>
+        <li class="nav-item"><a class="nav-link <?= ($active_page === 'dashboard') ? 'active' : '' ?>" href="intranet_dashboard.php">Dashboard</a></li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle <?= (in_array($active_page, ['annuaire_employes', 'annuaire_partenaires', 'annuaire_clients'])) ? 'active' : '' ?>" href="#" role="button" data-bs-toggle="dropdown">Annuaires</a>
             <ul class="dropdown-menu shadow-sm">
@@ -49,12 +50,15 @@ $active_page = $active_page ?? '';
             </ul>
         </li>
         <li class="nav-item"><a class="nav-link <?= ($active_page === 'fichiers') ? 'active' : '' ?>" href="intranet_fichiers.php">Fichiers partagés</a></li>
+        <li class="nav-item"><a class="nav-link <?= ($active_page === 'exports') ? 'active' : '' ?>" href="intranet_export.php">Exports</a></li>
         <?php if (in_array('admin', $groupes_user) || in_array('direction', $groupes_user) || in_array('managers', $groupes_user)): ?>
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle <?= (in_array($active_page, ['gestion_utilisateurs', 'gestion_employes', 'gestion_clients', 'gestion_partenaires'])) ? 'active' : '' ?>" href="#" role="button" data-bs-toggle="dropdown">Administration</a>
+            <a class="nav-link dropdown-toggle <?= (in_array($active_page, ['gestion_utilisateurs', 'gestion_employes', 'gestion_clients', 'gestion_partenaires', 'audit_log'])) ? 'active' : '' ?>" href="#" role="button" data-bs-toggle="dropdown">Administration</a>
             <ul class="dropdown-menu shadow-sm">
                 <?php if (in_array('admin', $groupes_user) || in_array('direction', $groupes_user)): ?>
                 <li><a class="dropdown-item <?= ($active_page === 'gestion_utilisateurs') ? 'active' : '' ?>" href="intranet_gestion-utilisateurs.php">Utilisateurs</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item <?= ($active_page === 'audit_log') ? 'active' : '' ?>" href="intranet_audit-log.php">Journal d'Audit</a></li>
                 <?php endif; ?>
                 <li><a class="dropdown-item <?= ($active_page === 'gestion_employes') ? 'active' : '' ?>" href="intranet_gestion-employes.php">Employés</a></li>
                 <li><a class="dropdown-item <?= ($active_page === 'gestion_clients') ? 'active' : '' ?>" href="intranet_gestion-clients.php">Clients</a></li>
