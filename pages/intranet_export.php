@@ -193,8 +193,11 @@ require_once '../includes/intranet_header.php';
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-3">
                         <div style="width:42px;height:42px;background:rgba(45,106,46,0.1);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-right:12px;">
-                            <svg width="22" height="22" fill="#2D6A2E" viewBox="0 0 16 16">
-                                <path d="M8 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-9.5a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0zm.5 3.5a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1zm-5-3.5a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0zm.5 3.5a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1z"/>
+                            <svg width="22" height="22" fill="none" stroke="#2D6A2E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                             </svg>
                         </div>
                         <h5 class="card-title text-primary fw-bold mb-0">Employés</h5>

@@ -182,8 +182,9 @@ require_once '../includes/intranet_header.php';
             <div class="card border-0 shadow-sm">
                 <div class="card-header bg-white border-bottom">
                     <h5 class="card-title mb-0">
-                        <svg width="18" height="18" fill="currentColor" viewBox="0 0 16 16" style="margin-right:8px;vertical-align:text-bottom;">
-                            <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742.61.195 1.125.645 1.13 1.271.002.085.002.17 0 .255h1.338c.002-.086.002-.17 0-.255.005-.626.52-1.076 1.129-1.271-.325-1.545-.459-3.114-.459-3.742 0-1.82.894-3.433 2.268-4.409A3.986 3.986 0 0 0 8 1.918z"/>
+                        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="margin-right:8px;vertical-align:text-bottom;">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
                         </svg>
                         Notifications
                         <?php if ($stats['notifications_non_lues'] > 0): ?>

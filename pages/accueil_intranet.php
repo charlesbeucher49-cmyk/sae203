@@ -38,7 +38,12 @@ require_once '../includes/intranet_header.php';
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-3">
                         <div style="width:42px;height:42px;background:rgba(var(--bs-primary-rgb),0.08);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-right:12px;">
-                            <svg width="22" height="22" fill="none" stroke="#1B2A4A" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12c0-1.1.9-2 2-2h2V7c0-1.1.9-2 2-2h2c1.1 0 2 .9 2 2v3h4V7c0-1.1.9-2 2-2h2c1.1 0 2 .9 2 2v3h2c1.1 0 2 .9 2 2v2m0 7v2c0 1.1-.9 2-2 2H5c-1.1 0-2-.9-2-2v-2m18-4v4"/></svg>
+                            <svg width="22" height="22" fill="none" stroke="#1B2A4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                                <rect x="3" y="3" width="7" height="9"></rect>
+                                <rect x="14" y="3" width="7" height="5"></rect>
+                                <rect x="14" y="12" width="7" height="9"></rect>
+                                <rect x="3" y="16" width="7" height="5"></rect>
+                            </svg>
                         </div>
                         <h5 class="card-title text-primary fw-bold mb-0">Dashboard</h5>
                     </div>
