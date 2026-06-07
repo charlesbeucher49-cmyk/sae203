@@ -85,7 +85,11 @@ require_once '../includes/intranet_header.php';
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-3">
                         <div style="width:42px;height:42px;background:rgba(13,110,253,0.08);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-right:12px;">
-                            <svg width="22" height="22" fill="none" stroke="#0d6efd" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/><polyline points="10 17 14 13 10 9"/></svg>
+                            <svg width="22" height="22" fill="none" stroke="#0d6efd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
                         </div>
                         <h5 class="card-title text-primary fw-bold mb-0">Exports</h5>
                     </div>
