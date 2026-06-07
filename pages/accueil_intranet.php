@@ -11,9 +11,9 @@ $active_page = 'accueil';
 require_once '../includes/intranet_header.php';
 ?>
 
-<div class="container mt-4 fade-in-up">
+<div class="container mt-4">
     <!-- Hero -->
-    <div class="p-5 mb-4 rounded-3" style="background:linear-gradient(135deg,#1B2A4A 0%,#243556 100%);color:#fff;">
+    <div class="p-5 mb-4 rounded-3" style="background:#1B2A4A;color:#fff;">
       <div class="container-fluid py-2">
         <div class="d-flex align-items-center mb-3">
           <img src="../images/logo.png" alt="Logo" style="height:50px;margin-right:16px;">

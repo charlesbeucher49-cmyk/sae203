@@ -94,7 +94,7 @@ $active_page = 'gestion_utilisateurs';
 require_once '../includes/intranet_header.php';
 ?>
 
-<div class="container mt-4 fade-in-up">
+<div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="fw-bold mb-0" style="color:var(--bs-primary);">Gestion des Utilisateurs</h2>
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAddUser">

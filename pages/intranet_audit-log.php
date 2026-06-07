@@ -36,7 +36,7 @@ $active_page = 'audit_log';
 require_once '../includes/intranet_header.php';
 ?>
 
-<div class="container-fluid mt-4 fade-in-up">
+<div class="container-fluid mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>
             <svg width="28" height="28" fill="currentColor" viewBox="0 0 16 16" style="margin-right:12px;vertical-align:text-bottom;">

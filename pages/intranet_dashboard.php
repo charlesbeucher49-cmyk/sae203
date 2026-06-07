@@ -23,11 +23,11 @@ $active_page = 'dashboard';
 require_once '../includes/intranet_header.php';
 ?>
 
-<div class="container-fluid mt-4 mb-4 fade-in-up">
+<div class="container-fluid mt-4 mb-4">
     <!-- Hero Section -->
     <div class="row mb-4">
         <div class="col-12">
-            <div class="p-4 rounded-3" style="background:linear-gradient(135deg,#1B2A4A 0%,#243556 100%);color:#fff;">
+            <div class="p-4 rounded-3" style="background:#1B2A4A;color:#fff;">
                 <div class="d-flex align-items-center">
                     <svg width="48" height="48" fill="none" stroke="#2D6A2E" stroke-width="2" viewBox="0 0 24 24" style="margin-right:16px;">
                         <path d="M12 2v20M2 12h20"/>

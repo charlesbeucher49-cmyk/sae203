@@ -23,7 +23,7 @@ require_once '../includes/intranet_header.php';
     }
 </script>
 
-<div class="container mt-4 fade-in-up">
+<div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div class="d-flex align-items-center gap-3">
             <h2 class="fw-bold mb-0" style="color:var(--bs-primary);">Annuaire Clients</h2>

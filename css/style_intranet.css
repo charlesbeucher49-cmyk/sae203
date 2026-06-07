@@ -1,39 +1,18 @@
-/* ============================================
-   TechRevive Solutions — Intranet Theme
-   Bootstrap 5 Native Variables Overrides
-   ============================================ */
+/* Style intranet TechRevive */
 
 :root {
-    /* Primary (Navy) */
     --bs-primary: #1B2A4A;
     --bs-primary-rgb: 27, 42, 74;
-    
-    /* Success (Green) */
     --bs-success: #2D6A2E;
     --bs-success-rgb: 45, 106, 46;
-    
-    /* Warning (Accent) */
     --bs-warning: #e8a838;
-    --bs-warning-rgb: 232, 168, 56;
-    
-    /* Light/Dark/Body */
     --bs-body-bg: #f8f9fa;
-    --bs-body-bg-rgb: 248, 249, 250;
-    --bs-dark: #111d33;
-    --bs-dark-rgb: 17, 29, 51;
-    
-    --bs-border-radius: 8px;
-    --bs-border-radius-lg: 12px;
 }
 
-
-
-/* ---- Navbar custom gradient & styles ---- */
+/* Navbar */
 .navbar.navbar-dark {
-    background: linear-gradient(135deg, var(--bs-dark) 0%, var(--bs-primary) 100%) !important;
+    background-color: #1B2A4A !important;
     border-bottom: 3px solid var(--bs-success);
-    padding: 0.6rem 0;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
 .navbar-brand img {
@@ -44,72 +23,28 @@
 .navbar-dark .navbar-nav .nav-link {
     font-weight: 500;
     font-size: 0.9rem;
-    padding: 0.5rem 0.9rem;
-    border-radius: 6px;
-    transition: all 0.25s;
-}
-
-.navbar-dark .navbar-nav .nav-link:hover {
-    background: rgba(255,255,255,0.08);
 }
 
 .navbar-dark .navbar-nav .nav-link.active {
     background: var(--bs-success);
+    border-radius: 6px;
 }
 
-/* ---- Cards shadow hover ---- */
+/* Cards */
 .card {
-    transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
-}
-.card:hover {
-    box-shadow: 0 6px 24px rgba(27,42,74,0.14) !important;
-    transform: translateY(-2px);
+    border-radius: 8px;
 }
 
-/* ---- Login Page Hero Gradient ---- */
+/* Login */
 .login-hero {
-    background: linear-gradient(135deg, var(--bs-dark) 0%, var(--bs-primary) 50%, #1f4e20 100%);
-    position: relative;
-    overflow: hidden;
+    background-color: #1B2A4A;
 }
 
-.login-hero::after {
-    content: "";
-    position: absolute;
-    top: -50%;
-    right: -20%;
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(45,106,46,0.15) 0%, transparent 70%);
-    border-radius: 50%;
-}
-
-
-
-/* ---- Scrollbar ---- */
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: #f1f3f5; }
-::-webkit-scrollbar-thumb {
-    background: #dee2e6;
-    border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover { background: #868e96; }
-
-/* ---- Animations ---- */
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.fade-in-up {
-    animation: fadeInUp 0.5s ease-out;
-}
-
-/* ---- Buttons Customization ---- */
+/* Boutons */
 .btn-primary {
     background-color: var(--bs-primary) !important;
     border-color: var(--bs-primary) !important;
-    color: #ffffff !important;
+    color: #fff !important;
 }
 .btn-primary:hover {
     background-color: var(--bs-success) !important;
@@ -122,23 +57,5 @@
 }
 .btn-outline-primary:hover {
     background-color: var(--bs-primary) !important;
-    color: #ffffff !important;
-}
-
-/* ---- Dropdown menus improvement ---- */
-.dropdown-menu {
-    border: none;
-    box-shadow: 0 4px 12px rgba(27,42,74,0.15);
-    border-radius: 8px;
-    padding: 0.5rem 0;
-}
-.dropdown-item {
-    font-weight: 500;
-    padding: 0.5rem 1.5rem;
-    color: var(--bs-dark);
-    transition: all 0.2s;
-}
-.dropdown-item:hover, .dropdown-item.active {
-    background-color: rgba(27,42,74,0.08);
-    color: var(--bs-primary);
+    color: #fff !important;
 }

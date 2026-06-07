@@ -89,7 +89,7 @@ $active_page = 'fichiers';
 require_once '../includes/intranet_header.php';
 ?>
 
-<div class="container mt-4 fade-in-up">
+<div class="container mt-4">
     <div class="row">
         <!-- Colonne de gauche : Dossiers -->
         <div class="col-md-3 mb-4">

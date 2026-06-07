@@ -71,7 +71,7 @@ $active_page = 'gestion_employes';
 require_once '../includes/intranet_header.php';
 ?>
 
-<div class="container mt-4 fade-in-up">
+<div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="fw-bold mb-0" style="color:var(--bs-primary);">Gestion des Employés</h2>
         <button class="btn btn-primary shadow-sm" data-bs-toggle="modal" data-bs-target="#modalAddEmploye">
@@ -105,7 +105,7 @@ require_once '../includes/intranet_header.php';
                                 <?php if (!empty($e['photo']) && file_exists('../' . $e['photo'])): ?>
                                     <img src="../<?= htmlspecialchars($e['photo']) ?>" alt="Photo" class="photo-thumbnail">
                                 <?php else: ?>
-                                    <div class="photo-thumbnail text-white d-flex align-items-center justify-content-center fw-bold" style="background: linear-gradient(135deg, #1B2A4A, #2D6A2E); font-size: 0.85rem;">
+                                    <div class="photo-thumbnail text-white d-flex align-items-center justify-content-center fw-bold" style="background: #1B2A4A; font-size: 0.85rem;">
                                         <?= strtoupper(mb_substr($e['prenom'] ?? '', 0, 1) . mb_substr($e['nom'] ?? '', 0, 1)) ?>
                                     </div>
                                 <?php endif; ?>

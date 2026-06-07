@@ -128,7 +128,7 @@ $active_page = 'gestion_partenaires';
 require_once '../includes/intranet_header.php';
 ?>
 
-<div class="container mt-4 fade-in-up">
+<div class="container mt-4">
 
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="fw-bold mb-0" style="color:var(--bs-primary);">Gestion des Partenaires</h2>

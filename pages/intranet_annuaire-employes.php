@@ -23,13 +23,13 @@ require_once '../includes/intranet_header.php';
     }
     .employee-card .card-header-bar {
         height: 6px;
-        background: linear-gradient(90deg, #1B2A4A, #2D6A2E);
+        background: #1B2A4A;
     }
     .employee-avatar {
         width: 80px;
         height: 80px;
         border-radius: 50%;
-        background: linear-gradient(135deg, #1B2A4A, #2D6A2E);
+        background: #1B2A4A;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -53,7 +53,7 @@ require_once '../includes/intranet_header.php';
     }
 </script>
 
-<div class="container mt-4 fade-in-up">
+<div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div class="d-flex align-items-center gap-3">
             <h2 class="fw-bold mb-0" style="color:var(--bs-primary);">Annuaire des Employés</h2>
