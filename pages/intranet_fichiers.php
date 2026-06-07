@@ -154,6 +154,7 @@ require_once '../includes/intranet_header.php';
                                             <td class="ps-3">📄 <?= htmlspecialchars($file) ?></td>
                                             <td><?= $fsize ?></td>
                                             <td class="text-end pe-3">
+                                                <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#modalView<?= md5($file) ?>">Visualiser</button>
                                                 <a href="?folder=<?= urlencode($current_folder) ?>&download=<?= urlencode($file) ?>" class="btn btn-sm btn-primary">Télécharger</a>
                                                 <form method="POST" action="?folder=<?= urlencode($current_folder) ?>" style="display:inline;" onsubmit="return confirm('Supprimer ce fichier ?');">
                                                     <input type="hidden" name="delete_file" value="<?= htmlspecialchars($file) ?>">
@@ -161,6 +162,22 @@ require_once '../includes/intranet_header.php';
                                                 </form>
                                             </td>
                                         </tr>
+
+                                        <!-- Modal Visualisation -->
+                                        <div class="modal fade" id="modalView<?= md5($file) ?>" tabindex="-1">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header" style="background:var(--bs-primary);color:#fff;">
+                                                        <h5 class="modal-title">Visualisation : <?= htmlspecialchars($file) ?></h5>
+                                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                                    </div>
+                                                    <div class="modal-body bg-light">
+                                                        <pre class="mb-0" style="white-space:pre-wrap; word-wrap:break-word; font-size:0.9rem;"><?= htmlspecialchars(file_get_contents($fpath)) ?></pre>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     <?php endforeach; ?>
                                 <?php endif; ?>
                             </tbody>
