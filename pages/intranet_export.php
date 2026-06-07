@@ -116,10 +116,10 @@ function exportPDF($data, $name) {
     <?php
     $html = ob_get_clean();
 
-    header('Content-Type: application/pdf');
-    header('Content-Disposition: attachment; filename=' . $name . '_' . date('Y-m-d_His') . '.pdf');
-    
+    // Pas de librairie PDF installée : on affiche le HTML et on lance l'impression navigateur
+    // (L'utilisateur pourra choisir "Enregistrer au format PDF")
     echo $html;
+    echo '<script>window.onload = function() { window.print(); }</script>';
 }
 
 $page_title = 'Exports — Intranet TechRevive';
