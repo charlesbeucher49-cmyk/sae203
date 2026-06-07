@@ -32,6 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $employes[] = $nouvelEmploye;
         sauvegarderJSON($dataFile, $employes);
+        enregistrerAudit('CREATE', 'employe', 'Ajout de ' . $_POST['prenom'] . ' ' . $_POST['nom']);
         $message = "<div class='alert alert-success alert-dismissible fade show'><strong>Succès !</strong> Collaborateur ajouté avec succès.<button type='button' class='btn-close' data-bs-dismiss='alert'></button></div>";
     } 
     elseif ($action === 'edit') {
@@ -47,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
         sauvegarderJSON($dataFile, $employes);
+        enregistrerAudit('UPDATE', 'employe', 'Modification de ' . $_POST['prenom'] . ' ' . $_POST['nom']);
         $message = "<div class='alert alert-success alert-dismissible fade show'><strong>Succès !</strong> Collaborateur modifié avec succès.<button type='button' class='btn-close' data-bs-dismiss='alert'></button></div>";
     }
     elseif ($action === 'delete') {
@@ -56,6 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 unset($employes[$k]);
                 $employes = array_values($employes);
                 sauvegarderJSON($dataFile, $employes);
+                enregistrerAudit('DELETE', 'employe', 'Suppression du collaborateur ID ' . $id_suppr);
                 $message = "<div class='alert alert-success alert-dismissible fade show'><strong>Succès !</strong> Collaborateur supprimé avec succès.<button type='button' class='btn-close' data-bs-dismiss='alert'></button></div>";
                 break;
             }

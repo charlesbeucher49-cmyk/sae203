@@ -1,5 +1,5 @@
 <?php
-session_start();
+// session_start() est déjà appelé par verifierConnexion()
 require_once '../includes/intranet_fonctions.php';
 verifierConnexion();
 
@@ -53,6 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
                 $nouveauClient['id'] = $maxId + 1;
                 $clients[] = $nouveauClient;
+                enregistrerAudit('CREATE', 'client', 'Ajout de ' . $prenom . ' ' . $nom);
                 $message = "<div class='alert alert-success'>Client ajouté avec succès.</div>";
             } else {
                 foreach ($clients as &$c) {
@@ -61,6 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         break;
                     }
                 }
+                enregistrerAudit('UPDATE', 'client', 'Modification de ' . $prenom . ' ' . $nom);
                 $message = "<div class='alert alert-success'>Client modifié avec succès.</div>";
             }
             sauvegarderJSON($dataFile, $clients);
@@ -75,6 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             });
             $clients = array_values($clients);
             sauvegarderJSON($dataFile, $clients);
+            enregistrerAudit('DELETE', 'client', 'Suppression du client ID ' . $id);
             $message = "<div class='alert alert-success'>Client supprimé avec succès.</div>";
         }
     }
@@ -85,7 +88,7 @@ $active_page = 'gestion_clients';
 require_once '../includes/intranet_header.php';
 ?>
 
-<div class="container mt-4">
+<div class="container mt-4 fade-in-up">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>Gestion des Clients</h2>
         <a href="intranet_annuaire-clients.php" class="btn btn-outline-secondary">Retour à l'annuaire</a>
@@ -93,8 +96,8 @@ require_once '../includes/intranet_header.php';
 
     <?= $message ?>
 
-    <div class="card mb-4">
-        <div class="card-header bg-dark text-white">
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-header text-white" style="background:var(--bs-primary);">
             <h5 class="mb-0">Ajouter un nouveau client</h5>
         </div>
         <div class="card-body">
@@ -153,8 +156,8 @@ require_once '../includes/intranet_header.php';
         </div>
     </div>
 
-    <div class="card">
-        <div class="card-header bg-secondary text-white">
+    <div class="card border-0 shadow-sm">
+        <div class="card-header text-white" style="background:var(--bs-primary);">
             <h5 class="mb-0">Liste des clients existants</h5>
         </div>
         <div class="card-body p-0">

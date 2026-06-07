@@ -8,29 +8,24 @@ if (isset($_GET['export'])) {
     $type_export = $_GET['export'];
     $entite = $_GET['entite'] ?? '';
 
-    if ($type_export === 'csv') {
-        if ($entite === 'clients') {
-            $clients = lireJSON('../data/intranet_data-clients.json') ?? [];
-            exportCSV($clients, 'Clients');
-        } elseif ($entite === 'employes') {
-            $employes = lireJSON('../data/intranet_data-employes.json') ?? [];
-            exportCSV($employes, 'Employes');
-        } elseif ($entite === 'partenaires') {
-            $data = lireJSON('../data/intranet_data-partenaires.json') ?? [];
-            $partenaires = $data['fournisseurs'] ?? [];
-            exportCSV($partenaires, 'Partenaires');
-        }
-    } elseif ($type_export === 'pdf') {
-        if ($entite === 'clients') {
-            $clients = lireJSON('../data/intranet_data-clients.json') ?? [];
-            exportPDF($clients, 'Clients');
-        } elseif ($entite === 'employes') {
-            $employes = lireJSON('../data/intranet_data-employes.json') ?? [];
-            exportPDF($employes, 'Employes');
-        } elseif ($entite === 'partenaires') {
-            $data = lireJSON('../data/intranet_data-partenaires.json') ?? [];
-            $partenaires = $data['fournisseurs'] ?? [];
-            exportPDF($partenaires, 'Partenaires');
+    // Chargement des données (factorisé — une seule fois)
+    $data = [];
+    if ($entite === 'clients') {
+        $data = lireJSON('../data/intranet_data-clients.json') ?? [];
+    } elseif ($entite === 'employes') {
+        $data = lireJSON('../data/intranet_data-employes.json') ?? [];
+    } elseif ($entite === 'partenaires') {
+        $raw = lireJSON('../data/intranet_data-partenaires.json') ?? [];
+        $data = $raw['fournisseurs'] ?? [];
+    }
+
+    // Export selon le format demandé
+    if (!empty($data)) {
+        $nom = ucfirst($entite);
+        if ($type_export === 'csv') {
+            exportCSV($data, $nom);
+        } elseif ($type_export === 'pdf') {
+            exportPDF($data, $nom);
         }
     }
     exit;
@@ -48,7 +43,11 @@ function exportCSV($data, $name) {
     if (!empty($data) && is_array($data[0])) {
         fputcsv($output, array_keys($data[0]));
         foreach ($data as $row) {
-            fputcsv($output, $row);
+            // Aplatir les arrays imbriquées (ex: type_produits) en string lisible
+            $flat = array_map(function($v) {
+                return is_array($v) ? implode(', ', $v) : $v;
+            }, $row);
+            fputcsv($output, $flat);
         }
     }
 

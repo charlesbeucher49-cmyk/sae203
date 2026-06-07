@@ -58,6 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $json['fournisseurs'] = $partenaires;
         sauvegarderJSON($dataFile, $json);
 
+        enregistrerAudit('CREATE', 'partenaire', 'Ajout de ' . ($_POST['nom'] ?? ''));
         $message = "<div class='alert alert-success alert-dismissible fade show'><strong>Succès !</strong> Partenaire ajouté avec succès.<button type='button' class='btn-close' data-bs-dismiss='alert'></button></div>";
     }
 
@@ -97,6 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $json['fournisseurs'] = $partenaires;
         sauvegarderJSON($dataFile, $json);
 
+        enregistrerAudit('UPDATE', 'partenaire', 'Modification de ' . ($_POST['nom'] ?? ''));
         $message = "<div class='alert alert-success alert-dismissible fade show'><strong>Succès !</strong> Partenaire modifié avec succès.<button type='button' class='btn-close' data-bs-dismiss='alert'></button></div>";
     }
 
@@ -116,6 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
+        enregistrerAudit('DELETE', 'partenaire', 'Suppression du partenaire ID ' . $id_suppr);
         $message = "<div class='alert alert-success alert-dismissible fade show'><strong>Succès !</strong> Partenaire supprimé avec succès.<button type='button' class='btn-close' data-bs-dismiss='alert'></button></div>";
     }
 }
@@ -218,7 +221,7 @@ require_once '../includes/intranet_header.php';
                     <?php endforeach; ?>
 
                     <?php if (count($partenaires) === 0): ?>
-                        <tr><td colspan="7" class="text-center py-5 text-muted">Aucun partenaire enregistré.</td></tr>
+                        <tr><td colspan="8" class="text-center py-5 text-muted">Aucun partenaire enregistré.</td></tr>
                     <?php endif; ?>
 
                     </tbody>

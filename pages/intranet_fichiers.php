@@ -19,7 +19,7 @@ if (!in_array($current_folder, $allowed_folders) && $current_folder !== null) {
     die("<div class='alert alert-danger m-4'>Accès refusé à ce dossier.</div>");
 }
 
-$base_dir = __DIR__ . "/uploads/";
+$base_dir = __DIR__ . "/../uploads/";
 $message = "";
 
 // Traitement POST global

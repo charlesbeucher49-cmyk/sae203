@@ -208,7 +208,7 @@ require_once '../includes/intranet_header.php';
                                     <div style="flex:1;">
                                         <strong style="font-size:0.9rem;"><?= htmlspecialchars($notif['titre']) ?></strong><br>
                                         <small class="text-muted"><?= htmlspecialchars($notif['message']) ?></small><br>
-                                        <tiny class="text-muted"><?= $notif['timestamp'] ?></tiny>
+                                        <small class="text-muted"><?= $notif['timestamp'] ?></small>
                                     </div>
                                 </div>
                             </div>

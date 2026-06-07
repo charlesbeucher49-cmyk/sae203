@@ -44,6 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $utilisateurs[] = $nouvelUtilisateur;
         sauvegarderJSON($dataFile, $data);
+        enregistrerAudit('CREATE', 'utilisateur', 'Ajout de ' . $_POST['prenom'] . ' ' . $_POST['nom'] . ' (login: ' . $_POST['login'] . ')');
         $message = "<div class='alert alert-success'>Utilisateur ajouté avec succès.</div>";
     } 
     elseif ($action === 'edit') {
@@ -66,6 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
         sauvegarderJSON($dataFile, $data);
+        enregistrerAudit('UPDATE', 'utilisateur', 'Modification de ' . $_POST['prenom'] . ' ' . $_POST['nom'] . ' (login: ' . $_POST['login'] . ')');
         $message = "<div class='alert alert-success'>Utilisateur modifié avec succès.</div>";
     }
     elseif ($action === 'delete') {
@@ -78,6 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     unset($utilisateurs[$k]);
                     $utilisateurs = array_values($utilisateurs);
                     sauvegarderJSON($dataFile, $data);
+                    enregistrerAudit('DELETE', 'utilisateur', 'Suppression de ' . $u['prenom'] . ' ' . $u['nom']);
                     $message = "<div class='alert alert-success'>Utilisateur supprimé avec succès.</div>";
                 }
                 break;
