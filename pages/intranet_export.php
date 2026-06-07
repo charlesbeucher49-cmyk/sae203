@@ -116,10 +116,28 @@ function exportPDF($data, $name) {
     <?php
     $html = ob_get_clean();
 
-    // Pas de librairie PDF installée : on affiche le HTML et on lance l'impression navigateur
-    // (L'utilisateur pourra choisir "Enregistrer au format PDF")
+    // On affiche le HTML et on utilise html2pdf.js pour générer et télécharger le PDF automatiquement
     echo $html;
-    echo '<script>window.onload = function() { window.print(); }</script>';
+    ?>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+    window.onload = function() {
+        const element = document.body;
+        const opt = {
+            margin:       10,
+            filename:     '<?= $name ?>_<?= date('Y-m-d_His') ?>.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2 },
+            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        // Génère le PDF et le télécharge, puis retourne à la page précédente
+        html2pdf().set(opt).from(element).save().then(() => {
+            setTimeout(() => { window.history.back(); }, 500);
+        });
+    };
+    </script>
+    <?php
 }
 
 $page_title = 'Exports — Intranet TechRevive';
