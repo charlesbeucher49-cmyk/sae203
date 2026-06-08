@@ -41,8 +41,8 @@ require_once '../includes/intranet_header.php';
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>
-            <svg width="28" height="28" fill="currentColor" viewBox="0 0 16 16" style="margin-right:12px;vertical-align:text-bottom;">
-                <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742.61.195 1.125.645 1.13 1.271.002.085.002.17 0 .255h1.338c.002-.086.002-.17 0-.255.005-.626.52-1.076 1.129-1.271-.325-1.545-.459-3.114-.459-3.742 0-1.82.894-3.433 2.268-4.409A3.986 3.986 0 0 0 8 1.918z"/>
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="var(--bs-primary)" class="bi bi-bell-fill" viewBox="0 0 16 16" style="margin-right:12px;vertical-align:text-bottom;">
+              <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2m.995-14.901a1 1 0 1 0-1.99 0A5 5 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901"/>
             </svg>
             Notifications
         </h2>

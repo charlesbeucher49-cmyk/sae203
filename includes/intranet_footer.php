@@ -1,7 +1,7 @@
 <?php
 // intranet_footer.php
 ?>
-<footer class="text-center mt-auto bg-dark text-white-50 small py-4">
+<footer class="text-center mt-auto text-white-50 small py-4">
   <div class="container">
     <p class="mb-0">&copy; <?= date('Y') ?> TechRevive Solutions — Intranet. Tous droits réservés.</p>
   </div>
