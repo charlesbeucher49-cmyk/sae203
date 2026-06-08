@@ -59,3 +59,9 @@
     background-color: var(--bs-primary) !important;
     color: #fff !important;
 }
+
+/* Footer */
+footer {
+    background-color: #1B2A4A !important;
+    border-top: 3px solid var(--bs-success);
+}
