@@ -4,6 +4,3 @@ Options -Indexes
 <FilesMatch "^\.">
     Require all denied
 </FilesMatch>
-<DirectoryMatch "^\.|\/\.">
-    Require all denied
-</DirectoryMatch>
