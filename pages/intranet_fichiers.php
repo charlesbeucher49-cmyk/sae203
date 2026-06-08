@@ -24,6 +24,7 @@ $message = "";
 
 // Traitement POST global
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    verifierCSRFToken();
     // Suppression
     if (isset($_POST['delete_file'])) {
         if ($current_folder) {
@@ -156,7 +157,8 @@ require_once '../includes/intranet_header.php';
                                             <td class="text-end pe-3">
                                                 <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#modalView<?= md5($file) ?>">Visualiser</button>
                                                 <a href="?folder=<?= urlencode($current_folder) ?>&download=<?= urlencode($file) ?>" class="btn btn-sm btn-primary">Télécharger</a>
-                                                <form method="POST" action="?folder=<?= urlencode($current_folder) ?>" style="display:inline;" onsubmit="return confirm('Supprimer ce fichier ?');">
+                                                <form method="POST" action="?folder=<?= urlencode($current_folder) ?>
+<input type="hidden" name="csrf_token" value="<?= genererCSRFToken() ?>">" style="display:inline;" onsubmit="return confirm('Supprimer ce fichier ?');">
                                                     <input type="hidden" name="delete_file" value="<?= htmlspecialchars($file) ?>">
                                                     <button type="submit" class="btn btn-sm btn-danger">Supprimer</button>
                                                 </form>

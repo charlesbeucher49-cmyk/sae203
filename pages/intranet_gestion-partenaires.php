@@ -14,6 +14,7 @@ $partenaires = $json['fournisseurs'] ?? [];
 
 // Traitement des formulaires
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    verifierCSRFToken();
     $action = $_POST['action'] ?? '';
 
     /* -------------------------
@@ -210,6 +211,7 @@ require_once '../includes/intranet_header.php';
                                 </button>
 
                                 <form method="POST" style="display:inline;" onsubmit="return confirm('Supprimer ce partenaire ?');">
+<input type="hidden" name="csrf_token" value="<?= genererCSRFToken() ?>">
                                     <input type="hidden" name="action" value="delete">
                                     <input type="hidden" name="id" value="<?= $p['id'] ?>">
                                     <button type="submit" class="btn btn-outline-danger btn-sm px-3">
@@ -245,6 +247,7 @@ require_once '../includes/intranet_header.php';
 
       <div class="modal-body p-4">
         <form method="POST" enctype="multipart/form-data">
+<input type="hidden" name="csrf_token" value="<?= genererCSRFToken() ?>">
             <input type="hidden" name="action" value="edit">
             <input type="hidden" name="id" value="<?= $p['id'] ?>">
 
@@ -335,6 +338,7 @@ require_once '../includes/intranet_header.php';
 
       <div class="modal-body p-4">
         <form method="POST" enctype="multipart/form-data">
+<input type="hidden" name="csrf_token" value="<?= genererCSRFToken() ?>">
             <input type="hidden" name="action" value="add">
 
             <div class="row g-3 mb-3">

@@ -13,6 +13,7 @@ $clients = lireJSON($dataFile);
 
 // Traitement des formulaires
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    verifierCSRFToken();
     $action = $_POST['action'] ?? '';
 
     if ($action === 'ajouter' || $action === 'modifier') {
@@ -102,6 +103,7 @@ require_once '../includes/intranet_header.php';
         </div>
         <div class="card-body">
             <form method="POST">
+<input type="hidden" name="csrf_token" value="<?= genererCSRFToken() ?>">
                 <input type="hidden" name="action" value="ajouter">
                 <div class="row">
                     <div class="col-md-6 mb-3">
@@ -184,6 +186,7 @@ require_once '../includes/intranet_header.php';
                                 <td class="text-end pe-3">
                                     <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editModal<?= $c['id'] ?>">Modifier</button>
                                     <form method="POST" class="d-inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce client ?');">
+<input type="hidden" name="csrf_token" value="<?= genererCSRFToken() ?>">
                                         <input type="hidden" name="action" value="supprimer">
                                         <input type="hidden" name="id" value="<?= $c['id'] ?>">
                                         <button type="submit" class="btn btn-sm btn-outline-danger">Supprimer</button>
@@ -196,6 +199,7 @@ require_once '../includes/intranet_header.php';
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <form method="POST">
+<input type="hidden" name="csrf_token" value="<?= genererCSRFToken() ?>">
                                             <div class="modal-header">
                                                 <h5 class="modal-title">Modifier le client : <?= htmlspecialchars($c['prenom'] . ' ' . $c['nom']) ?></h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>

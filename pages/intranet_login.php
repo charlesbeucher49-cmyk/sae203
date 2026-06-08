@@ -15,9 +15,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $trouve = false;
 
   foreach ($utilisateurs as $utilisateur) {
-    $motdepassebon = password_verify($motdepasse_saisi, $utilisateur['mot_de_passe']) || $motdepasse_saisi === 'admin';
+    $motdepassebon = password_verify($motdepasse_saisi, $utilisateur['mot_de_passe']);
     
     if ($utilisateur['login'] === $identifiant_saisi && $motdepassebon) {
+      session_regenerate_id(true); // Protection contre la fixation de session
       $_SESSION['prenom'] = $utilisateur['prenom'];
       $_SESSION['nom'] = $utilisateur['nom'];
       $_SESSION['login'] = $utilisateur['login'];

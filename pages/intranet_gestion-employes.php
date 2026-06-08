@@ -12,6 +12,7 @@ $employes = lireJSON($dataFile);
 
 // Traitement des formulaires
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    verifierCSRFToken();
     $action = $_POST['action'] ?? '';
 
     if ($action === 'add') {
@@ -116,6 +117,7 @@ require_once '../includes/intranet_header.php';
                             <td class="text-end pe-4 text-nowrap">
                                 <button class="btn btn-outline-secondary btn-sm px-3 me-1" data-bs-toggle="modal" data-bs-target="#modalEditEmploye<?= $e['id'] ?>">Éditer</button>
                                 <form method="POST" style="display:inline;" onsubmit="return confirm('Voulez-vous vraiment supprimer ce collaborateur ?');">
+<input type="hidden" name="csrf_token" value="<?= genererCSRFToken() ?>">
                                     <input type="hidden" name="action" value="delete">
                                     <input type="hidden" name="id" value="<?= htmlspecialchars($e['id'] ?? '') ?>">
                                     <button type="submit" class="btn btn-outline-danger btn-sm px-3">Supprimer</button>
@@ -145,6 +147,7 @@ require_once '../includes/intranet_header.php';
       </div>
       <div class="modal-body p-4 text-start">
         <form action="" method="POST">
+<input type="hidden" name="csrf_token" value="<?= genererCSRFToken() ?>">
             <input type="hidden" name="action" value="edit">
             <input type="hidden" name="id" value="<?= $e['id'] ?>">
             <div class="row g-3 mb-3">
@@ -190,6 +193,7 @@ require_once '../includes/intranet_header.php';
       </div>
       <div class="modal-body p-4">
         <form action="" method="POST">
+<input type="hidden" name="csrf_token" value="<?= genererCSRFToken() ?>">
             <input type="hidden" name="action" value="add">
             <div class="row g-3 mb-3">
                 <div class="col-md-6">

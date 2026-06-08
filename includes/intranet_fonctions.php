@@ -15,6 +15,25 @@ function verifierConnexion() {
 }
 
 /**
+ * Génère un jeton CSRF et le stocke en session
+ */
+function genererCSRFToken() {
+    if (empty($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
+    return $_SESSION['csrf_token'];
+}
+
+/**
+ * Vérifie la validité du jeton CSRF envoyé par POST
+ */
+function verifierCSRFToken() {
+    if (!isset($_POST['csrf_token']) || !hash_equals($_SESSION['csrf_token'] ?? '', $_POST['csrf_token'])) {
+        die("<div style='color:red; font-weight:bold; margin:20px;'>Erreur de sécurité : Jeton CSRF invalide. Action bloquée.</div>");
+    }
+}
+
+/**
  * Vérifie si l'utilisateur possède au moins un des groupes autorisés.
  * @param array $groupesAutorises Tableau des groupes autorisés (ex: ['admin', 'direction'])
  */

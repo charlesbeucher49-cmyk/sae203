@@ -17,6 +17,7 @@ $utilisateurs = &$data['utilisateurs'];
 
 // Traitement des formulaires
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    verifierCSRFToken();
     $action = $_POST['action'] ?? '';
 
     if ($action === 'add') {
@@ -134,6 +135,7 @@ require_once '../includes/intranet_header.php';
                             <td class="text-end pe-3 text-nowrap">
                                 <button class="btn btn-outline-secondary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#modalEditUser<?= $u['id'] ?>">Éditer</button>
                                 <form method="POST" style="display:inline;" onsubmit="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?');">
+<input type="hidden" name="csrf_token" value="<?= genererCSRFToken() ?>">
                                     <input type="hidden" name="action" value="delete">
                                     <input type="hidden" name="id" value="<?= $u['id'] ?>">
                                     <button type="submit" class="btn btn-danger btn-sm" <?= ($u['login'] === $_SESSION['login']) ? 'disabled' : '' ?>>Supprimer</button>
@@ -163,6 +165,7 @@ require_once '../includes/intranet_header.php';
       </div>
       <div class="modal-body">
         <form action="" method="POST">
+<input type="hidden" name="csrf_token" value="<?= genererCSRFToken() ?>">
             <input type="hidden" name="action" value="edit">
             <input type="hidden" name="id" value="<?= $u['id'] ?>">
             <div class="row">
@@ -215,6 +218,7 @@ require_once '../includes/intranet_header.php';
       </div>
       <div class="modal-body">
         <form action="" method="POST">
+<input type="hidden" name="csrf_token" value="<?= genererCSRFToken() ?>">
             <input type="hidden" name="action" value="add">
             <div class="row">
                 <div class="col-md-6 mb-2">
