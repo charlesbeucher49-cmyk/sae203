@@ -123,7 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </div>
 </section>
 
-<footer class="text-center mt-auto bg-dark text-white-50 small py-4">
+<footer class="text-center mt-auto text-white-50 small py-4" style="background-color: #1B2A4A; border-top: 3px solid #2D6A2E;">
   <div class='container'>
     <p class='mb-0'>&copy; <?= date('Y') ?> TechRevive Solutions — Intranet. Tous droits réservés.</p>
   </div>

@@ -49,7 +49,9 @@ header("Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
         <li class="nav-item"><a class="nav-link <?= ($active_page === 'accueil') ? 'active' : '' ?>" href="accueil_intranet.php">Accueil</a></li>
         <li class="nav-item"><a class="nav-link <?= ($active_page === 'dashboard') ? 'active' : '' ?>" href="intranet_dashboard.php">Dashboard</a></li>
         <li class="nav-item"><a class="nav-link <?= ($active_page === 'fichiers') ? 'active' : '' ?>" href="intranet_fichiers.php">Fichiers partagés</a></li>
+        <?php if (in_array('admin', $groupes_user) || in_array('direction', $groupes_user) || in_array('managers', $groupes_user)): ?>
         <li class="nav-item"><a class="nav-link <?= ($active_page === 'exports') ? 'active' : '' ?>" href="intranet_export.php">Exports</a></li>
+        <?php endif; ?>
         
         <?php if (in_array('admin', $groupes_user) || in_array('direction', $groupes_user) || in_array('managers', $groupes_user)): ?>
         <li class="nav-item dropdown">
