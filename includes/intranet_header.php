@@ -23,7 +23,7 @@ header("Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($page_title) ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/style_intranet.css" rel="stylesheet">
+    <link href="../css/style_intranet.css?v=<?= filemtime(__DIR__ . '/../css/style_intranet.css') ?>" rel="stylesheet">
     <style>
         .photo-thumbnail { 
             width: 42px; 
