@@ -91,8 +91,8 @@ require_once '../includes/intranet_header.php';
                 </div>
             <?php else: ?>
                 <div class="card border-0 bg-light p-5 text-center">
-                    <svg width="48" height="48" fill="#ccc" viewBox="0 0 16 16" style="margin:0 auto 16px;">
-                        <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742.61.195 1.125.645 1.13 1.271.002.085.002.17 0 .255h1.338c.002-.086.002-.17 0-.255.005-.626.52-1.076 1.129-1.271-.325-1.545-.459-3.114-.459-3.742 0-1.82.894-3.433 2.268-4.409A3.986 3.986 0 0 0 8 1.918z"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="#ccc" class="bi bi-bell-slash" viewBox="0 0 16 16" style="margin:0 auto 16px;">
+                      <path d="M5.164 14H15c-1.5-1-2-5.902-2-7 0-.264-.02-.523-.06-.776L5.164 14zm6.288-10.617A5 5 0 0 0 8.995 2.1a1 1 0 1 0-1.99 0A5 5 0 0 0 3 7c0 .898-.335 4.342-1.278 6.113l9.73-9.73zM10 15a2 2 0 1 1-4 0h4zm-9.375.625a.53.53 0 0 0 .75.75l14.75-14.75a.53.53 0 0 0-.75-.75L.625 15.625z"/>
                     </svg>
                     <h4 class="text-secondary">Aucune notification</h4>
                     <p class="text-muted">Vous êtes à jour!</p>
