@@ -44,8 +44,14 @@ function exportCSV($data, $name) {
         fputcsv($output, array_keys($data[0]));
         foreach ($data as $row) {
             // Aplatir les arrays imbriquées (ex: type_produits) en string lisible
+            // et prévenir les injections CSV (Formula Injection)
             $flat = array_map(function($v) {
-                return is_array($v) ? implode(', ', $v) : $v;
+                $str = is_array($v) ? implode(', ', $v) : (string)$v;
+                // Si la chaîne commence par un caractère sensible pour Excel, on ajoute une apostrophe
+                if (preg_match('/^[=\-+@]/', $str)) {
+                    $str = "'" . $str;
+                }
+                return $str;
             }, $row);
             fputcsv($output, $flat);
         }

@@ -30,13 +30,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $logoPath = '';
         if (isset($_FILES['logo']) && $_FILES['logo']['error'] === UPLOAD_ERR_OK) {
-            $ext = pathinfo($_FILES['logo']['name'], PATHINFO_EXTENSION);
-            $filename = 'partenaire_' . $nouveauId . '_' . time() . '.' . $ext;
-            if (!is_dir('../images/partenaires')) {
-                mkdir('../images/partenaires', 0777, true);
+            if ($_FILES['logo']['size'] > 5 * 1024 * 1024) {
+                die("<div style='color:red; font-weight:bold; margin:20px;'>Erreur de sécurité : Le fichier est trop volumineux (limite 5 Mo).</div>");
             }
-            if (move_uploaded_file($_FILES['logo']['tmp_name'], '../images/partenaires/' . $filename)) {
-                $logoPath = 'images/partenaires/' . $filename;
+            $ext = strtolower(pathinfo($_FILES['logo']['name'], PATHINFO_EXTENSION));
+            $allowed_exts = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+            if (in_array($ext, $allowed_exts)) {
+                $filename = 'partenaire_' . $nouveauId . '_' . time() . '.' . $ext;
+                if (!is_dir('../images/partenaires')) {
+                    mkdir('../images/partenaires', 0777, true);
+                }
+                if (move_uploaded_file($_FILES['logo']['tmp_name'], '../images/partenaires/' . $filename)) {
+                    $logoPath = 'images/partenaires/' . $filename;
+                }
+            } else {
+                die("<div style='color:red; font-weight:bold; margin:20px;'>Erreur de sécurité : Type de fichier non autorisé pour le logo. Seules les images sont acceptées.</div>");
             }
         }
 
@@ -83,13 +91,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $p['description'] = $_POST['description'] ?? '';
 
                 if (isset($_FILES['logo']) && $_FILES['logo']['error'] === UPLOAD_ERR_OK) {
-                    $ext = pathinfo($_FILES['logo']['name'], PATHINFO_EXTENSION);
-                    $filename = 'partenaire_' . $p['id'] . '_' . time() . '.' . $ext;
-                    if (!is_dir('../images/partenaires')) {
-                        mkdir('../images/partenaires', 0777, true);
+                    if ($_FILES['logo']['size'] > 5 * 1024 * 1024) {
+                        die("<div style='color:red; font-weight:bold; margin:20px;'>Erreur de sécurité : Le fichier est trop volumineux (limite 5 Mo).</div>");
                     }
-                    if (move_uploaded_file($_FILES['logo']['tmp_name'], '../images/partenaires/' . $filename)) {
-                        $p['logo'] = 'images/partenaires/' . $filename;
+                    $ext = strtolower(pathinfo($_FILES['logo']['name'], PATHINFO_EXTENSION));
+                    $allowed_exts = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+                    if (in_array($ext, $allowed_exts)) {
+                        $filename = 'partenaire_' . $p['id'] . '_' . time() . '.' . $ext;
+                        if (!is_dir('../images/partenaires')) {
+                            mkdir('../images/partenaires', 0777, true);
+                        }
+                        if (move_uploaded_file($_FILES['logo']['tmp_name'], '../images/partenaires/' . $filename)) {
+                            $p['logo'] = 'images/partenaires/' . $filename;
+                        }
+                    } else {
+                        die("<div style='color:red; font-weight:bold; margin:20px;'>Erreur de sécurité : Type de fichier non autorisé pour le logo. Seules les images sont acceptées.</div>");
                     }
                 }
                 break;

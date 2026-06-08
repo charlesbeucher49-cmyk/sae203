@@ -1,8 +1,13 @@
 <?php
 // intranet_fonctions.php
 
+// Sécurisation : Désactiver l'affichage public des erreurs PHP (Information Leakage)
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
+
 /**
  * Vérifie si l'utilisateur est connecté. Si non, le redirige vers la page de connexion.
+ * Implémente également une expiration de session après 30 minutes d'inactivité.
  */
 function verifierConnexion() {
     if (session_status() === PHP_SESSION_NONE) {
@@ -12,6 +17,16 @@ function verifierConnexion() {
         header('Location: intranet_login.php');
         exit();
     }
+
+    // Expiration de session (30 minutes d'inactivité)
+    $timeout_duration = 1800; // 30 minutes en secondes
+    if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity']) > $timeout_duration) {
+        session_unset();
+        session_destroy();
+        header('Location: intranet_login.php?timeout=1');
+        exit();
+    }
+    $_SESSION['last_activity'] = time(); // Mise à jour de l'activité
 }
 
 /**
@@ -76,7 +91,7 @@ function lireJSON($fichier) {
  * @param array $data Les données à sauvegarder
  */
 function sauvegarderJSON($fichier, $data) {
-    file_put_contents($fichier, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    file_put_contents($fichier, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE), LOCK_EX);
 }
 
 /**

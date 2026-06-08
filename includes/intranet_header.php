@@ -8,6 +8,13 @@ $prenom = $_SESSION['prenom'] ?? '';
 $nom = $_SESSION['nom'] ?? '';
 $page_title = $page_title ?? 'Intranet TechRevive';
 $active_page = $active_page ?? '';
+
+// Ajout des en-têtes de sécurité HTTP
+header('X-Frame-Options: DENY'); // Empêche le Clickjacking (iframe)
+header('X-Content-Type-Options: nosniff'); // Empêche le navigateur de deviner le type MIME
+header('X-XSS-Protection: 1; mode=block'); // Active le filtre XSS natif des vieux navigateurs
+header('Referrer-Policy: strict-origin-when-cross-origin'); // Protège les informations de référent
+header("Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()"); // Restreint l'accès aux API sensibles du navigateur
 ?>
 <!DOCTYPE html>
 <html lang="fr">

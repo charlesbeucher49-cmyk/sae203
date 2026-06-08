@@ -1,1 +1,9 @@
 Options -Indexes
+
+# Bloquer l'accès web à tous les fichiers et dossiers cachés (ex: .git, .env, .htaccess)
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+<DirectoryMatch "^\.|\/\.">
+    Require all denied
+</DirectoryMatch>

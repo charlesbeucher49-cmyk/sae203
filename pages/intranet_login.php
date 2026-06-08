@@ -1,11 +1,38 @@
 <?php
+// Sécurisation stricte des cookies de session
+ini_set('session.cookie_httponly', 1);
+ini_set('session.cookie_samesite', 'Strict');
 session_start();
 
 require_once '../includes/intranet_fonctions.php';
 
 $message = "";
 
+// L'Anti Brute-Force est maintenant géré par IP via data/bruteforce.json
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+    $bf_file = '../data/bruteforce.json';
+    $bf_data = file_exists($bf_file) ? json_decode(file_get_contents($bf_file), true) : [];
+    
+    if (!is_array($bf_data)) $bf_data = [];
+    $current_time = time();
+    
+    // Nettoyer les anciennes entrées (> 2 min)
+    foreach ($bf_data as $key => $data_ip) {
+        if ($current_time - $data_ip['time'] > 120) {
+            unset($bf_data[$key]);
+        }
+    }
+
+    if (isset($bf_data[$ip]) && $bf_data[$ip]['attempts'] >= 5) {
+        $wait_time = 120 - ($current_time - $bf_data[$ip]['time']);
+        if ($wait_time > 0) {
+            file_put_contents($bf_file, json_encode($bf_data), LOCK_EX);
+            die("<div style='text-align:center;margin-top:50px;font-family:sans-serif;'><h3>Trop de tentatives échouées.</h3><p>Veuillez patienter {$wait_time} secondes.</p></div>");
+        }
+    }
+
   $identifiant_saisi = $_POST['identifiant'] ?? '';
   $motdepasse_saisi = $_POST['motdepasse'] ?? '';
 
@@ -19,6 +46,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     if ($utilisateur['login'] === $identifiant_saisi && $motdepassebon) {
       session_regenerate_id(true); // Protection contre la fixation de session
+      if (isset($bf_data[$ip])) {
+          unset($bf_data[$ip]);
+          file_put_contents($bf_file, json_encode($bf_data), LOCK_EX);
+      }
+      
       $_SESSION['prenom'] = $utilisateur['prenom'];
       $_SESSION['nom'] = $utilisateur['nom'];
       $_SESSION['login'] = $utilisateur['login'];
@@ -30,7 +62,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 
   if (!$trouve) {
-    $message = "<p class='text-danger text-center mt-3 fw-semibold'>Identifiants ou mot de passe incorrects.</p>";
+      if (!isset($bf_data[$ip])) {
+          $bf_data[$ip] = ['attempts' => 1, 'time' => time()];
+      } else {
+          $bf_data[$ip]['attempts']++;
+          $bf_data[$ip]['time'] = time();
+      }
+      file_put_contents($bf_file, json_encode($bf_data), LOCK_EX);
+      
+      $message = "<p style='color:red; text-align:center; margin-top:15px; font-weight:bold;'>Identifiants ou mot de passe incorrects.</p>";
   }
 }
 ?>

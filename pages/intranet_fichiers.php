@@ -29,10 +29,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['delete_file'])) {
         if ($current_folder) {
             $file_to_delete = basename($_POST['delete_file']);
-            $path_to_delete = $base_dir . $current_folder . '/' . $file_to_delete;
-            if (file_exists($path_to_delete)) {
-                unlink($path_to_delete);
-                $message = "<div class='alert alert-success alert-dismissible fade show'><strong>Succès !</strong> Fichier supprimé avec succès. <button type='button' class='btn-close' data-bs-dismiss='alert'></button></div>";
+            // Sécurité stricte : Interdire la suppression de fichiers cachés (ex: .htaccess)
+            if ($file_to_delete[0] === '.') {
+                $message = "<div class='alert alert-danger alert-dismissible fade show'><strong>Erreur :</strong> Impossible de supprimer des fichiers de configuration. <button type='button' class='btn-close' data-bs-dismiss='alert'></button></div>";
+            } else {
+                $path_to_delete = $base_dir . $current_folder . '/' . $file_to_delete;
+                if (file_exists($path_to_delete)) {
+                    unlink($path_to_delete);
+                    $message = "<div class='alert alert-success alert-dismissible fade show'><strong>Succès !</strong> Fichier supprimé avec succès. <button type='button' class='btn-close' data-bs-dismiss='alert'></button></div>";
+                }
             }
         }
     }
@@ -42,6 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $file = $_FILES['fichier'];
             if ($file['error'] !== UPLOAD_ERR_OK) {
                 $message = "<div class='alert alert-danger'>Erreur lors de l'upload (code {$file['error']}). Vérifiez la configuration PHP.</div>";
+            } elseif ($file['size'] > 5 * 1024 * 1024) {
+                $message = "<div class='alert alert-danger'>Erreur : Le fichier est trop volumineux (limite 5 Mo).</div>";
             } else {
                 $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
                 if ($ext === 'txt' || $ext === 'csv') {

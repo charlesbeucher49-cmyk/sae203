@@ -7,6 +7,7 @@ $notifications = lireJSON('../data/notifications.json') ?? [];
 
 // Marquer comme lu
 if (isset($_POST['mark_read'])) {
+    verifierCSRFToken();
     $notif_id = $_POST['mark_read'];
     foreach ($notifications as &$notif) {
         if ($notif['id'] === $notif_id) {
@@ -20,6 +21,7 @@ if (isset($_POST['mark_read'])) {
 
 // Supprimer
 if (isset($_POST['delete_notif'])) {
+    verifierCSRFToken();
     $notif_id = $_POST['delete_notif'];
     $notifications = array_filter($notifications, function($n) use ($notif_id) {
         return $n['id'] !== $notif_id;
@@ -77,6 +79,7 @@ require_once '../includes/intranet_header.php';
                                     </small>
                                 </div>
                                 <form method="POST" style="display:inline;">
+<input type="hidden" name="csrf_token" value="<?= genererCSRFToken() ?>">
                                     <?php if (!$notif['lu']): ?>
                                         <button type="submit" name="mark_read" value="<?= $notif['id'] ?>" class="btn btn-sm btn-outline-primary" style="margin-right:8px;">Marquer comme lu</button>
                                     <?php endif; ?>
