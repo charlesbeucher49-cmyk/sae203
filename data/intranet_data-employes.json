@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "nom": "Hamada",
+    "prenom": "Adam",
+    "fonction": "Développeur Web",
+    "photo": "images/adam.png",
+    "bio": "Développeur PHP spécialisé backend."
+  },
+  {
+    "id": 2,
+    "nom": "Marot",
+    "prenom": "Albéric",
+    "fonction": "Manager",
+    "photo": "images/alberic.PNG",
+    "bio": "Responsable de l'équipe technique."
+  },
+  {
+    "id": 3,
+    "nom": "Beucher",
+    "prenom": "Charles",
+    "fonction": "Technicien Réseau",
+    "photo": "images/charles.JPG",
+    "bio": "Maintenance des équipements réseau."
+  },
+  {
+    "id": 4,
+    "nom": "Som",
+    "prenom": "Jordan",
+    "fonction": "Développeuse Front-End",
+    "photo": "images/jordan.PNG",
+    "bio": "Création des interfaces utilisateurs."
+  },
+  {
+    "id": 5,
+    "nom": "Lemaire",
+    "prenom": "Erwan",
+    "fonction": "Administrateur Système",
+    "photo": "images/erwan.PNG",
+    "bio": "Gestion des serveurs Linux."
+  },
+  {
+    "id": 6,
+    "nom": "Richard",
+    "prenom": "Chloé",
+    "fonction": "UX Designer",
+    "photo": "images/chloe.jpg",
+    "bio": "Conception des expériences utilisateurs."
+  },
+  {
+    "id": 7,
+    "nom": "Durand",
+    "prenom": "Hugo",
+    "fonction": "Chef de Projet",
+    "photo": "images/hugo.jpg",
+    "bio": "Gestion et organisation des projets."
+  },
+  {
+    "id": 8,
+    "nom": "Moreau",
+    "prenom": "Lina",
+    "fonction": "Développeuse Mobile",
+    "photo": "images/lina.jpg",
+    "bio": "Développement des applications mobiles."
+  },
+  {
+    "id": 9,
+    "nom": "Simon",
+    "prenom": "Enzo",
+    "fonction": "Cybersécurité",
+    "photo": "images/enzo.jpg",
+    "bio": "Protection des données et sécurité."
+  },
+  {
+    "id": 10,
+    "nom": "Laurent",
+    "prenom": "Camille",
+    "fonction": "Assistante RH",
+    "photo": "images/camille.jpg",
+    "bio": "Gestion des ressources humaines."
+  },
+  {
+    "id": 11,
+    "nom": "Lefebvre",
+    "prenom": "Tom",
+    "fonction": "Développeur Full Stack",
+    "photo": "images/tom.jpg",
+    "bio": "Développement front-end et back-end."
+  },
+  {
+    "id": 12,
+    "nom": "Michel",
+    "prenom": "Sarah",
+    "fonction": "Comptable",
+    "photo": "images/sarah.jpg",
+    "bio": "Gestion financière de l'entreprise."
+  },
+  {
+    "id": 13,
+    "nom": "Garcia",
+    "prenom": "Louis",
+    "fonction": "Technicien Support",
+    "photo": "images/louis.jpg",
+    "bio": "Assistance technique aux salariés."
+  },
+  {
+    "id": 14,
+    "nom": "David",
+    "prenom": "Julie",
+    "fonction": "Chargée Communication",
+    "photo": "images/julie.jpg",
+    "bio": "Communication interne et externe."
+  },
+  {
+    "id": 15,
+    "nom": "Roux",
+    "prenom": "Maxime",
+    "fonction": "Ingénieur Cloud",
+    "photo": "images/maxime.jpg",
+    "bio": "Déploiement des infrastructures cloud."
+  }
+]

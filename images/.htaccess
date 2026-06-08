@@ -1,0 +1,15 @@
+# Sécurisation stricte du dossier images
+# Désactiver l'exécution de scripts PHP, Perl, etc. (Faille RCE)
+php_flag engine off
+<FilesMatch "\.(php|php[3-7]|phtml|pl|py|jsp|asp|htm|html|shtml|sh|cgi)$">
+    Deny from all
+</FilesMatch>
+
+# Empêcher le listage du répertoire
+Options -Indexes
+
+# Optionnel: forcer le téléchargement si le type MIME ne correspond pas à une image
+# ForceType application/octet-stream pour empêcher le MIME Sniffing XSS
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+</IfModule>

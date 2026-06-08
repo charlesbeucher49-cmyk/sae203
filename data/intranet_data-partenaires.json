@@ -1,0 +1,77 @@
+{
+  "fournisseurs": [
+    {
+      "id": 1,
+      "nom": "TechRenew Europe",
+      "telephone": "+33 1 84 92 45 10",
+      "email": "contact@techrenew-eu.com",
+      "adresse": "12 Rue des Innovateurs",
+      "ville": "Paris",
+      "code_postal": "75010",
+      "pays": "France",
+      "type_produits": ["Smartphones", "Tablettes", "PC portables"],
+      "fiabilite": "A"
+    },
+    {
+      "id": 2,
+      "nom": "GreenTech Supply",
+      "telephone": "+32 2 55 41 98 22",
+      "email": "info@greentechsupply.be",
+      "adresse": "45 Avenue du Progrès",
+      "ville": "Bruxelles",
+      "code_postal": "1000",
+      "pays": "Belgique",
+      "type_produits": ["PC fixes", "Composants", "Écrans"],
+      "fiabilite": "A+"
+    },
+    {
+      "id": 3,
+      "nom": "RefurbMaster",
+      "telephone": "+49 30 88 77 66 55",
+      "email": "sales@refurbmaster.de",
+      "adresse": "Hauptstrasse 88",
+      "ville": "Berlin",
+      "code_postal": "10115",
+      "pays": "Allemagne",
+      "type_produits": ["Consoles", "Accessoires gaming", "Smartphones"],
+      "fiabilite": "B+"
+    },
+    {
+      "id": 4,
+      "nom": "EcoDevice Import",
+      "telephone": "+33 4 72 11 45 90",
+      "email": "support@ecodevice-import.fr",
+      "adresse": "7 Rue des Artisans",
+      "ville": "Lyon",
+      "code_postal": "69007",
+      "pays": "France",
+      "type_produits": ["PC portables", "Stations d’accueil", "Moniteurs"],
+      "fiabilite": "A"
+    },
+    {
+      "id": 5,
+      "nom": "Nordic Recycle Tech",
+      "telephone": "+46 8 55 12 44 90",
+      "email": "contact@nordicrecycle.se",
+      "adresse": "Industrigatan 5",
+      "ville": "Stockholm",
+      "code_postal": "11253",
+      "pays": "Suède",
+      "type_produits": ["Serveurs", "Routeurs", "Switchs"],
+      "fiabilite": "A+"
+    },
+    {
+      "id": 6,
+      "nom": "Reboot Electronics",
+      "telephone": "+34 91 44 77 210",
+      "email": "ventas@rebootelectronics.es",
+      "adresse": "Calle del Mercado 21",
+      "ville": "Madrid",
+      "code_postal": "28013",
+      "pays": "Espagne",
+      "type_produits": ["Smartphones", "Objets connectés", "Casques audio"],
+      "fiabilite": "B"
+    }
+  ]
+}
+

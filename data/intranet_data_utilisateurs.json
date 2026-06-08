@@ -1,0 +1,40 @@
+{
+  "utilisateurs": [
+    {
+      "id": 1,
+      "login": "admin.rt",
+      "mot_de_passe": "$2y$05$L3pBIRFz2bVWLhapNvcsnOg6ke5.BaJujjT0q8w3TfLB0c/0w8Pf2",
+      "nom": "Gatel",
+      "prenom": "David",
+      "profil": "Administrateur Système",
+      "groupes": ["admin", "salariés"]
+    },
+    {
+      "id": 2,
+      "login": "f.menguy",
+      "mot_de_passe": "$2y$05$L3pBIRFz2bVWLhapNvcsnOg6ke5.BaJujjT0q8w3TfLB0c/0w8Pf2",
+      "nom": "Menguy",
+      "prenom": "François-Régis",
+      "profil": "Directeur Général",
+      "groupes": ["direction", "managers", "salariés"]
+    },
+    {
+      "id": 3,
+      "login": "a.guitton",
+      "mot_de_passe": "$2y$05$L3pBIRFz2bVWLhapNvcsnOg6ke5.BaJujjT0q8w3TfLB0c/0w8Pf2",
+      "nom": "Guitton",
+      "prenom": "Aloïs",
+      "profil": "Responsable Technique",
+      "groupes": ["managers", "salariés"]
+    },
+    {
+      "id": 4,
+      "login": "j.dupont",
+      "mot_de_passe": "$2y$05$L3pBIRFz2bVWLhapNvcsnOg6ke5.BaJujjT0q8w3TfLB0c/0w8Pf2",
+      "nom": "Dupont",
+      "prenom": "Jean",
+      "profil": "Technicien Réseau",
+      "groupes": ["salariés"]
+    }
+  ]
+}

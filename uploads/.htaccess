@@ -1,0 +1,8 @@
+# Désactiver le moteur PHP
+php_flag engine off
+
+# Bloquer l'accès direct aux fichiers PHP
+<FilesMatch "\.(php|php[3-7]|phtml)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>

@@ -1,0 +1,67 @@
+/* Style intranet TechRevive */
+
+:root {
+    --bs-primary: #1B2A4A;
+    --bs-primary-rgb: 27, 42, 74;
+    --bs-success: #2D6A2E;
+    --bs-success-rgb: 45, 106, 46;
+    --bs-warning: #e8a838;
+    --bs-body-bg: #f8f9fa;
+}
+
+/* Navbar */
+.navbar.navbar-dark {
+    background-color: #1B2A4A !important;
+    border-bottom: 3px solid var(--bs-success);
+}
+
+.navbar-brand img {
+    height: 36px;
+    width: auto;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.navbar-dark .navbar-nav .nav-link.active {
+    background: var(--bs-success);
+    border-radius: 6px;
+}
+
+/* Cards */
+.card {
+    border-radius: 8px;
+}
+
+/* Login */
+.login-hero {
+    background-color: #1B2A4A;
+}
+
+/* Boutons */
+.btn-primary {
+    background-color: var(--bs-primary) !important;
+    border-color: var(--bs-primary) !important;
+    color: #fff !important;
+}
+.btn-primary:hover {
+    background-color: var(--bs-success) !important;
+    border-color: var(--bs-success) !important;
+}
+
+.btn-outline-primary {
+    color: var(--bs-primary) !important;
+    border-color: var(--bs-primary) !important;
+}
+.btn-outline-primary:hover {
+    background-color: var(--bs-primary) !important;
+    color: #fff !important;
+}
+
+/* Footer */
+footer {
+    background-color: #1B2A4A !important;
+    border-top: 3px solid var(--bs-success);
+}
