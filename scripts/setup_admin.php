@@ -1,7 +1,7 @@
 <?php
-require_once 'includes/intranet_fonctions.php';
+require_once '../includes/intranet_fonctions.php';
 
-$dataFile = 'data/intranet_data_utilisateurs.json';
+$dataFile = '../data/intranet_data_utilisateurs.json';
 $data = lireJSON($dataFile);
 
 if (!empty($data) && isset($data['utilisateurs'])) {
